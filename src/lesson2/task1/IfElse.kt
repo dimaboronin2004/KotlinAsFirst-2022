@@ -69,7 +69,7 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String {
-    if (age%10==0 or age%10>4 or age==11 or age==12 or age==13 or age=111 or age==112 or age==113) return "$age лет"
+    if ((age%10==0) || (age%10>4) ||  age==11 || age==12 || age==13 || age==111 || age==112 || age==113) return "$age лет"
     else if (age%10==1) return "$age год"
     else return "$age года"
 }
@@ -92,7 +92,7 @@ fun timeForHalfWay(
     var s3=t3 * v3
     var half=s0/2
     if (half<=s1) return (half/v1)
-    else if (half>s1 and half<=(s1 + s2)) return (t1 + (half - s1)/v2)
+    else if (half>s1 && half<=(s1 + s2)) return (t1 + (half - s1)/v2)
     else return (t1 + t2 + (half - s1 - s2)/v3)
 }
 
@@ -136,8 +136,8 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    if ((a + b)>c and (a + c)>b and (b + c)>a)
-        if (a*a + b*b=c*c) return 1
+    if ((a + b)>c && (a + c)>b && (b + c)>a)
+        if (a*a + b*b==c*c) return 1
         else if (a*a + b*b>c*c) return 0
         else return 2
     else
@@ -153,10 +153,10 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    if (b<c or d<a) return -1
+    if (b<c || d<a) return -1
     else if (c<b) return b - c
     else if (a<d) return d - a
-    else if (c<a and b<d) return b - a
-    else if (a<c and d<b) return d - c
+    else if (c<a && b<d) return b - a
+    else if (a<c && d<b) return d - c
     else return 0
 }
