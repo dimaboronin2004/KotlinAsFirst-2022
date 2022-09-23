@@ -136,9 +136,12 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    if ((a + b)>c && (a + c)>b && (b + c)>a)
-        if (a*a + b*b==c*c) return 1
-        else if (a*a + b*b>c*c) return 0
+    val c1=maxOf(a,b,c)
+    val a1=minOf(a,b,c)
+    val b1=a + b + c - a1 - c1
+    if ((a1 + b1)>c1 && (a1 + c1)>b1 && (b1 + c1)>a1)
+        if (a1*a1 + b1*b1==c1*c1) return 1
+        else if (a1*a1 + b1*b1>c1*c1) return 0
         else return 2
     else
         return -1
@@ -155,7 +158,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     if (b<c || d<a) return -1
     else if (c<b) return b - c
-    else if (a<d) return d - a
+    else if (a<d && b!=c) return d - a
     else if (c<a && b<d) return b - a
     else if (a<c && d<b) return d - c
     else return 0
