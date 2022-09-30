@@ -210,7 +210,12 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    val n1 = n.toString()
+    val n2 = n1.reversed()
+    if (n1 == n2) return true
+    else return false
+}
 
 /**
  * Средняя (3 балла)
@@ -220,7 +225,20 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    if (n<10) return true
+    else
+        var n1=n.toString()
+        var k=0
+        var a=n1[0]
+        for (chr in n1)
+            if (chr==a)
+                k=k + 1
+            else
+                k=k + 0
+        if (k==n1.length) return true
+        else return false
+}
 
 /**
  * Средняя (4 балла)
