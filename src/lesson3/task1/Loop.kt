@@ -2,6 +2,7 @@
 
 package lesson3.task1
 
+import lesson4.task1.abs
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.sqrt
@@ -118,7 +119,7 @@ fun minDivisor(n: Int): Int {
  */
 fun maxDivisor(n: Int): Int {
     var maxdel=0
-    for (d in 2..n)
+    for (d in 2..n - 1)
         if (n%d==0 && d>maxdel)
             maxdel=d
     return maxdel
@@ -141,15 +142,19 @@ fun maxDivisor(n: Int): Int {
  * этого для какого-либо начального X > 0.
  */
 fun collatzSteps(x: Int): Int {
-    var k=0
-    var x1=x
-    while (x1!=1)
-        if (x%2==0)
-            x1=x1/2
-        else
-            x1=3*x1 + 1
-        k+=1
-    return k
+    if (x==1) return 0
+    else {
+        var k = 0
+        var x1 = x
+        while (x1 != 1) {
+            if (x % 2 == 0)
+                x1 = x1 / 2
+            else
+                x1 = 3 * x1 + 1
+            k += 1
+        }
+        return k
+    }
 }
 
 /**
@@ -173,13 +178,16 @@ fun lcm(m: Int, n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    val m1=max(n,m)
-    var k=0
-    for (i in 3..m1) {
-        if (n % i == 0 && m % i == 0) k += 1
-        else k += 0
+    if (n==1 && m==1) return true
+    else {
+        val m1 = max(n, m)
+        var k = 0
+        for (i in 3..m1) {
+            if (n % i == 0 && m % i == 0) k += 1
+            else k += 0
+        }
+        return k > 0
     }
-    return k > 0
 }
 
 /**
@@ -227,17 +235,18 @@ fun isPalindrome(n: Int): Boolean {
  */
 fun hasDifferentDigits(n: Int): Boolean {
     if (n<10) return true
-    else
-        var n1=n.toString()
-        var k=0
-        var a=n1[0]
+    else {
+        var n1 = n.toString()
+        var k = 0
+        var a = n1[0]
         for (chr in n1)
-            if (chr==a)
-                k=k + 1
+            if (chr == a)
+                k = k + 1
             else
-                k=k + 0
-        if (k==n1.length) return true
+                k = k + 0
+        if (k == n1.length) return true
         else return false
+    }
 }
 
 /**
@@ -249,7 +258,25 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sinus(x: Double, eps: Double): Double {
+    var sin = 0
+    var n = 0
+    fun factorial(n: Int): Double {
+        var result = 1.0
+        for (i in 1..n) {
+            result = result * i
+        }
+        return result
+    }
+    while ((x.pow(n) / factorial(n)) > eps) {
+        if ((n / 2) % 2 == 0)
+            sin = (sin + (x.pow(n) / factorial(n))).toInt()
+        else
+            sin = (sin - (x.pow(n) / factorial(n))).toInt()
+        n = n + 2
+    }
+    return sin.toDouble()
+}
 
 /**
  * Средняя (4 балла)
@@ -260,7 +287,26 @@ fun sin(x: Double, eps: Double): Double = TODO()
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
-fun cos(x: Double, eps: Double): Double = TODO()
+import kotlin.math.pow
+fun cosinus(x: Double, eps: Double): Double {
+    var cosin = 0
+    var n = 0
+    fun factorial(n: Int): Double {
+        var result = 1.0
+        for (i in 1..n) {
+            result = result * i
+        }
+        return result
+    }
+    while ((x.pow(n) / factorial(n)) > eps) {
+        if ((n / 2) % 2 == 0)
+            cosin = (cosin + (x.pow(n) / factorial(n))).toInt()
+        else
+            cosin = (cosin - (x.pow(n) / factorial(n))).toInt()
+        n = n + 2
+    }
+    return cosin.toDouble()
+}
 
 /**
  * Сложная (4 балла)
