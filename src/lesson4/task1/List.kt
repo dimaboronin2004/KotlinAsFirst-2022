@@ -3,6 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import java.lang.Math.sqrt
 import kotlin.math.sqrt
 
 // Урок 4: списки
@@ -120,14 +121,29 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double = TODO()
+fun abs(v: List<Double>): Double {
+    var abs=0
+    if (v.size>0) {
+        for (i in 0 until v.size)
+            abs = (abs + v[i] * v[i]).toInt()
+    }
+    else
+        abs=0
+    return sqrt(abs)
+}
 
 /**
  * Простая (2 балла)
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double = TODO()
+fun mean(list: List<Double>): Int {
+    val amount = list.size
+    var summ = 0
+    for (i in 0 until list.size)
+        summ = (summ + list[i]).toInt()
+    return summ / amount
+}
 
 /**
  * Средняя (3 балла)
@@ -137,7 +153,21 @@ fun mean(list: List<Double>): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> = TODO()
+fun center(list: MutableList<Double>): MutableList<Double> {
+    val amount = list.size
+    var summ = 0
+    var d=0
+    if (amount > 0) {
+        for (i in 0 until amount)
+            summ = (summ + list[i]).toInt()
+        d=d + summ/amount
+        for (i in 0 until amount)
+            list[i]=list[i] - d
+    }
+    else
+        d=d + 0
+    return list
+}
 
 /**
  * Средняя (3 балла)
@@ -146,7 +176,17 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>): Int = TODO()
+fun times(a: List<Int>, b: List<Int>): Int {
+    val length=a.size
+    var C=0
+    if (length>0) {
+        for (i in 0 until length)
+            C = C + a[i] * b[i]
+    }
+    else
+        C=0
+    return C
+}
 
 /**
  * Средняя (3 балла)
@@ -156,7 +196,17 @@ fun times(a: List<Int>, b: List<Int>): Int = TODO()
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int): Int = TODO()
+fun polynom(p: List<Int>, x: Int): Int {
+    val N=p.size
+    var mnogochlen=0
+    if (N>0) {
+        for (i in 0 until N)
+            mnogochlen=mnogochlen + p[i] * x.pow(i)
+    }
+    else
+        mnogochlen=0
+    return mnogochlen
+}
 
 /**
  * Средняя (3 балла)
