@@ -435,7 +435,7 @@ fun russian(n: Int): String {
     else if (e==8)
         s=s + "восемьдесят "
     else
-        s=s + "девяносто"
+        s=s + "девяносто "
     if (f==0)
         s=s + ""
     else if (f==1)
@@ -459,3 +459,5 @@ fun russian(n: Int): String {
     return s
 
 }
+
+
