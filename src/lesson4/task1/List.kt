@@ -245,7 +245,15 @@ fun factorizeToString(n: Int): String = TODO()
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int> = TODO()
+fun convert(n: Int, base: Int): List<Int> {
+    var digits= listOf<>()
+    var n1=n
+    while (n1>0) {
+        digits=digits + (n%base)
+        n1 /= base
+    }
+    return digits.asReversed()
+}
 
 /**
  * Сложная (4 балла)
@@ -267,7 +275,13 @@ fun convertToString(n: Int, base: Int): String = TODO()
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int = TODO()
+fun decimal(digits: List<Int>, base: Int): Int {
+    var result=0
+    val n=digits.size
+    for (i in 0 until n)
+        result=result + digits[i] * base.pow(n - i - 1)
+    return result
+}
 
 /**
  * Сложная (4 балла)
@@ -300,4 +314,138 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    var s=""
+    val f=n%10
+    val e=(n/10)%10
+    val d=(n/100)%10
+    val c=(n/1000)%10
+    val b=(n/10000)%10
+    val a=n/100000
+    if (a==0)
+        s = s + ""
+    else if (a == 1)
+        s = s + "сто "
+    else if (a == 2)
+        s = s + "двести "
+    else if (a == 3)
+        s = s + "триста "
+    else if (a == 4)
+        s = s + "четыреста "
+    else if (a == 5)
+        s = s + "пятьсот "
+    else if (a == 6)
+        s = s + "шестьсот "
+    else if (a == 7)
+        s = s + "семьсот"
+    else if (a == 8)
+        s = s + "восемьсот "
+    else
+        s = s + "девятьсот "
+    if (b==0)
+        s = s + ""
+    else if (b == 1)
+        if (c==0) s=s+"десять тысяч " else if (c==1) s=s+"одиннадцать тысяч " else if (c==2) s=s+"двенадцать тысяч  " else if (c==3) s=s+"тринадцать тысяч "
+        else if (c==4) s=s+"четырнадцать тысяч " else if (c==5) s=s+"пятнадцать тысяч " else if (c==6) s=s+"шестнадцать тысяч "
+        else if (c==7) s=s+"семнадцать тысяч " else if (c==8) s=s+"восемнадцать тысяч " else  s=s+"девятнадцать тысяч "
+    else if (b == 2)
+        s = s + "двадцать "
+    else if (b == 3)
+        s = s + "тридцать "
+    else if (b == 4)
+        s = s + "сорок "
+    else if (b == 5)
+        s = s + "пятьдесят "
+    else if (b == 6)
+        s = s + "шестьдесят "
+    else if (b == 7)
+        s = s + "семьдесят"
+    else if (b == 8)
+        s = s + "восемьдесят "
+    else
+        s = s + "девяносто "
+    if (c==0)
+        s=s + ""
+    else if (c==1)
+        s=s + "одна тысяча "
+    else if (c==2)
+        s=s + "две тысячи "
+    else if (c==3)
+        s=s + "три тысячи "
+    else if (c==4)
+        s=s + "четыре тысячи "
+    else if (c==5)
+        s=s + "пять тысяч "
+    else if (c==6)
+        s=s + "шесть тысяч "
+    else if (c==7)
+        s=s + "семь тысяч "
+    else if (c==8)
+        s=s + "восемь тысяч "
+    else
+        s=s + "девять тысяч "
+    if (d==0)
+        s=s + ""
+    else if (d==1)
+        s=s + "сто "
+    else if (d==2)
+        s=s + "двести "
+    else if (d==3)
+        s=s + "триста "
+    else if (d==4)
+        s=s + "четыреста "
+    else if (d==5)
+        s=s + "пятьсот "
+    else if (d==6)
+        s=s + "шестьсот "
+    else if (d==7)
+        s=s + "семьсот "
+    else if (d==8)
+        s=s + "восемьсот "
+    else
+        s=s + "девятьсот "
+    if (e==0)
+        s=s + ""
+    else if (e==1)
+        if (f==0) s=s+"десять " else if (f==1) s=s+"одиннадцать " else if (f==2) s=s+"двенадцать  " else if (f==3) s=s+"тринадцать "
+        else if (f==4) s=s+"четырнадцать " else if (f==5) s=s+"пятнадцать " else if (f==6) s=s+"шестнадцать "
+        else if (f==7) s=s+"семнадцать " else if (f==8) s=s+"восемнадцать " else  s=s+"девятнадцать "
+    else if (e==2)
+        s=s + "двадцать "
+    else if (e==3)
+        s=s + "тридцать "
+    else if (e==4)
+        s=s + "сорок "
+    else if (e==5)
+        s=s + "пятьдесят "
+    else if (e==6)
+        s=s + "шестьдесят "
+    else if (e==7)
+        s=s + "семьдесят "
+    else if (e==8)
+        s=s + "восемьдесят "
+    else
+        s=s + "девяносто"
+    if (f==0)
+        s=s + ""
+    else if (f==1)
+        s=s + "один "
+    else if (f==2)
+        s=s + "два "
+    else if (f==3)
+        s=s + "три "
+    else if (f==4)
+        s=s + "четыре "
+    else if (f==5)
+        s=s + "пять "
+    else if (f==6)
+        s=s + "шесть "
+    else if (f==7)
+        s=s + "семь "
+    else if (f==8)
+        s=s + "восемь "
+    else
+        s=s + "девять "
+    return s
+
+}
