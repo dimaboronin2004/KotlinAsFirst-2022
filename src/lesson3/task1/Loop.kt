@@ -6,7 +6,6 @@ import lesson4.task1.abs
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.sqrt
-import math.pow
 import kotlin.math.pow
 // Урок 3: циклы
 // Максимальное количество баллов = 9

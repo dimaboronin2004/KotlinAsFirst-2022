@@ -266,7 +266,17 @@ fun convert(n: Int, base: Int): List<Int> {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+fun convertToString(n: Int, base: Int): String {
+    var n1=n
+    var digits= listOf<>()
+    var s1="0123456789abcdefhijklmnopqrstuvwxyz"
+    while (n1>0) {
+        var k=n1%base
+        digits=digits + s1[k]
+        n1=n1/base
+    }
+    return digits.asReversed().toString()
+}
 
 /**
  * Средняя (3 балла)
