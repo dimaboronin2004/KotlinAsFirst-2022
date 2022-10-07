@@ -6,7 +6,8 @@ import lesson4.task1.abs
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.sqrt
-
+import math.pow
+import kotlin.math.pow
 // Урок 3: циклы
 // Максимальное количество баллов = 9
 // Рекомендуемое количество баллов = 7
@@ -287,7 +288,6 @@ fun sinus(x: Double, eps: Double): Double {
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
-import kotlin.math.pow
 fun cosinus(x: Double, eps: Double): Double {
     var cosin = 0
     var n = 0
