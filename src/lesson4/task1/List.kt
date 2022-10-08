@@ -246,7 +246,7 @@ fun factorizeToString(n: Int): String = TODO()
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
 fun convert(n: Int, base: Int): List<Int> {
-    var digits= listOf<>()
+    var digits= listOf<Int>()
     var n1=n
     while (n1>0) {
         digits=digits + (n%base)
@@ -268,7 +268,7 @@ fun convert(n: Int, base: Int): List<Int> {
  */
 fun convertToString(n: Int, base: Int): String {
     var n1=n
-    var digits= listOf<>()
+    var digits= listOf<String>()
     var s1="0123456789abcdefhijklmnopqrstuvwxyz"
     while (n1>0) {
         var k=n1%base
@@ -315,7 +315,85 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    var n1=n
+    var s=""
+    val d=n%10
+    val c=(n/10)%10
+    val b=(n/100)%10
+    val a=n/1000
+    if (a==0)
+        s=s + ""
+    else if (a==1)
+        s=s  + "M"
+    else if (a==2)
+        s=s + "MM"
+    else
+        s=s + "MMM"
+    if (b==0)
+        s=s + ""
+    else if (b==1)
+        s=s + "C"
+    else if (b==2)
+        s=s + "CC"
+    else if (b==3)
+        s=s + "CCC"
+    else if (b==4)
+        s=s + "CD"
+    else if (b==5)
+        s=s + "D"
+    else if (b==6)
+        s=s + "DC"
+    else if (b==7)
+        s=s + "DCC"
+    else if (b==8)
+        s=s + "DCCC"
+    else
+        s=s + "CM"
+    if (c==0)
+        s=s + ""
+    else if (c==1)
+        s=s + "X"
+    else if (c==2)
+        s=s + "XX"
+    else if (c==3)
+        s=s + "XXX"
+    else if (c==4)
+        s=s + "XL"
+    else if (c==5)
+        s=s + "L"
+    else if (c==6)
+        s=s + "LX"
+    else if (c==7)
+        s=s + "LXX"
+    else if (c==8)
+        s=s + "LXXX"
+    else
+        s=s + "XC"
+    if (d==0)
+        s=s + ""
+    else if (d==1)
+        s=s + "I"
+    else if (d==2)
+        s=s + "II"
+    else if (d==3)
+        s=s + "III"
+    else if (d==4)
+        s=s + "IV"
+    else if (d==5)
+        s=s + "V"
+    else if (d==6)
+        s=s + "VI"
+    else if (d==7)
+        s=s + "VII"
+    else if (d==8)
+        s=s + "VIII"
+    else
+        s=s + "IX"
+    return s
+
+
+}
 
 /**
  * Очень сложная (7 баллов)
