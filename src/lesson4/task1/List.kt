@@ -4,6 +4,7 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import kotlin.math.sqrt
+import kotlin.math.pow
 
 // Урок 4: списки
 // Максимальное количество баллов = 12
@@ -128,7 +129,7 @@ fun abs(v: List<Double>): Double {
     }
     else
         abs=0
-    return sqrt(abs)
+    return sqrt(abs.toDouble())
 }
 
 /**
@@ -271,7 +272,7 @@ fun convertToString(n: Int, base: Int): String {
     var s1="0123456789abcdefhijklmnopqrstuvwxyz"
     while (n1>0) {
         var k=n1%base
-        digits=digits + s1[k]
+        digits= listOf((digits + s1[k]).toString())
         n1=n1/base
     }
     return digits.asReversed().toString()
