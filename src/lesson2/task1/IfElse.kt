@@ -89,7 +89,6 @@ fun timeForHalfWay(
     var s0=t1 * v1 + t2 * v2 + t3 * v3
     var s1=t1 * v1
     var s2=t2 * v2
-    var s3=t3 * v3
     var half=s0/2
     if (half<=s1) return (half/v1)
     else if (half>s1 && half<=(s1 + s2)) return (t1 + (half - s1)/v2)
