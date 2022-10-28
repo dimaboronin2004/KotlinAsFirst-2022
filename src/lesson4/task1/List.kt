@@ -201,7 +201,7 @@ fun polynom(p: List<Int>, x: Int): Int {
     var mnogochlen=0
     if (N>0) {
         for (i in 0 until N)
-            mnogochlen=mnogochlen + p[i] * x.pow(i)
+            mnogochlen=mnogochlen + p[i] * x.toDouble().pow(i).toInt()
     }
     else
         mnogochlen=0
@@ -289,7 +289,7 @@ fun decimal(digits: List<Int>, base: Int): Int {
     var result=0
     val n=digits.size
     for (i in 0 until n)
-        result=result + digits[i] * base.pow(n - i - 1)
+        result=result + digits[i] * base.toDouble().pow(n - i - 1).toInt()
     return result
 }
 
