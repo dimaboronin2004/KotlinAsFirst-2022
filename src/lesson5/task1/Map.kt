@@ -126,7 +126,7 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = TODO()
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): MutableMap<String, String> {
     for (pair in a) {
-        if (pair in b) {
+        if (pair.key in b) {
             a-pair
         }
     }
@@ -224,16 +224,7 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> {
-    var massiv= mutableMapOf<String, Int>()
-    for (element in list) {
-        var counter=0
-        for (i in 0 until list.size) {
-            if (list[i]==element) counter += 1
-        }
 
-    }
-}
 
 /**
  * Средняя (3 балла)

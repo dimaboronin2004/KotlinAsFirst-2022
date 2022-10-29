@@ -137,12 +137,12 @@ fun abs(v: List<Double>): Double {
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Int {
+fun mean(list: List<Double>): Double {
     val amount = list.size
     var summ = 0
     for (i in 0 until list.size)
         summ = (summ + list[i]).toInt()
-    return summ / amount
+    return (summ / amount).toDouble()
 }
 
 /**
@@ -185,7 +185,7 @@ fun times(a: List<Int>, b: List<Int>): Int {
     }
     else
         C=0
-    return C
+    return C.toInt()
 }
 
 /**
@@ -201,11 +201,11 @@ fun polynom(p: List<Int>, x: Int): Int {
     var mnogochlen=0
     if (N>0) {
         for (i in 0 until N)
-            mnogochlen=mnogochlen + p[i] * x.pow(i)
+            mnogochlen=mnogochlen + p[i] * x.toDouble().pow(i).toInt()
     }
     else
         mnogochlen=0
-    return mnogochlen
+    return mnogochlen.toInt()
 }
 
 /**
@@ -289,7 +289,7 @@ fun decimal(digits: List<Int>, base: Int): Int {
     var result=0
     val n=digits.size
     for (i in 0 until n)
-        result=result + digits[i] * base.pow(n - i - 1)
+        result=result + digits[i] * base.toDouble().pow(n - i - 1).toInt()
     return result
 }
 
