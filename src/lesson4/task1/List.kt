@@ -196,17 +196,6 @@ fun times(a: List<Int>, b: List<Int>): Int {
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int): Int {
-    val N=p.size
-    var mnogochlen=0
-    if (N>0) {
-        for (i in 0 until N)
-            mnogochlen=mnogochlen + p[i] * x.toDouble().pow(i).toInt()
-    }
-    else
-        mnogochlen=0
-    return mnogochlen
-}
 
 /**
  * Средняя (3 балла)
