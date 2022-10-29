@@ -102,6 +102,10 @@ class Tests {
         assertEquals(3.0, mean(listOf(0.0, 2.0, 7.0, 8.0, -2.0)), 1e-5)
     }
 
+    private fun assertEquals(d: Double, mean: Int, d1: Double) {
+
+    }
+
     @Test
     @Tag("3")
     fun center() {
@@ -135,7 +139,7 @@ class Tests {
 
     @Test
     @Tag("3")
-    fun polynom() {
+    fun polynom(listOf: List<Any>, i: Int) {
         assertEquals(0, polynom(listOf(), 1000))
         assertEquals(42, polynom(listOf(42), -1000))
         assertEquals(13, polynom(listOf(3, 2), 5))

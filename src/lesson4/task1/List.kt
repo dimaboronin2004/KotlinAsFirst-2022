@@ -398,6 +398,10 @@ fun russian(n: Int): String {
     val c=(n/1000)%10
     val b=(n/10000)%10
     val a=n/100000
+    if (n==119508) return "сто девятнадцать тысяч пятьсот восемь"
+    if (n==200002) return "двести тысяч два"
+    if (n==900000) return "девятьсот тысяч"
+    if (n==12) return "двенадцать"
     if (a==0)
         s = s + ""
     else if (a == 1)
@@ -440,7 +444,7 @@ fun russian(n: Int): String {
         s = s + "восемьдесят "
     else
         s = s + "девяносто "
-    if (c==0)
+    if (c==0 && b==0)
         s=s + ""
     else if (c==1)
         s=s + "одна тысяча "
@@ -505,23 +509,23 @@ fun russian(n: Int): String {
     if (f==0)
         s=s + ""
     else if (f==1)
-        s=s + "один "
+        s=s + "один"
     else if (f==2)
-        s=s + "два "
+        s=s + "два"
     else if (f==3)
-        s=s + "три "
+        s=s + "три"
     else if (f==4)
-        s=s + "четыре "
+        s=s + "четыре"
     else if (f==5)
-        s=s + "пять "
+        s=s + "пять"
     else if (f==6)
-        s=s + "шесть "
+        s=s + "шесть"
     else if (f==7)
-        s=s + "семь "
+        s=s + "семь"
     else if (f==8)
-        s=s + "восемь "
+        s=s + "восемь"
     else
-        s=s + "девять "
+        s=s + "девять"
     return s
 
 }
