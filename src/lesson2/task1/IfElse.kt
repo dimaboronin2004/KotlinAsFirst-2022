@@ -86,11 +86,10 @@ fun timeForHalfWay(
     t2: Double, v2: Double,
     t3: Double, v3: Double
 ): Double {
-    var s0=t1 * v1 + t2 * v2 + t3 * v3
-    var s1=t1 * v1
-    var s2=t2 * v2
-    var s3=t3 * v3
-    var half=s0/2
+    val s0=t1 * v1 + t2 * v2 + t3 * v3
+    val s1=t1 * v1
+    val s2=t2 * v2
+    val half=s0/2
     if (half<=s1) return (half/v1)
     else if (half>s1 && half<=(s1 + s2)) return (t1 + (half - s1)/v2)
     else return (t1 + t2 + (half - s1 - s2)/v3)
@@ -155,11 +154,3 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    if (b<c || d<a) return -1
-    else if (c<b) return b - c
-    else if (a<d && b!=c) return d - a
-    else if (c<a && b<d) return b - a
-    else if (a<c && d<b) return d - c
-    else return 0
-}

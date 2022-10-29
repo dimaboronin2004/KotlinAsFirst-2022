@@ -77,6 +77,7 @@ fun invertPositives(list: MutableList<Int>) {
 
 /**
  * Пример
+ *
  * Из имеющегося списка целых чисел, сформировать список их квадратов
  */
 fun squares(list: List<Int>) = list.map { it * it }
@@ -136,12 +137,12 @@ fun abs(v: List<Double>): Double {
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double {
+fun mean(list: List<Double>): Int {
     val amount = list.size
     var summ = 0
     for (i in 0 until list.size)
         summ = (summ + list[i]).toInt()
-    return (summ / amount).toDouble()
+    return summ / amount
 }
 
 /**
@@ -164,7 +165,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
             list[i]=list[i] - d
     }
     else
-        d=d + 0
+        d += 0
     return list
 }
 
@@ -184,7 +185,7 @@ fun times(a: List<Int>, b: List<Int>): Int {
     }
     else
         C=0
-    return C.toInt()
+    return C
 }
 
 /**
@@ -195,7 +196,17 @@ fun times(a: List<Int>, b: List<Int>): Int {
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int): Int=TODO()
+fun polynom(p: List<Int>, x: Int): Int {
+    val N=p.size
+    var mnogochlen=0
+    if (N>0) {
+        for (i in 0 until N)
+            mnogochlen=mnogochlen + p[i] * x.toDouble().pow(i).toInt()
+    }
+    else
+        mnogochlen=0
+    return mnogochlen
+}
 
 /**
  * Средняя (3 балла)
@@ -258,9 +269,9 @@ fun convert(n: Int, base: Int): List<Int> {
 fun convertToString(n: Int, base: Int): String {
     var n1=n
     var digits= listOf<String>()
-    var s1="0123456789abcdefhijklmnopqrstuvwxyz"
+    val s1="0123456789abcdefhijklmnopqrstuvwxyz"
     while (n1>0) {
-        var k=n1%base
+        val k=n1%base
         digits= listOf((digits + s1[k]).toString())
         n1=n1/base
     }
@@ -305,7 +316,6 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    var n1=n
     var s=""
     val d=n%10
     val c=(n/10)%10
