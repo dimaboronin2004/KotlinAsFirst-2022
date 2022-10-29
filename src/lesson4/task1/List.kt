@@ -77,7 +77,6 @@ fun invertPositives(list: MutableList<Int>) {
 
 /**
  * Пример
- *
  * Из имеющегося списка целых чисел, сформировать список их квадратов
  */
 fun squares(list: List<Int>) = list.map { it * it }
