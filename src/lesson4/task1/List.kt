@@ -165,7 +165,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
             list[i]=list[i] - d
     }
     else
-        d += 0
+        d = d +  0
     return list
 }
 
