@@ -74,7 +74,106 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val str1=str
+    val parts=str.split(" ")
+    val day=parts[0].toInt()
+    val month=parts[1].toInt()
+    val year=parts[2].toInt()
+    if ((year%400==0) || ((year%4==0) && (year%100!=0))) {
+        if ((day > 0 && day < 32) && (month == 1)) {
+            str1.replace(" января ", ".01.")
+            return str1
+        } else if ((day > 0 && day < 30) && (month == 2)) {
+            str1.replace(" февраля ", ".02")
+            return str1
+        } else if ((day > 0 && day < 32) && (month == 3)) {
+            str1.replace(" марта ", ".03.")
+            return str1
+        } else if ((day > 0 && day < 31) && (month == 4)) {
+            str1.replace(" апреля ", ".04.")
+            return str1
+        } else if ((day > 0 && day < 32) && (month == 5)) {
+            str1.replace(" мая ", ".05.")
+            return str1
+        } else if ((day > 0 && day < 31) && (month == 6)) {
+            str1.replace(" июня ", ".06.")
+            return str1
+        } else if ((day > 0 && day < 32) && (month == 7)) {
+            str1.replace(" июля ", ".07.")
+            return str1
+        } else if ((day > 0 && day < 32) && (month == 8)) {
+            str1.replace(" августа ", ".08.")
+            return str1
+        } else if ((day > 0 && day < 31) && (month == 9)) {
+            str1.replace(" сентября ", ".09.")
+            return str1
+        } else if ((day > 0 && day < 32) && (month == 10)) {
+            str1.replace(" октября ", ".10.")
+            return str1
+        } else if ((day > 0 && day < 31) && (month == 11)) {
+            str1.replace(" ноября ", ".11.")
+            return str1
+        } else if ((day > 0 && day < 32) && (month == 12)) {
+            str1.replace(" декабря ", ".12.")
+            return str1
+        } else
+            return ""
+    }
+
+    else {
+        if ((day>0 && day<32) && (month==1)) {
+            str1.replace(" января ", ".01.")
+            return str1
+        }
+        else if ((day>0 && day<29) && (month==2)) {
+            str1.replace(" февраля ", ".02.")
+            return str1
+        }
+        else if ((day>0 && day<32) && (month==3)) {
+            str1.replace(" марта ", ".03.")
+            return str1
+        }
+        else if ((day>0 && day<31) && (month==4)) {
+            str1.replace(" апреля ", ".04.")
+            return str1
+        }
+        else if ((day>0 && day<32) && (month==5)) {
+            str1.replace(" мая ", ".05.")
+            return str1
+        }
+        else if ((day>0 && day<31) && (month==6)) {
+            str1.replace(" июня ", ".06.")
+            return str1
+        }
+        else if ((day>0 && day<32) && (month==7)) {
+            str1.replace(" июля ", ".07.")
+            return str1
+        }
+        else if ((day>0 && day<32) && (month==8)) {
+            str1.replace(" августа ", ".08.")
+            return str1
+        }
+        else if ((day>0 && day<31) && (month==9)) {
+            str1.replace(" сентября ", ".09.")
+            return str1
+        }
+        else if ((day>0 && day<32) && (month==10)) {
+            str1.replace(" октября ", ".10.")
+            return str1
+        }
+        else if ((day>0 && day<31) && (month==11)) {
+            str1.replace(" ноября ", ".11.")
+            return str1
+        }
+        else if ((day>0 && day<32) && (month==12)) {
+            str1.replace(" декабря ", ".12.")
+            return str1
+        }
+        else
+            return ""
+    }
+}
 
 /**
  * Средняя (4 балла)
@@ -86,7 +185,107 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val str1=digital
+    val parts=digital.split(" ")
+    val day=parts[0].toInt()
+    val month=parts[1].toInt()
+    val year=parts[2].toInt()
+    if ((year%400==0) || ((year%4==0) && (year%100!=0))) {
+        if ((day > 0 && day < 32) && (month == 1)) {
+            str1.replace(".01.", " января ")
+            return str1
+        } else if ((day > 0 && day < 30) && (month == 2)) {
+            str1.replace(".02.", " февраля ")
+            return str1
+        } else if ((day > 0 && day < 32) && (month == 3)) {
+            str1.replace(".03.", " марта ")
+            return str1
+        } else if ((day > 0 && day < 31) && (month == 4)) {
+            str1.replace(".04.", " апреля ")
+            return str1
+        } else if ((day > 0 && day < 32) && (month == 5)) {
+            str1.replace(".05.", " мая ")
+            return str1
+        } else if ((day > 0 && day < 31) && (month == 6)) {
+            str1.replace(".06.", " июня ")
+            return str1
+        } else if ((day > 0 && day < 32) && (month == 7)) {
+            str1.replace(".07.", " июля ")
+            return str1
+        } else if ((day > 0 && day < 32) && (month == 8)) {
+            str1.replace(".08.", " августа ")
+            return str1
+        } else if ((day > 0 && day < 31) && (month == 9)) {
+            str1.replace(".09.", " сентября ")
+            return str1
+        } else if ((day > 0 && day < 32) && (month == 10)) {
+            str1.replace(".10.", " октября ")
+            return str1
+        } else if ((day > 0 && day < 31) && (month == 11)) {
+            str1.replace(".11.", " ноября ")
+            return str1
+        } else if ((day > 0 && day < 32) && (month == 12)) {
+            str1.replace(".12.", " декабря ")
+            return str1
+        } else
+            return ""
+    }
+
+    else {
+        if ((day>0 && day<32) && (month==1)) {
+            str1.replace(".01.", " января ")
+            return str1
+        }
+        else if ((day>0 && day<29) && (month==2)) {
+            str1.replace(".02.", " февраля ")
+            return str1
+        }
+        else if ((day>0 && day<32) && (month==3)) {
+            str1.replace(".03.", " марта ")
+            return str1
+        }
+        else if ((day>0 && day<31) && (month==4)) {
+            str1.replace(".04.", " апреля ")
+            return str1
+        }
+        else if ((day>0 && day<32) && (month==5)) {
+            str1.replace(".05.", " мая ")
+            return str1
+        }
+        else if ((day>0 && day<31) && (month==6)) {
+            str1.replace(".06.", " июня ")
+            return str1
+        }
+        else if ((day>0 && day<32) && (month==7)) {
+            str1.replace(".07.", " июля ")
+            return str1
+        }
+        else if ((day>0 && day<32) && (month==8)) {
+            str1.replace(".08.", " августа ")
+            return str1
+        }
+        else if ((day>0 && day<31) && (month==9)) {
+            str1.replace(".09.", " сентября ")
+            return str1
+        }
+        else if ((day>0 && day<32) && (month==10)) {
+            str1.replace(".10.", " октября ")
+            return str1
+        }
+        else if ((day>0 && day<31) && (month==11)) {
+            str1.replace(".11.", " ноября ")
+            return str1
+        }
+        else if ((day>0 && day<32) && (month==12)) {
+            str1.replace(".12.", " декабря ")
+            return str1
+        }
+        else
+            return ""
+    }
+}
+
 
 /**
  * Средняя (4 балла)
@@ -102,7 +301,24 @@ fun dateDigitToStr(digital: String): String = TODO()
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String {
+    val phone_number=phone
+    val check_string_1 = "+-()0123456789"
+    val check_string_2 = "+0123456789"
+    var mistake=0
+    var result_string=""
+    for (i in 0 until  phone_number.length) {
+        if (phone_number[i] in check_string_1) mistake+=0
+        else mistake+=1
+    }
+    if (mistake>0) return ""
+    else {
+        for (symbol in phone_number) {
+            if (symbol in check_string_2) result_string+=symbol
+        }
+    }
+    return result_string
+}
 
 /**
  * Средняя (5 баллов)
@@ -114,7 +330,26 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+    val results=jumps.split(" ")
+    val jumps1=jumps
+    val symbols= mutableListOf("-", "%")
+    val final_results= mutableListOf<Int>()
+    var mistake=0
+    if (jumps1=="") return -1
+    for (a in results) {
+        if ((("0" in a) || ("1" in a) || ("2" in a) || ("3" in a) || ("4" in a) || ("5" in a) || ("6" in a) || ("7" in a) || ("8" in a) || ("9" in a) || (a in symbols))) mistake+=0
+        else mistake+=1
+    }
+    if (mistake==0) {
+        for (element in results) {
+            if (element in symbols) final_results.add(0)
+            else final_results.add(element.toInt())
+        }
+        return final_results.max()
+    }
+    else return -1
+}
 
 /**
  * Сложная (6 баллов)
@@ -149,7 +384,22 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    val stroka=str
+    var k=0
+    val list= mutableListOf<Int>()
+    val words=str.split(" ")
+    for (i in 0 until words.size-1) {
+        if (words[i] == words[i + 1]) {
+            val s = words[i]
+            val symbol = s[0]
+            k += 1
+            list.add(stroka.indexOf(symbol))
+        }
+    }
+    if (k>0) return list[0]
+    else return -1
+}
 
 /**
  * Сложная (6 баллов)
@@ -162,7 +412,17 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше нуля либо равны нулю.
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    val list_of_items=description.split("; ")
+    var prices= mutableListOf<Int>()
+    for (item in list_of_items) {
+        val name_and_cost=item.split(" ")
+        prices= (prices + name_and_cost[1].toInt()) as MutableList<Int>
+    }
+    val s=""
+    if ("-" in description) return s
+    else return (prices.max().toString())
+}
 
 /**
  * Сложная (6 баллов)

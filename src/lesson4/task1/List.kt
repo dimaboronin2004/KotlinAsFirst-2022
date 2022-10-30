@@ -140,9 +140,11 @@ fun abs(v: List<Double>): Double {
 fun mean(list: List<Double>): Int {
     val amount = list.size
     var summ = 0
-    for (i in 0 until list.size)
+    for (i in 0 until list.size) {
         summ = (summ + list[i]).toInt()
-    return summ / amount
+    }
+    if (amount>0) return (summ / amount).toInt()
+    else return 0
 }
 
 /**
@@ -196,7 +198,7 @@ fun times(a: List<Int>, b: List<Int>): Int {
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-
+fun polynom(p: List<Int>, x: Int):Int = TODO()
 /**
  * Средняя (3 балла)
  *
