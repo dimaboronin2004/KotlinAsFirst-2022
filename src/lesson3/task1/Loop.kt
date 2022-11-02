@@ -94,10 +94,7 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    return when (n) {
-        1,2 -> 1
-        else -> fib(n - 2) + fib(n - 1)
-    }
+    return 0
 }
 
 /**
@@ -119,7 +116,7 @@ fun minDivisor(n: Int): Int {
  */
 fun maxDivisor(n: Int): Int {
     var maxdel=0
-    for (d in 2..n - 1)
+    for (d in 1..n - 1)
         if (n%d==0 && d>maxdel)
             maxdel=d
     return maxdel
@@ -182,8 +179,8 @@ fun isCoPrime(m: Int, n: Int): Boolean {
     else {
         val m1 = max(n, m)
         var k = 0
-        for (i in 3..m1) {
-            if (n % i == 0 && m % i == 0) k += 1
+        for (i in 2..m1) {
+            if ((n % i == 0) && (m % i == 0)) k += 1
             else k += 0
         }
         return k > 0
@@ -198,15 +195,8 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun revert(n: Int): Int {
-    var rev=0
-    var n1=n
-    var figure=0
-    while (n1>0)
-        figure=n1%10
-        n1 = n1 // 10
-        rev = rev * 10
-        rev = rev + figure
-    return rev
+    var chislo=n.toString()
+    return chislo.reversed().toInt()
 }
 
 /**
@@ -316,7 +306,9 @@ fun cos(x: Double, eps: Double): Double {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    return 0
+}
 
 /**
  * Сложная (5 баллов)
@@ -327,4 +319,6 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    return 0
+}

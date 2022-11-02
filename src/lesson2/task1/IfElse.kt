@@ -108,7 +108,9 @@ fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int = TODO()
+): Int {
+    return 0
+}
 
 /**
  * Простая (2 балла)
@@ -124,7 +126,9 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int = TODO()
+): Int {
+    return 0
+}
 
 /**
  * Простая (2 балла)
@@ -154,4 +158,6 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a:Int, b: Int, c:Int, d:Int):Int = TODO()
+fun segmentLength(a:Int, b: Int, c:Int, d:Int):Int {
+    return 0
+}

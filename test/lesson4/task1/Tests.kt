@@ -139,7 +139,7 @@ class Tests {
 
     @Test
     @Tag("3")
-    fun polynom(listOf: List<Any>, i: Int) {
+    fun polynom() {
         assertEquals(0, polynom(listOf(), 1000))
         assertEquals(42, polynom(listOf(42), -1000))
         assertEquals(13, polynom(listOf(3, 2), 5))

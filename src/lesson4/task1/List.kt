@@ -198,7 +198,9 @@ fun times(a: List<Int>, b: List<Int>): Int {
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int):Int = TODO()
+fun polynom(p: List<Int>, x: Int):Int {
+    return 0
+}
 /**
  * Средняя (3 балла)
  *
@@ -209,7 +211,19 @@ fun polynom(p: List<Int>, x: Int):Int = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
+fun accumulate(list: MutableList<Int>): MutableList<Int> {
+    if (list.isNotEmpty()) {
+        for (i in 1 until list.size) {
+            var sum = 0
+            for (i1 in 0 until i + 1){
+                sum+=list[i1]
+            }
+            list[i]=sum
+        }
+        return list
+    }
+    else return list
+}
 
 /**
  * Средняя (3 балла)
@@ -218,7 +232,9 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+    return listOf(0,0)
+}
 
 /**
  * Сложная (4 балла)
@@ -227,7 +243,9 @@ fun factorize(n: Int): List<Int> = TODO()
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String {
+    return ""
+}
 
 /**
  * Средняя (3 балла)
@@ -258,15 +276,7 @@ fun convert(n: Int, base: Int): List<Int> {
  * (например, n.toString(base) и подобные), запрещается.
  */
 fun convertToString(n: Int, base: Int): String {
-    var n1=n
-    var digits= listOf<String>()
-    val s1="0123456789abcdefhijklmnopqrstuvwxyz"
-    while (n1>0) {
-        val k=n1%base
-        digits= listOf((digits + s1[k]).toString())
-        n1=n1/base
-    }
-    return digits.asReversed().toString()
+    return ""
 }
 
 /**
@@ -296,7 +306,9 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, str.toInt(base)), запрещается.
  */
-fun decimalFromString(str: String, base: Int): Int = TODO()
+fun decimalFromString(str: String, base: Int): Int {
+    return 0
+}
 
 /**
  * Сложная (5 баллов)

@@ -239,7 +239,7 @@ class Tests {
 
     @Test
     @Tag("4")
-    fun extractRepeats(emptyList: List<Any>) {
+    fun extractRepeats() {
         assertEquals(
             emptyMap<String, Int>(),
             extractRepeats(emptyList())

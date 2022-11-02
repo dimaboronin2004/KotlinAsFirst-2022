@@ -63,7 +63,18 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Подчёркивание в середине и/или в конце строк значения не имеет.
  */
 fun deleteMarked(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    var strings = File(inputName).readLines()
+    for (string in strings) {
+        if (string.isNotEmpty()) {
+            if (string[0].toString() == "_") strings - string
+        }
+        for (stroka in strings) {
+            writer.write(stroka.toString())
+            writer.newLine()
+        }
+        writer.close()
+    }
 }
 
 /**
@@ -75,7 +86,18 @@ fun deleteMarked(inputName: String, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    var result= mutableMapOf<String, Int>()
+    var text=File(inputName).readText().toLowerCase().split(" ")
+    for (substring in substrings) {
+        var k=0
+        for (i in 0 until text.size) {
+            if (text[i]==substring) k+=1
+        }
+        result + Pair(substring, k)
+    }
+    return result
+}
 
 
 /**
@@ -92,8 +114,40 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    var text = File(inputName).readText().toString().split(" ")
+    val exceptions = listOf<String>("жюри", "брошюра", "парашют")
+    for (word in text) {
+        if ((word.toLowerCase() !in exceptions) && ("жы" in word)) writer.write(word.replace("жы", "жи"))
+        else if ((word.toLowerCase() !in exceptions) && ("Жы" in word)) writer.write(word.replace("Жы", "Жи"))
+        else if ((word.toLowerCase() !in exceptions) && ("жя" in word)) writer.write(word.replace("жя", "жа"))
+        else if ((word.toLowerCase() !in exceptions) && ("Жя" in word)) writer.write(word.replace("Жя", "Жа"))
+        else if ((word.toLowerCase() !in exceptions) && ("жю" in word)) writer.write(word.replace("жю", "жу"))
+        else if ((word.toLowerCase() !in exceptions) && ("Жю" in word)) writer.write(word.replace("Жю", "Жу"))
+        else if ((word.toLowerCase() !in exceptions) && ("шы" in word)) writer.write(word.replace("шы", "ши"))
+        else if ((word.toLowerCase() !in exceptions) && ("Шы" in word)) writer.write(word.replace("Шы", "Ши"))
+        else if ((word.toLowerCase() !in exceptions) && ("шя" in word)) writer.write(word.replace("шя", "ша"))
+        else if ((word.toLowerCase() !in exceptions) && ("Шя" in word)) writer.write(word.replace("Шя", "Ша"))
+        else if ((word.toLowerCase() !in exceptions) && ("шю" in word)) writer.write(word.replace("шю", "шу"))
+        else if ((word.toLowerCase() !in exceptions) && ("Шю" in word)) writer.write(word.replace("Шю", "Шу"))
+        else if ((word.toLowerCase() !in exceptions) && ("чы" in word)) writer.write(word.replace("чы", "чи"))
+        else if ((word.toLowerCase() !in exceptions) && ("Чы" in word)) writer.write(word.replace("Чы", "Чи"))
+        else if ((word.toLowerCase() !in exceptions) && ("чя" in word)) writer.write(word.replace("чя", "ча"))
+        else if ((word.toLowerCase() !in exceptions) && ("Чя" in word)) writer.write(word.replace("Чя", "Ча"))
+        else if ((word.toLowerCase() !in exceptions) && ("чю" in word)) writer.write(word.replace("чю", "чу"))
+        else if ((word.toLowerCase() !in exceptions) && ("Чю" in word)) writer.write(word.replace("Чю", "Чу"))
+        else if ((word.toLowerCase() !in exceptions) && ("щы" in word)) writer.write(word.replace("щы", "щи"))
+        else if ((word.toLowerCase() !in exceptions) && ("Щы" in word)) writer.write(word.replace("Щы", "Щи"))
+        else if ((word.toLowerCase() !in exceptions) && ("щя" in word)) writer.write(word.replace("щя", "ща"))
+        else if ((word.toLowerCase() !in exceptions) && ("Щя" in word)) writer.write(word.replace("Щя", "Ща"))
+        else if ((word.toLowerCase() !in exceptions) && ("щю" in word)) writer.write(word.replace("щю", "щу"))
+        else if ((word.toLowerCase() !in exceptions) && ("Щю" in word)) writer.write(word.replace("Щю", "Щу"))
+        else writer.write(word)
+    }
+    writer.close()
 }
+
+
 
 /**
  * Средняя (15 баллов)
@@ -268,15 +322,15 @@ Suspendisse ~~et elit in enim tempus iaculis~~.
  *
  * Соответствующий выходной файл:
 <html>
-    <body>
-        <p>
-            Lorem ipsum <i>dolor sit amet</i>, consectetur <b>adipiscing</b> elit.
-            Vestibulum lobortis. <s>Est vehicula rutrum <i>suscipit</i></s>, ipsum <s>lib</s>ero <i>placerat <b>tortor</b></i>.
-        </p>
-        <p>
-            Suspendisse <s>et elit in enim tempus iaculis</s>.
-        </p>
-    </body>
+<body>
+<p>
+Lorem ipsum <i>dolor sit amet</i>, consectetur <b>adipiscing</b> elit.
+Vestibulum lobortis. <s>Est vehicula rutrum <i>suscipit</i></s>, ipsum <s>lib</s>ero <i>placerat <b>tortor</b></i>.
+</p>
+<p>
+Suspendisse <s>et elit in enim tempus iaculis</s>.
+</p>
+</body>
 </html>
  *
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
@@ -319,65 +373,65 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
  *
  * Пример входного файла:
 ///////////////////////////////начало файла/////////////////////////////////////////////////////////////////////////////
-* Утка по-пекински
-    * Утка
-    * Соус
-* Салат Оливье
-    1. Мясо
-        * Или колбаса
-    2. Майонез
-    3. Картофель
-    4. Что-то там ещё
-* Помидоры
-* Фрукты
-    1. Бананы
-    23. Яблоки
-        1. Красные
-        2. Зелёные
+ * Утка по-пекински
+ * Утка
+ * Соус
+ * Салат Оливье
+1. Мясо
+ * Или колбаса
+2. Майонез
+3. Картофель
+4. Что-то там ещё
+ * Помидоры
+ * Фрукты
+1. Бананы
+23. Яблоки
+1. Красные
+2. Зелёные
 ///////////////////////////////конец файла//////////////////////////////////////////////////////////////////////////////
  *
  *
  * Соответствующий выходной файл:
 ///////////////////////////////начало файла/////////////////////////////////////////////////////////////////////////////
 <html>
-  <body>
-    <p>
-      <ul>
-        <li>
-          Утка по-пекински
-          <ul>
-            <li>Утка</li>
-            <li>Соус</li>
-          </ul>
-        </li>
-        <li>
-          Салат Оливье
-          <ol>
-            <li>Мясо
-              <ul>
-                <li>Или колбаса</li>
-              </ul>
-            </li>
-            <li>Майонез</li>
-            <li>Картофель</li>
-            <li>Что-то там ещё</li>
-          </ol>
-        </li>
-        <li>Помидоры</li>
-        <li>Фрукты
-          <ol>
-            <li>Бананы</li>
-            <li>Яблоки
-              <ol>
-                <li>Красные</li>
-                <li>Зелёные</li>
-              </ol>
-            </li>
-          </ol>
-        </li>
-      </ul>
-    </p>
-  </body>
+<body>
+<p>
+<ul>
+<li>
+Утка по-пекински
+<ul>
+<li>Утка</li>
+<li>Соус</li>
+</ul>
+</li>
+<li>
+Салат Оливье
+<ol>
+<li>Мясо
+<ul>
+<li>Или колбаса</li>
+</ul>
+</li>
+<li>Майонез</li>
+<li>Картофель</li>
+<li>Что-то там ещё</li>
+</ol>
+</li>
+<li>Помидоры</li>
+<li>Фрукты
+<ol>
+<li>Бананы</li>
+<li>Яблоки
+<ol>
+<li>Красные</li>
+<li>Зелёные</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+</p>
+</body>
 </html>
 ///////////////////////////////конец файла//////////////////////////////////////////////////////////////////////////////
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
@@ -404,23 +458,23 @@ fun markdownToHtml(inputName: String, outputName: String) {
  * Вывести в выходной файл процесс умножения столбиком числа lhv (> 0) на число rhv (> 0).
  *
  * Пример (для lhv == 19935, rhv == 111):
-   19935
-*    111
+19935
+ *    111
 --------
-   19935
+19935
 + 19935
 +19935
 --------
- 2212785
+2212785
  * Используемые пробелы, отступы и дефисы должны в точности соответствовать примеру.
  * Нули в множителе обрабатывать так же, как и остальные цифры:
-  235
-*  10
+235
+ *  10
 -----
-    0
+0
 +235
 -----
- 2350
+2350
  *
  */
 fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
@@ -434,16 +488,16 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
  * Вывести в выходной файл процесс деления столбиком числа lhv (> 0) на число rhv (> 0).
  *
  * Пример (для lhv == 19935, rhv == 22):
-  19935 | 22
- -198     906
- ----
-    13
-    -0
-    --
-    135
-   -132
-   ----
-      3
+19935 | 22
+-198     906
+----
+13
+-0
+--
+135
+-132
+----
+3
 
  * Используемые пробелы, отступы и дефисы должны в точности соответствовать примеру.
  *
