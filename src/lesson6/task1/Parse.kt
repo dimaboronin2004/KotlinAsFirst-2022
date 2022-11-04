@@ -353,6 +353,7 @@ fun plusMinus(expression: String): Int {
         else if (nums_and_chars[i - 1] == "-")  result.add((nums_and_chars[i].toInt()) * (-1))
     }
     return result.sum()
+
 }
 
 /**
@@ -410,7 +411,16 @@ fun mostExpensive(description: String): String {
  * Вернуть -1, если roman не является корректным римским числом
  */
 fun fromRoman(roman: String): Int {
-    return 0
+    var consumer=0
+    var string1=roman.replace("CM", "+900").replace("CD", "+400").replace("XC", "+90").replace("XL", "+40").replace("IX", "+9").replace("IV", "+4")
+    var string2=string1.replace("M", "+1000").replace("D", "+500").replace("C", "+100").replace("L", "+50").replace("X", "+10").replace("V", "+5").replace("I", "+1")
+    var list=string2.split("+")
+    var newlist= listOf<Int>()
+    for (num in list) {
+        newlist + num.toInt()
+    }
+    if (newlist==newlist.sortedDescending()) return newlist.sum()
+    else return -1
 }
 
 /**

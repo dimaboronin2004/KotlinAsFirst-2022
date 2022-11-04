@@ -130,7 +130,7 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): MutableMap<String, String> {
     for (pair in a) {
-        if (pair.key in b) {
+        if (pair.key in b && pair.value in b) {
             a-pair
         }
     }
@@ -217,7 +217,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
-    val st1=setOf(word)
+    val st1=word.toLowerCase().toSet()
     val st2=chars.toSet()
     val st3=st1.intersect(st2)
     if (st1.size==st3.size) return true
@@ -265,8 +265,8 @@ fun hasAnagrams(words: List<String>): Boolean {
     var k=0
     for (i in 0 until words.size - 1) {
         for (j in 1 until words.size) {
-            var word_1= mutableSetOf<String>(words[i])
-            var word_2= mutableSetOf<String>(words[j])
+            var word_1= words[i].toSet()
+            var word_2= words[j].toSet()
             var word_3=word_1.intersect(word_2)
             if (word_1.size==word_3.size) k+=1
         }

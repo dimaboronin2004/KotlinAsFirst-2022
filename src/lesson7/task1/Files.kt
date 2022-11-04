@@ -259,7 +259,17 @@ fun top20Words(inputName: String): Map<String, Int> = TODO()
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    val text=File(inputName).readText().split("")
+    var new_string=""
+    for (key in dictionary.keys) {
+        for (symbol in text) {
+            if (symbol.toString()==key.toString()) new_string+=dictionary[key]
+            else new_string+=symbol
+        }
+    }
+    writer.write(new_string)
+    writer.close()
 }
 
 /**
@@ -287,7 +297,26 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    var strings = File(inputName).readLines()
+    var list_of_strings= mutableListOf<String>()
+    var list_of_lengths= mutableListOf<Int>()
+    val list_of_results= mutableListOf<String>()
+    for (string in strings) {
+        var lowercased=string.toLowerCase()
+        var set_of_letters=lowercased.toSet()
+        if (lowercased.length==set_of_letters.size) {
+            list_of_strings.add(string)
+            list_of_lengths.add(lowercased.length)
+        }
+    }
+    val maximum=list_of_lengths.max()
+    for (i in list_of_lengths.indices) {
+        if (list_of_lengths[i]==maximum) list_of_results.add(list_of_strings[i])
+    }
+    if (list_of_results.size>1) writer.write(list_of_results.joinToString(separator = ", "))
+    else writer.write(list_of_results.toString())
+    writer.close()
 }
 
 /**
