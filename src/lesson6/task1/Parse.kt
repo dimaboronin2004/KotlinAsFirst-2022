@@ -395,8 +395,23 @@ fun firstDuplicateIndex(str: String): Int {
  * Все цены должны быть больше нуля либо равны нулю.
  */
 fun mostExpensive(description: String): String {
-    val list_of_items=description.split("; ")
-    return ""
+    val list_of_items = description.split("; ")
+    var goods = mutableListOf<String>()
+    var costs = mutableListOf<Int>()
+    var res=""
+    if (description.isNotEmpty()) {
+        for (item_and_price in list_of_items) {
+            var splitted = item_and_price.split(" ")
+            goods.add(splitted[0])
+            costs.add(splitted[1].toInt())
+        }
+        val expensive = costs.max()
+        for (i in costs.indices) {
+            if (costs[i] == expensive) res+=goods[i]
+        }
+        return goods.toString()
+    }
+    else return ""
 }
 
 /**

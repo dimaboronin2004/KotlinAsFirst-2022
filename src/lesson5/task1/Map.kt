@@ -1,7 +1,7 @@
 @file:Suppress("UNUSED_PARAMETER", "ConvertCallChainIntoSequence")
 
 package lesson5.task1
-
+import kotlin.math. *
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -185,6 +185,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
+
     return mapOf()
 }
 
@@ -237,16 +238,16 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
-    var new_map= mutableMapOf<String, Int>()
-    var elements_of_list= mutableSetOf(list)
-    for (element in (elements_of_list)) {
+    val set_of_elements=list.toSet()
+    var final_map= mutableMapOf<String, Int>()
+    for (element in set_of_elements) {
         var amount=0
-        for (symbol in list) {
-            if (symbol.toString()==element.toString()) amount+=1
+        for (string in list) {
+            if (string==element) amount += 1
         }
-        if (amount>1) new_map + Pair(element, amount)
+        if (amount>1) final_map.put(element, amount)
     }
-    return new_map.toMap()
+    return final_map
 }
 
 /**
@@ -331,18 +332,24 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    val n=list.size
-    var a=-1
-    var b=-1
-    for (i in 0 until n - 1) {
-        for (j in 1 until n) {
-            if ((list[i] + list[j]) == number) {
-                a == i
-                b == j
+    if (list.isEmpty()) return Pair(-1, -1)
+    else {
+        var a=0
+        var b=0
+        var check_string=""
+        val n=list.size
+        for (i in 0 until n - 1) {
+            for (j in i + 1 until n) {
+                if ((list[i] + list[j]) == number) {
+                    a += i
+                    b += j
+                    check_string=check_string + a.toString() + b.toString()
+                }
             }
         }
+        if (check_string.isNotEmpty()) return Pair(min(a,b), max(a, b))
+        else return Pair(-1, -1)
     }
-    return Pair(a,b)
 }
 
 /**
