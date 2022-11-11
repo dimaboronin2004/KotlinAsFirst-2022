@@ -395,23 +395,7 @@ fun firstDuplicateIndex(str: String): Int {
  * Все цены должны быть больше нуля либо равны нулю.
  */
 fun mostExpensive(description: String): String {
-    val list_of_items = description.split("; ")
-    var goods = mutableListOf<String>()
-    var costs = mutableListOf<Int>()
-    var res=""
-    if (description.isNotEmpty()) {
-        for (item_and_price in list_of_items) {
-            var splitted = item_and_price.split(" ")
-            goods.add(splitted[0])
-            costs.add(splitted[1].toInt())
-        }
-        val expensive = costs.max()
-        for (i in costs.indices) {
-            if (costs[i] == expensive) res+=goods[i]
-        }
-        return goods.toString()
-    }
-    else return ""
+    return ""
 }
 
 /**
@@ -426,16 +410,7 @@ fun mostExpensive(description: String): String {
  * Вернуть -1, если roman не является корректным римским числом
  */
 fun fromRoman(roman: String): Int {
-    var consumer=0
-    var string1=roman.replace("CM", "+900").replace("CD", "+400").replace("XC", "+90").replace("XL", "+40").replace("IX", "+9").replace("IV", "+4")
-    var string2=string1.replace("M", "+1000").replace("D", "+500").replace("C", "+100").replace("L", "+50").replace("X", "+10").replace("V", "+5").replace("I", "+1")
-    var list=string2.split("+")
-    var newlist= listOf<Int>()
-    for (num in list) {
-        newlist + num.toInt()
-    }
-    if (newlist==newlist.sortedDescending()) return newlist.sum()
-    else return -1
+    return 0
 }
 
 /**

@@ -156,19 +156,21 @@ fun mean(list: List<Double>): Int {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
-    val amount = list.size
-    var summ = 0
-    var d=0
-    if (amount > 0) {
-        for (i in 0 until amount)
-            summ = (summ + list[i]).toInt()
-        d=d + summ/amount
-        for (i in 0 until amount)
-            list[i]=list[i] - d
+    if (list.isNotEmpty()) {
+        val amount = list.size
+        var summ = 0
+        var d = 0
+        if (amount > 0) {
+            for (i in 0 until amount)
+                summ = (summ + list[i]).toInt()
+            d = d + summ / amount
+            for (i in 0 until amount)
+                list[i] = list[i] - d
+        } else
+            d = d + 0
+        return list
     }
-    else
-        d = d +  0
-    return list
+    else return mutableListOf()
 }
 
 /**
@@ -199,7 +201,12 @@ fun times(a: List<Int>, b: List<Int>): Int {
  * Значение пустого многочлена равно 0 при любом x.
  */
 fun polynom(p: List<Int>, x: Int):Int {
-    return 0
+    var result=0
+    val x1=x.toDouble()
+    for (i in 0 until p.size) {
+        result+=(p[i] * (x1.pow(i))).toInt()
+    }
+    return result
 }
 /**
  * Средняя (3 балла)

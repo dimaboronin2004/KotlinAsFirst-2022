@@ -4,7 +4,7 @@ package lesson3.task1
 
 import lesson4.task1.abs
 import kotlin.math.abs
-import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sqrt
 import kotlin.math.pow
 // Урок 3: циклы
@@ -177,13 +177,18 @@ fun lcm(m: Int, n: Int): Int {
 fun isCoPrime(m: Int, n: Int): Boolean {
     if (n==1 && m==1) return true
     else {
-        val m1 = max(n, m)
+        val m1 = min(n, m)
         var k = 0
+        var check_string=""
         for (i in 2..m1) {
-            if ((n % i == 0) && (m % i == 0)) k += 1
-            else k += 0
+            if ((n % i == 0) && (m % i == 0)) {
+                k += 1
+                check_string+="1"
+            }
+            else
+                k += 0
         }
-        return k > 0
+        return check_string.isEmpty()
     }
 }
 
