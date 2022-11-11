@@ -77,11 +77,11 @@ fun deleteMarked(inputName: String, outputName: String) {
  */
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
     var result= mutableMapOf<String, Int>()
-    var text=File(inputName).readText().toLowerCase().split(" ")
+    var text=File(inputName).readText().toLowerCase()
     for (substring in substrings) {
         var k=0
-        for (i in 0 until text.size) {
-            if (text[i]==substring) k+=1
+        for (i in 0 until text.length) {
+            if (substring in text) k+=1
         }
         result.put(substring, k)
     }
@@ -253,7 +253,7 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
     var new_string=""
     for (key in dictionary.keys) {
         for (symbol in text) {
-            if (symbol.toString()==key.toString()) new_string+=dictionary[key]
+            if (symbol.toString().toLowerCase()==key.toString().toLowerCase()) new_string+=dictionary[key]
             else new_string+=symbol
         }
     }

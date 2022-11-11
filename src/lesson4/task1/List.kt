@@ -137,14 +137,14 @@ fun abs(v: List<Double>): Double {
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Int {
+fun mean(list: List<Double>): Double {
     val amount = list.size
     var summ = 0
     for (i in 0 until list.size) {
         summ = (summ + list[i]).toInt()
     }
-    if (amount>0) return (summ / amount).toInt()
-    else return 0
+    if (amount>0) return (summ / amount).toDouble()
+    else return 0.0
 }
 
 /**
