@@ -145,12 +145,12 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): MutableMa
  * т. е. whoAreInBoth(listOf("Марат", "Семён, "Марат"), listOf("Марат", "Марат")) == listOf("Марат")
  */
 fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
-    val exit_list= mutableListOf<String>()
+    val exit_list= mutableSetOf<String>()
     for (element in a) {
         if (element in b)
             exit_list += element
     }
-    return exit_list
+    return exit_list.toList()
 }
 
 /**
@@ -219,7 +219,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
     val st1=word.toLowerCase().toSet()
-    val st2=chars.toSet()
+    val st2=chars.toString().toLowerCase().toSet()
     val st3=st1.intersect(st2)
     if (st1.size==st3.size) return true
     else return false
@@ -269,7 +269,7 @@ fun hasAnagrams(words: List<String>): Boolean {
             var word_1= words[i].toSet()
             var word_2= words[j].toSet()
             var word_3=word_1.intersect(word_2)
-            if (word_1.size==word_3.size) k+=1
+            if ((word_1.size==word_3.size) && (word_1.isNotEmpty()) && (word_3.isNotEmpty())) k+=1
         }
     }
     if (k>0) return true
@@ -341,8 +341,8 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
         for (i in 0 until n - 1) {
             for (j in i + 1 until n) {
                 if ((list[i] + list[j]) == number) {
-                    a += i
-                    b += j
+                    a == i
+                    b == j
                     check_string=check_string + a.toString() + b.toString()
                 }
             }

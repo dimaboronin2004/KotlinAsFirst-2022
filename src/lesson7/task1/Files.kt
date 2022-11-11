@@ -77,11 +77,11 @@ fun deleteMarked(inputName: String, outputName: String) {
  */
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
     var result= mutableMapOf<String, Int>()
-    var text=File(inputName).readText().toLowerCase()
+    var text=File(inputName).readText().split(" ")
     for (substring in substrings) {
         var k=0
-        for (i in 0 until text.length) {
-            if (substring in text) k+=1
+        for (i in 0 until text.size) {
+            if (substring == text[i]) k+=1
         }
         result.put(substring, k)
     }
@@ -131,7 +131,7 @@ fun sibilants(inputName: String, outputName: String) {
         else if ((word.toLowerCase() !in exceptions) && ("Щя" in word)) writer.write(word.replace("Щя", "Ща"))
         else if ((word.toLowerCase() !in exceptions) && ("щю" in word)) writer.write(word.replace("щю", "щу"))
         else if ((word.toLowerCase() !in exceptions) && ("Щю" in word)) writer.write(word.replace("Щю", "Щу"))
-        else writer.write(word)
+        else writer.write(word + " ")
     }
     writer.close()
 }
@@ -249,7 +249,7 @@ fun top20Words(inputName: String): Map<String, Int> = TODO()
  */
 fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: String) {
     val writer = File(outputName).bufferedWriter()
-    val text=File(inputName).readText().split("")
+    val text=File(inputName).readText().toString()
     var new_string=""
     for (key in dictionary.keys) {
         for (symbol in text) {
@@ -291,20 +291,22 @@ fun chooseLongestChaoticWord(inputName: String, outputName: String) {
     var list_of_strings= mutableListOf<String>()
     var list_of_lengths= mutableListOf<Int>()
     val list_of_results= mutableListOf<String>()
-    for (string in strings) {
-        var lowercased=string.toLowerCase()
-        var set_of_letters=lowercased.toSet()
-        if (lowercased.length==set_of_letters.size) {
-            list_of_strings.add(string)
-            list_of_lengths.add(lowercased.length)
+    if (strings.isNotEmpty()) {
+        for (string in strings) {
+            var lowercased = string.toLowerCase()
+            var set_of_letters = lowercased.toSet()
+            if (lowercased.length == set_of_letters.size) {
+                list_of_strings.add(string)
+                list_of_lengths.add(lowercased.length)
+            }
         }
+        val maximum = list_of_lengths.max()
+        for (i in list_of_lengths.indices) {
+            if (list_of_lengths[i] == maximum) list_of_results.add(list_of_strings[i])
+        }
+        if (list_of_results.size > 1) writer.write(list_of_results.joinToString(separator = ", "))
+        else writer.write(list_of_results.toString())
     }
-    val maximum=list_of_lengths.max()
-    for (i in list_of_lengths.indices) {
-        if (list_of_lengths[i]==maximum) list_of_results.add(list_of_strings[i])
-    }
-    if (list_of_results.size>1) writer.write(list_of_results.joinToString(separator = ", "))
-    else writer.write(list_of_results.toString())
     writer.close()
 }
 

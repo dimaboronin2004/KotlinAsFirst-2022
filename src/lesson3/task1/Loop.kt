@@ -312,7 +312,14 @@ fun cos(x: Double, eps: Double): Double {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int {
-    return 0
+    var s = ""
+    if (n==1) return 1
+    else {
+        for (i in 1 until n + 1) {
+            s += (i * i).toString()
+        }
+        return (s[n - 1].toString()).toInt()
+    }
 }
 
 /**
