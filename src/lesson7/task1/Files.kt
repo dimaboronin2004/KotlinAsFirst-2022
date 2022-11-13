@@ -304,8 +304,8 @@ fun chooseLongestChaoticWord(inputName: String, outputName: String) {
         for (i in list_of_lengths.indices) {
             if (list_of_lengths[i] == maximum) list_of_results.add(list_of_strings[i])
         }
-        if (list_of_results.size > 1) writer.write(list_of_results.joinToString(separator = ", "))
-        else writer.write(list_of_results.toString())
+        if (list_of_results.size > 1) writer.write(list_of_results.joinToString(separator = ", ").substring(1, list_of_results.size - 1))
+        else writer.write(list_of_results.toString().substring(1, list_of_results.size - 1))
     }
     writer.close()
 }
