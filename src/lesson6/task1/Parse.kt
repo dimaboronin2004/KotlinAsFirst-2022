@@ -349,17 +349,12 @@ fun plusMinus(expression: String): Int {
     var value=0
     val short= listOf<String>("+", "-")
     var result= mutableListOf<Int>()
-    try {
-        result.add(nums_and_chars[0].toInt())
-        for (i in 2 until nums_and_chars.size) {
-            if (nums_and_chars[i - 1] == "+") result.add(nums_and_chars[i].toInt())
-            else if (nums_and_chars[i - 1] == "-") result.add((nums_and_chars[i].toInt()) * (-1))
-        }
-        return result.sum()
+    result.add(nums_and_chars[0].toInt())
+    for (i in 2 until nums_and_chars.size) {
+        if (nums_and_chars[i - 1] == "+") result.add(nums_and_chars[i].toInt())
+        else if (nums_and_chars[i - 1] == "-") result.add((nums_and_chars[i].toInt()) * (-1))
     }
-    catch(e:IllegalArgumentException) {
-        throw IllegalArgumentException("Description")
-    }
+    return result.sum()
 
 }
 
@@ -417,20 +412,7 @@ fun mostExpensive(description: String): String {
  * Вернуть -1, если roman не является корректным римским числом
  */
 fun fromRoman(roman: String): Int {
-    var roman1=roman
-    try {
-        if (roman1=="I") return 1
-        var string1=roman1.replace("CM", "900" ).replace("CD", "400 ").replace("XC", "90 ").replace("XL", "40 ").replace("IX", "9 ").replace("IV", "4 ")
-        var string2=string1.replace("M", "1000 ").replace("D", "500 ").replace("C", "100 ").replace("L", "50 ").replace("X", "10 ").replace("V", "5 ").replace("I", "1 ")
-        val list=string2.split(" ")
-        var new_list= mutableListOf<Int>()
-        for (num in list) {
-            if (num!=" ") new_list.add(num.toInt())
-        }
-        return new_list.sum()
-    } catch (e: NumberFormatException) {
-        return -1
-    }
+    return 0
 }
 
 /**

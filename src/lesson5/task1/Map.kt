@@ -334,21 +334,23 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     if (list.isEmpty()) return Pair(-1, -1)
     else {
-        var a=0
-        var b=0
+        var a=-1
+        var b=-1
+        var i1=0
+        var j1=0
         var check_string=""
         val n=list.size
         for (i in 0 until n - 1) {
             for (j in i + 1 until n) {
                 if ((list[i] + list[j]) == number && i!=j) {
-                    a == i
-                    b == j
-                    check_string=check_string + a.toString() + b.toString()
+                    i1+=i
+                    j1+=j
+                    break
                 }
             }
         }
-        if (check_string.isNotEmpty()) return Pair(min(a,b), max(a, b))
-        else return Pair(-1, -1)
+        if (i1!=0 || j1!=0) return Pair(min(i1,j1), max(i1, j1))
+        else return Pair(a,b)
     }
 }
 
