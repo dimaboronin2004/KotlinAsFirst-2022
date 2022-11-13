@@ -2,6 +2,8 @@
 
 package lesson6.task1
 
+import java.lang.IllegalArgumentException
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -345,17 +347,19 @@ fun bestHighJump(jumps: String): Int {
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
 fun plusMinus(expression: String): Int {
+    if (!"$expression + ".matches(Regex("""(\d+ [+-] )+"""))) {
+        throw IllegalArgumentException(expression)
+    }
     val nums_and_chars=expression.split(" ")
     var value=0
     val short= listOf<String>("+", "-")
     var result= mutableListOf<Int>()
     result.add(nums_and_chars[0].toInt())
     for (i in 2 until nums_and_chars.size) {
-        if (nums_and_chars[i - 1] == "+") result.add(nums_and_chars[i].toInt())
-        else if (nums_and_chars[i - 1] == "-") result.add((nums_and_chars[i].toInt()) * (-1))
+        if (nums_and_chars[i - 1] == "+" ) result.add(nums_and_chars[i].toInt())
+        else if (nums_and_chars[i - 1] == "-" ) result.add((nums_and_chars[i].toInt()) * (-1))
     }
     return result.sum()
-
 }
 
 /**
