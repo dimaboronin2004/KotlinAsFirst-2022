@@ -462,7 +462,7 @@ fun russian(n: Int): String {
     else
         s = s + " девяносто"
     if (c==0) {
-        if (a==0 && b==0) s = s + ""
+        if ((a==0 && b==0) || ("тысяч" in s)) s = s + ""
         else s = s + " тысяч"
     }
     else if (c==1 && b!=1)
