@@ -340,7 +340,7 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
         val n=list.size
         for (i in 0 until n - 1) {
             for (j in i + 1 until n) {
-                if ((list[i] + list[j]) == number) {
+                if ((list[i] + list[j]) == number && i!=j) {
                     a == i
                     b == j
                     check_string=check_string + a.toString() + b.toString()
