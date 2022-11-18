@@ -77,92 +77,36 @@ fun main() {
  * входными данными.
  */
 fun dateStrToDigit(str: String): String {
-    val str1 = str
-    val parts = str.split(" ")
-    if (parts.size == 3) {
-        val day = parts[0].toInt()
-        val month = parts[1].toString()
-        val year = parts[2].toInt()
-        if ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0))) {
-            if ((day > 0 && day < 32) && (month == "января")) {
-                if (day < 10) return day.toString() + ".01." + year.toString()
-                else return str1.replace(" января ", ".01.")
-            } else if ((day > 0 && day < 30) && (month == "февраля")) {
-                if (day < 10) return str1.replace(" февраля ", ".02").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" февраля ", ".02")
-            } else if ((day > 0 && day < 32) && (month == "марта")) {
-                if (day < 10) return str1.replace(" марта ", ".03.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" марта ", ".03.")
-            } else if ((day > 0 && day < 31) && (month == "апреля")) {
-                if (day < 10) return str1.replace(" апреля ", ".04.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" апреля ", ".04.")
-            } else if ((day > 0 && day < 32) && (month == "мая")) {
-                if (day < 10) return str1.replace(" мая ", ".05.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" мая ", ".05.")
-            } else if ((day > 0 && day < 31) && (month == "июня")) {
-                if (day < 10) return str1.replace(" июня ", ".06.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" июня ", ".06.")
-            } else if ((day > 0 && day < 32) && (month == "июля")) {
-                if (day < 10) return str1.replace(" июля ", ".07.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" июля ", ".07.")
-            } else if ((day > 0 && day < 32) && (month == "августа")) {
-                if (day < 10) return str1.replace(" августа ", ".08.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" августа ", ".08.")
-            } else if ((day > 0 && day < 31) && (month == "сентября")) {
-                if (day < 10) return str1.replace(" сентября ", ".09.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" сентября ", ".09.")
-            } else if ((day > 0 && day < 32) && (month == "октября")) {
-                if (day < 10) return str1.replace(" октября ", ".10.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" октября ", ".10.")
-            } else if ((day > 0 && day < 31) && (month == "ноября")) {
-                if (day < 10) return str1.replace(" ноября ", ".11.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" ноября ", ".11.")
-            } else if ((day > 0 && day < 32) && (month == "декабря")) {
-                if (day < 10) return str1.replace(" декабря ", ".12.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" декабря ", ".12.")
-            } else
-                return ""
+    var list= mutableListOf<String>()
+    val months_to_nums=mapOf("января" to "01", "февраля" to "02", "марта" to "03", "апреля" to "04", "мая" to "05"
+        , "июня" to "06", "июля" to "07", "августа" to "08", "сентября" to "09", "октября" to "10", "ноября" to "11", "декабря" to "12")
+    val days_to_month_leap=mapOf("января" to 31, "февраля" to 29, "марта" to 31, "апреля" to 30, "мая" to 31,
+    "июня" to 30, "июля" to 31, "августа" to 31, "сентября" to 30, "октября" to 31, "ноября" to 30, "декабря" to 31)
+    val days_to_month_usual=mapOf("января" to 31, "февраля" to 28, "марта" to 31, "апреля" to 30, "мая" to 31,
+        "июня" to 30, "июля" to 31, "августа" to 31, "сентября" to 30, "октября" to 31, "ноября" to 30, "декабря" to 31)
+    if (str.matches(Regex("""\d* [а-я]* \d*"""))) {
+        val components=str.split(" ")
+        val day=components[0]
+        val month=components[1]
+        val year=components[2].toInt()
+        if ((year%400==0) || (year%4==0 && year%100!=0)) {
+            if (month in months_to_nums.keys) {
+                if (day.toInt() <= days_to_month_leap.get(month)!!) {
+                    if (day.toInt()>=10) list.add(day) else list.add("0" + day)
+                    months_to_nums.get(month)?.let { list.add(it) }
+                    list.add(year.toString())
+                } else return ""
+            } else return ""
+        } else {
+            if (month in months_to_nums.keys) {
+                if (day.toInt() <= days_to_month_usual.get(month)!!) {
+                    if (day.toInt()>=10) list.add(day) else list.add("0" + day)
+                    months_to_nums.get(month)?.let { list.add(it) }
+                    list.add(year.toString())
+                } else return ""
+            } else return ""
         }
-        else {
-            if ((day > 0 && day < 32) && (month == "января")) {
-                if (day < 10) return str1.replace(" января ", ".01.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" января ", ".01.")
-            } else if ((day > 0 && day < 29) && (month == "февраля")) {
-                if (day < 10) return str1.replace(" февраля ", ".02.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" февраля ", ".02.")
-            } else if ((day > 0 && day < 32) && (month == "марта")) {
-                if (day < 10) return str1.replace(" марта ", ".03.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" марта ", ".03.")
-            } else if ((day > 0 && day < 31) && (month == "апреля")) {
-                if (day < 10) return str1.replace(" апреля ", ".04.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" апреля ", ".04.")
-            } else if ((day > 0 && day < 32) && (month == "мая")) {
-                if (day < 10) return str1.replace(" мая ", ".05.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" мая ", ".05.")
-            } else if ((day > 0 && day < 31) && (month == "июня")) {
-                if (day < 10) return str1.replace(" июня ", ".06.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" июня ", ".06.")
-            } else if ((day > 0 && day < 32) && (month == "июля")) {
-                if (day < 10) return str1.replace(" июля ", ".07.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" июля ", ".07.")
-            } else if ((day > 0 && day < 32) && (month == "августа")) {
-                if (day < 10) return str1.replace(" августа ", ".08.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" августа ", ".08.")
-            } else if ((day > 0 && day < 31) && (month == "сентября")) {
-                if (day < 10) return str1.replace(" сентября ", ".09.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" сентября ", ".09.")
-            } else if ((day > 0 && day < 32) && (month == "октября")) {
-                if (day < 10) return str1.replace(" октября ", ".10.").replace(day.toString(), '0' + day.toString())
-                else  return str1.replace(" октября ", ".10.")
-            } else if ((day > 0 && day < 31) && (month == "ноября")) {
-                if (day < 10) return str1.replace(" ноября ", ".11.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" ноября ", ".11.")
-            } else if ((day > 0 && day < 32) && (month == "декабря")) {
-                if (day < 10) return str1.replace(" декабря ", ".12.").replace(day.toString(), '0' + day.toString())
-                else return str1.replace(" декабря ", ".12.")
-            } else
-                return ""
-        }
+        return list.joinToString(separator=".")
     }
     else return ""
 }
@@ -178,79 +122,53 @@ fun dateStrToDigit(str: String): String {
  * входными данными.
  */
 fun dateDigitToStr(digital: String): String {
-    val str1 = digital
-    val parts = str1.split(".")
-    var check1=listOf("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12")
-    var check2= listOf("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31")
-    if (parts.size == 3) {
-        var day1 = parts[0].toString()
-        var day=day1
-        if (day1 in check2) {
-            if (day1.toInt() < 10) day = day1[1].toString()
-            else day = day1
+    val list1 = mutableListOf<String>()
+    val nums_to_months = mapOf(
+        "01" to "января",
+        "02" to "февраля",
+        "03" to "марта",
+        "04" to "апреля",
+        "05" to "мая",
+        "06" to "июня",
+        "07" to "июля",
+        "08" to "августа",
+        "09" to "сентября",
+        "10" to "октября",
+        "11" to "ноября",
+        "12" to "декабря"
+    )
+    val days_to_month_leap1 = mapOf(
+        "01" to 31, "02" to 29, "03" to 31, "04" to 30, "05" to 31,
+        "06" to 30, "07" to 31, "08" to 31, "09" to 30, "10" to 31, "11" to 30, "12" to 31
+    )
+    val days_to_month_usual1 = mapOf(
+        "01" to 31, "02" to 28, "03" to 31, "04" to 30, "05" to 31,
+        "06" to 30, "07" to 31, "08" to 31, "09" to 30, "10" to 31, "11" to 30, "12" to 31
+    )
+    if (digital.matches(Regex("""\d+\.\d+\.\d+"""))) {
+        val parts = digital.split(".")
+        val day1 = parts[0].toInt()
+        val month1 = parts[1]
+        val year1 = parts[2].toInt()
+        if ((year1 % 400 == 0) || (year1 % 4 == 0 && year1 % 100 != 0)) {
+            if (month1 in nums_to_months.keys) {
+                if (day1 <= days_to_month_leap1.get(month1)!!) {
+                    list1.add(day1.toString())
+                    nums_to_months.get(month1)?.let { list1.add(it) }
+                    list1.add(year1.toString())
+                } else return ""
+            }else return ""
+        } else {
+            if (month1 in nums_to_months.keys) {
+                if (day1 <= days_to_month_usual1.get(month1)!!) {
+                    list1.add(day1.toString())
+                    nums_to_months.get(month1)?.let { list1.add(it) }
+                    list1.add(year1.toString())
+                } else return ""
+            } else return ""
         }
-        else return ""
-        val month= parts[1].toString()
-        val year = parts[2].toInt()
-        if ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0)))  {
-            if ((day.toInt() > 0 && day.toInt() < 32) && (month == "01")) {
-                return day.toString() + " января " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 30) && (month == "02")) {
-                return day.toString() + " февраля " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 32) && (month == "03")) {
-                return day.toString() + " марта " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 31) && (month == "04")) {
-                return day.toString() + " апреля " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 32) && (month == "05")) {
-                return day.toString() + " мая " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 31) && (month == "06")) {
-                return day.toString() + " июня " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 32) && (month == "07")) {
-                return day.toString() + " июля " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 32) && (month == "08")) {
-                return day.toString() + " августа " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 31) && (month == "09")) {
-                return day.toString() + " сентября " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 32) && (month == "10")) {
-                return day.toString() + " октября " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 31) && (month == "11")) {
-                return day.toString() + " ноября " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 32) && (month == "12")) {
-                return day.toString() + " декабря " + year.toString()
-            } else
-                return ""
-        }
-        else {
-            if ((day.toInt() > 0 && day.toInt() < 32) && (month == "01")) {
-                return day.toString() + " января " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 29) && (month == "02")) {
-                return day.toString() + " февраля " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 32) && (month == "03")) {
-                return day.toString() + " марта " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 31) && (month == "04")) {
-                return day.toString() + " апреля " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 32) && (month == "05")) {
-                return day.toString() + " мая " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 31) && (month == "06")) {
-                return day.toString() + " июня " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 32) && (month == "07")) {
-                return day.toString() + " июля " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 32) && (month == "08")) {
-                return day.toString() + " августа " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 31) && (month == "09")) {
-                return day.toString() + " сентября " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 32) && (month == "10")) {
-                return day.toString() + " октября " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 31) && (month == "11")) {
-                return day.toString() + " ноября " + year.toString()
-            } else if ((day.toInt() > 0 && day.toInt() < 32) && (month == "12")) {
-                return day.toString() + " декабря " + year.toString()
-            } else
-                return ""
-        }
-
-    }
-    else return ""
+        return list1.joinToString(separator = " ")
+    } else return ""
 }
 
 /**
@@ -271,18 +189,13 @@ fun flattenPhoneNumber(phone: String): String {
     val phone_number=phone
     val check_string_1 = "+-()0123456789 "
     val check_string_2 = "+0123456789"
-    var mistake=0
     var result_string=""
     if ("()" in phone_number) return ""
     for (i in 0 until  phone_number.length) {
-        if (phone_number[i] in check_string_1) mistake==0
-        else return ""
+        if (phone_number[i] !in check_string_1) return ""
     }
-    if (mistake>0) return ""
-    else {
-        for (symbol in phone_number) {
-            if (symbol in check_string_2) result_string+=symbol
-        }
+    for (symbol in phone_number) {
+        if (symbol in check_string_2) result_string+=symbol
     }
     return result_string
 }
@@ -298,27 +211,25 @@ fun flattenPhoneNumber(phone: String): String {
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
-    val results=jumps.split(" ")
-    val results1=jumps.split("")
-    val jumps1=jumps
-    val symbols= mutableListOf("-", "%")
+    val nums_and_chars=jumps.split(" ")
+    val not_digits= mutableListOf("-", "%")
     val final_results= mutableListOf<Int>()
     var mistake=0
-    try {
-        if (jumps1.isEmpty()) return -1
-        if ((("0" in results1) || ("1" in results1) || ("2" in results1 || ("3" in results1) || ("4" in results1) || ("5" in results1) || ("6" in results1) || ("7" in results1) || ("8" in results1) || ("9" in results1)))) mistake == 0
-        else mistake += 1
-        if (mistake == 0) {
-            for (element in results) {
-                if (element in symbols) final_results.add(0)
-                else final_results.add(element.toInt())
-            }
-            return final_results.max()
+    val digit_chars= listOf<String>("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
+    if (jumps.isEmpty()) return -1
+    return try {
+        for (i in digit_chars) {
+            if (i in digit_chars) mistake == 0
+            else mistake += 1
         }
-        else return -1
-    }
-    catch(e: NumberFormatException) {
-        return -1
+        if (mistake == 0) {
+            for (element in nums_and_chars) {
+                if (element!in not_digits) final_results.add(element.toInt())
+            }
+            if (final_results.isNotEmpty()) return final_results.max() else -1
+        } else -1
+    } catch(e: NumberFormatException) {
+        -1
     }
 }
 
@@ -333,10 +244,7 @@ fun bestLongJump(jumps: String): Int {
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String): Int {
-    return 0
-}
-
+fun bestHighJump(jumps: String): Int = TODO()
 /**
  * Сложная (6 баллов)
  *
@@ -347,13 +255,9 @@ fun bestHighJump(jumps: String): Int {
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
 fun plusMinus(expression: String): Int {
-    if (!"$expression + ".matches(Regex("""(\d+ [+-] )+"""))) {
-        throw IllegalArgumentException(expression)
-    }
+    if (!"$expression + ".matches(Regex("""(\d+ [+-] )+"""))) throw IllegalArgumentException(expression)
     val nums_and_chars=expression.split(" ")
-    var value=0
-    val short= listOf<String>("+", "-")
-    var result= mutableListOf<Int>()
+    val result= mutableListOf<Int>()
     result.add(nums_and_chars[0].toInt())
     for (i in 2 until nums_and_chars.size) {
         if (nums_and_chars[i - 1] == "+" ) result.add(nums_and_chars[i].toInt())
@@ -372,21 +276,19 @@ fun plusMinus(expression: String): Int {
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
 fun firstDuplicateIndex(str: String): Int {
-    val stroka=str
-    var k=0
-    val list= mutableListOf<Int>()
     val words=str.split(" ")
-    for (i in 0 until words.size-1) {
-        if (words[i].toLowerCase() == words[i + 1].toLowerCase()) {
-            val s = words[i]
-            val symbol = s[0]
-            stroka.replace(symbol.toString(), "!")
-            k += 1
-            list.add(stroka.replace(symbol.toString(), "!").indexOf("!"))
+    if (words.size==1) return -1
+    else {
+        var result=0
+        for (i in 1 until words.size) {
+            if (words[i].toLowerCase()==words[i - 1].toLowerCase()) {
+                for (j in 0 until i - 1) {
+                    result+=(words[j]).length + 1
+                }
+            }
         }
+        return if (result!=0) result else -1
     }
-    if (k>0) return list[0]
-    else return -1
 }
 
 /**
@@ -400,9 +302,7 @@ fun firstDuplicateIndex(str: String): Int {
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше нуля либо равны нулю.
  */
-fun mostExpensive(description: String): String {
-    return ""
-}
+fun mostExpensive(description: String): String=TODO()
 
 /**
  * Сложная (6 баллов)
@@ -415,9 +315,7 @@ fun mostExpensive(description: String): String {
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
-fun fromRoman(roman: String): Int {
-    return 0
-}
+fun fromRoman(roman: String): Int =TODO()
 
 /**
  * Очень сложная (7 баллов)
@@ -455,6 +353,4 @@ fun fromRoman(roman: String): Int {
  * IllegalArgumentException должен бросаться даже если ошибочная команда не была достигнута в ходе выполнения.
  *
  */
-fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
-    return listOf()
-}
+fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> =TODO()

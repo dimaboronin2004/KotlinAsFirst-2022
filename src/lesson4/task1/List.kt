@@ -3,6 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import java.lang.StringBuilder
 import kotlin.math.sqrt
 import kotlin.math.pow
 
@@ -124,7 +125,7 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
 fun abs(v: List<Double>): Double {
     var abs=0
     if (v.size>0) {
-        for (i in 0 until v.size)
+        for (i in v.indices)
             abs = (abs + v[i] * v[i]).toInt()
     }
     else
@@ -138,12 +139,7 @@ fun abs(v: List<Double>): Double {
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-    val amount = list.size
-    var summ = 0
-    for (i in 0 until list.size) {
-        summ = (summ + list[i]).toInt()
-    }
-    if (amount>0) return (summ / amount).toDouble()
+    if (list.isNotEmpty()) return (list.sum()/list.size).toDouble()
     else return 0.0
 }
 
@@ -155,23 +151,7 @@ fun mean(list: List<Double>): Double {
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> {
-    if (list.isNotEmpty()) {
-        val amount = list.size
-        var summ = 0
-        var d = 0
-        if (amount > 0) {
-            for (i in 0 until amount)
-                summ = (summ + list[i]).toInt()
-            d = d + summ / amount
-            for (i in 0 until amount)
-                list[i] = list[i] - d
-        } else
-            d = d + 0
-        return list
-    }
-    else return mutableListOf()
-}
+fun center(list: MutableList<Double>): MutableList<Double> =TODO()
 
 /**
  * Средняя (3 балла)
@@ -183,12 +163,8 @@ fun center(list: MutableList<Double>): MutableList<Double> {
 fun times(a: List<Int>, b: List<Int>): Int {
     val length=a.size
     var C=0
-    if (length>0) {
-        for (i in 0 until length)
-            C = C + a[i] * b[i]
-    }
-    else
-        C=0
+    for (i in a.indices)
+        C = C + a[i] * b[i]
     return C
 }
 
@@ -203,7 +179,7 @@ fun times(a: List<Int>, b: List<Int>): Int {
 fun polynom(p: List<Int>, x: Int):Int {
     var result=0
     val x1=x.toDouble()
-    for (i in 0 until p.size) {
+    for (i in p.indices) {
         result+=(p[i] * (x1.pow(i))).toInt()
     }
     return result
@@ -218,19 +194,7 @@ fun polynom(p: List<Int>, x: Int):Int {
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Int>): MutableList<Int> {
-    if (list.isNotEmpty()) {
-        for (i in 1 until list.size) {
-            var sum = 0
-            for (i1 in 0 until i + 1){
-                sum+=list[i1]
-            }
-            list[i]=sum
-        }
-        return list
-    }
-    else return list
-}
+fun accumulate(list: MutableList<Int>): MutableList<Int> =TODO()
 
 /**
  * Средняя (3 балла)
@@ -239,9 +203,7 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> {
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> {
-    return listOf(0,0)
-}
+fun factorize(n: Int): List<Int> =TODO()
 
 /**
  * Сложная (4 балла)
@@ -250,9 +212,7 @@ fun factorize(n: Int): List<Int> {
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String {
-    return ""
-}
+fun factorizeToString(n: Int): String =TODO()
 
 /**
  * Средняя (3 балла)
@@ -282,10 +242,7 @@ fun convert(n: Int, base: Int): List<Int> {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-fun convertToString(n: Int, base: Int): String {
-    return ""
-}
-
+fun convertToString(n: Int, base: Int): String =TODO()
 /**
  * Средняя (3 балла)
  *
@@ -313,10 +270,7 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, str.toInt(base)), запрещается.
  */
-fun decimalFromString(str: String, base: Int): Int {
-    return 0
-}
-
+fun decimalFromString(str: String, base: Int): Int =TODO()
 /**
  * Сложная (5 баллов)
  *
@@ -326,82 +280,20 @@ fun decimalFromString(str: String, base: Int): Int {
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    var s=""
-    val d=n%10
-    val c=(n/10)%10
-    val b=(n/100)%10
-    val a=n/1000
-    if (a==0)
-        s=s + ""
-    else if (a==1)
-        s=s  + "M"
-    else if (a==2)
-        s=s + "MM"
-    else
-        s=s + "MMM"
-    if (b==0)
-        s=s + ""
-    else if (b==1)
-        s=s + "C"
-    else if (b==2)
-        s=s + "CC"
-    else if (b==3)
-        s=s + "CCC"
-    else if (b==4)
-        s=s + "CD"
-    else if (b==5)
-        s=s + "D"
-    else if (b==6)
-        s=s + "DC"
-    else if (b==7)
-        s=s + "DCC"
-    else if (b==8)
-        s=s + "DCCC"
-    else
-        s=s + "CM"
-    if (c==0)
-        s=s + ""
-    else if (c==1)
-        s=s + "X"
-    else if (c==2)
-        s=s + "XX"
-    else if (c==3)
-        s=s + "XXX"
-    else if (c==4)
-        s=s + "XL"
-    else if (c==5)
-        s=s + "L"
-    else if (c==6)
-        s=s + "LX"
-    else if (c==7)
-        s=s + "LXX"
-    else if (c==8)
-        s=s + "LXXX"
-    else
-        s=s + "XC"
-    if (d==0)
-        s=s + ""
-    else if (d==1)
-        s=s + "I"
-    else if (d==2)
-        s=s + "II"
-    else if (d==3)
-        s=s + "III"
-    else if (d==4)
-        s=s + "IV"
-    else if (d==5)
-        s=s + "V"
-    else if (d==6)
-        s=s + "VI"
-    else if (d==7)
-        s=s + "VII"
-    else if (d==8)
-        s=s + "VIII"
-    else
-        s=s + "IX"
-    return s
-
-
+    var builder=StringBuilder()
+    val thousands= listOf<String>("", "M", "MM", "MMM")
+    val hundreds= listOf<String>("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
+    val decades= listOf<String>("", "X", "XX", "XXX", "XL", "L", "LX","LXX","LXXX","XC")
+    val ones= listOf<String>("", "I", "II", "III","IV","V","VI","VII","VIII","IX")
+    val first_digit=n/1000
+    if (first_digit>0) builder.append(thousands[first_digit])
+    val second_digit=(n/100)%10
+    if (second_digit>0) builder.append(hundreds[second_digit])
+    val third_digit=(n/10)%10
+    if (third_digit>0) builder.append(decades[third_digit])
+    val fourth_digit=n%10
+    if (fourth_digit>0) builder.append(ones[fourth_digit])
+    return builder.toString()
 }
 
 /**
@@ -412,141 +304,32 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String {
-    var s=""
+    var builder1=StringBuilder()
+    val first= listOf<String>("", "сто ", "двести ", "триста ", "четыреста ", "пятьсот ", "шестьсот ", "семьсот ", "восемьсот ", "девятьсот ")
+    val second= listOf<String>("", "", "двадцать ", "тридцать ", "сорок ", "пятьдесят ", "шестьдесят ", "семьдесят ", "восемьдесят ", "девяносто ")
+    val exceptions= listOf<String>("десять ", "одиннадцать ", "двенадцать ", "тринадцать ", "четырнадцать ", "пятнадцать ", "шестнадцать ", "семнадцать ", "восемнадцать ", "девятнадцать ")
+    val third= listOf<String>("", "одна ", "две ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
+    val third1= listOf<String>("", "один", "два", "три", "четыре", "пять", "шесть","семь", "восемь", "девять")
     val f=n%10
     val e=(n/10)%10
     val d=(n/100)%10
     val c=(n/1000)%10
     val b=(n/10000)%10
     val a=n/100000
-    if (a==0)
-        s = s + ""
-    else if (a == 1)
-        s = s + "сто"
-    else if (a == 2)
-        s = s + "двести"
-    else if (a == 3)
-        s = s + "триста"
-    else if (a == 4)
-        s = s + "четыреста"
-    else if (a == 5)
-        s = s + "пятьсот"
-    else if (a == 6)
-        s = s + "шестьсот"
-    else if (a == 7)
-        s = s + "семьсот"
-    else if (a == 8)
-        s = s + "восемьсот"
-    else
-        s = s + "девятьсот"
-    if (b==0)
-        s = s + ""
-    else if (b == 1)
-        if (c==0) s=s+" десять тысяч" else if (c==1) s=s+" одиннадцать тысяч" else if (c==2) s=s+" двенадцать тысяч" else if (c==3) s=s+" тринадцать тысяч"
-        else if (c==4) s=s+" четырнадцать тысяч" else if (c==5) s=s+" пятнадцать тысяч" else if (c==6) s=s+" шестнадцать тысяч"
-        else if (c==7) s=s+" семнадцать тысяч" else if (c==8) s=s+" восемнадцать тысяч" else  s=s+" девятнадцать тысяч"
-    else if (b == 2)
-        s = s + " двадцать"
-    else if (b == 3)
-        s = s + " тридцать"
-    else if (b == 4)
-        s = s + " сорок"
-    else if (b == 5)
-        s = s + " пятьдесят"
-    else if (b == 6)
-        s = s + " шестьдесят"
-    else if (b == 7)
-        s = s + " семьдесят"
-    else if (b == 8)
-        s = s + " восемьдесят"
-    else
-        s = s + " девяносто"
-    if (c==0) {
-        if ((a==0 && b==0) || ("тысяч" in s)) s = s + ""
-        else s = s + " тысяч"
+    if (a>0) builder1.append(first[a])
+    if (b>1) builder1.append(second[b])
+    else if (b==1) builder1.append(exceptions[c])
+    if (c>0 && b!=1) builder1.append(third[c])
+    if (c!=0 || b!=0 || a!=0) {
+        if (c == 1) builder1.append("тысяча ")
+        else if (c == 2 || c == 3 || c == 4) builder1.append("тысячи ")
+        else builder1.append("тысяч ")
     }
-    else if (c==1 && b!=1)
-        s=s + " одна тысяча"
-    else if (c==2 && b!=1)
-        s=s + " две тысячи"
-    else if (c==3 && b!=1)
-        s=s + " три тысячи"
-    else if (c==4 && b!=1)
-        s=s + " четыре тысячи"
-    else if (c==5 && b!=1)
-        s=s + " пять тысяч"
-    else if (c==6 && b!=1)
-        s=s + " шесть тысяч"
-    else if (c==7 && b!=1)
-        s=s + " семь тысяч"
-    else if (c==8 && b!=1)
-        s=s + " восемь тысяч"
-    else if (c==9 && b!=1)
-        s=s + " девять тысяч"
-    if (d==0)
-        s=s + ""
-    else if (d==1)
-        s=s + " сто"
-    else if (d==2)
-        s=s + " двести"
-    else if (d==3)
-        s=s + " триста"
-    else if (d==4)
-        s=s + " четыреста"
-    else if (d==5)
-        s=s + " пятьсот"
-    else if (d==6)
-        s=s + " шестьсот"
-    else if (d==7)
-        s=s + " семьсот"
-    else if (d==8)
-        s=s + " восемьсот"
-    else
-        s=s + " девятьсот"
-    if (e==0)
-        s=s + ""
-    else if (e==1)
-        if (f==0) s=s+" десять" else if (f==1) s=s+" одиннадцать" else if (f==2) s=s+" двенадцать" else if (f==3) s=s+" тринадцать"
-        else if (f==4) s=s+" четырнадцать" else if (f==5) s=s+" пятнадцать" else if (f==6) s=s+" шестнадцать"
-        else if (f==7) s=s+" семнадцать" else if (f==8) s=s+" восемнадцать" else  s=s+" девятнадцать"
-    else if (e==2)
-        s=s + " двадцать"
-    else if (e==3)
-        s=s + " тридцать"
-    else if (e==4)
-        s=s + " сорок"
-    else if (e==5)
-        s=s + " пятьдесят"
-    else if (e==6)
-        s=s + " шестьдесят"
-    else if (e==7)
-        s=s + " семьдесят"
-    else if (e==8)
-        s=s + " восемьдесят"
-    else
-        s=s + " девяносто"
-    if (f==0)
-        s=s + ""
-    else if (f==1 && e!=1)
-        s=s + " один"
-    else if (f==2 && e!=1)
-        s=s + " два"
-    else if (f==3 && e!=1)
-        s=s + " три"
-    else if (f==4 && e!=1)
-        s=s + " четыре"
-    else if (f==5 && e!=1)
-        s=s + " пять"
-    else if (f==6 && e!=1)
-        s=s + " шесть"
-    else if (f==7 && e!=1)
-        s=s + " семь"
-    else if (f==8 && e!=1)
-        s=s + " восемь"
-    else if (f==9 && e!=1)
-        s=s + " девять"
-    return s.trim()
-
+    if (d>0) builder1.append(first[d])
+    if (e>1) builder1.append(second[e])
+    else if (e==1) builder1.append(exceptions[f])
+    if (f>0 && e!=1) builder1.append(third1[f])
+    return builder1.toString().trim()
 }
 
 

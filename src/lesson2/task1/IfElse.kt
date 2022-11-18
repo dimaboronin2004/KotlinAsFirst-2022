@@ -69,9 +69,11 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String {
-    if ((age%10==0) || (age%10>4) || age==111 || age==112 || age==113 || (age>10 && age<20)) return "$age лет"
-    else if (age%10==1) return "$age год"
-    else return "$age года"
+    var result=""
+    if ((age%10==0) || (age%10>4) || (age>110 && age<120)|| (age>10 && age<20)) result="$age лет"
+    else if (age%10==1) result="$age год"
+    else result="$age года"
+    return result
 }
 
 /**
@@ -108,9 +110,7 @@ fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int {
-    return 0
-}
+): Int = TODO()
 
 /**
  * Простая (2 балла)
@@ -126,9 +126,7 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int {
-    return 0
-}
+): Int = TODO()
 
 /**
  * Простая (2 балла)
@@ -158,6 +156,4 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a:Int, b: Int, c:Int, d:Int):Int {
-    return 0
-}
+fun segmentLength(a:Int, b: Int, c:Int, d:Int):Int =TODO()

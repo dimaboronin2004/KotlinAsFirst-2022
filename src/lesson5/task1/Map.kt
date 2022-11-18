@@ -96,9 +96,7 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  *   buildGrades(mapOf("Марат" to 3, "Семён" to 5, "Михаил" to 5))
  *     -> mapOf(5 to listOf("Семён", "Михаил"), 3 to listOf("Марат"))
  */
-fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
-    return mapOf()
-}
+fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> =TODO()
 
 /**
  * Простая (2 балла)
@@ -115,8 +113,7 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
     for (key in a.keys) {
         if ((key in b.keys) && (b.get(key)==a.get(key))) check+=1
     }
-    if (check==a.size) return true
-    else return false
+    return check==a.size
 }
 
 /**
@@ -133,9 +130,7 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
  *   subtractOf(a = mutableMapOf("a" to "z"), mapOf("a" to "z"))
  *     -> a changes to mutableMapOf() aka becomes empty
  */
-fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): MutableMap<String, String> {
-    return mutableMapOf()
-}
+fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): MutableMap<String, String> =TODO()
 
 /**
  * Простая (2 балла)
@@ -170,9 +165,7 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
-    return mapOf()
-}
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> =TODO()
 
 /**
  * Средняя (4 балла)
@@ -184,10 +177,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *   averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
-fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
-
-    return mapOf()
-}
+fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> =TODO()
 
 /**
  * Средняя (4 балла)
@@ -221,8 +211,7 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
     val st1=word.toLowerCase().toSet()
     val st2=chars.toString().toLowerCase().toSet()
     val st3=st1.intersect(st2)
-    if (st1.size==st3.size) return true
-    else return false
+    return st1.size==st3.size
 }
 
 /**
@@ -262,19 +251,7 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  * Например:
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
-fun hasAnagrams(words: List<String>): Boolean {
-    var k=0
-    for (i in 0 until words.size - 1) {
-        for (j in 1 until words.size) {
-            var word_1= words[i].toSet()
-            var word_2= words[j].toSet()
-            var word_3=word_1.intersect(word_2)
-            if ((word_1.size==word_3.size) && (word_1.isNotEmpty()) && (word_3.isNotEmpty())) k+=1
-        }
-    }
-    if (k>0) return true
-    else return false
-}
+fun hasAnagrams(words: List<String>): Boolean=TODO()
 
 /**
  * Сложная (5 баллов)
@@ -332,26 +309,14 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    if (list.isEmpty()) return Pair(-1, -1)
-    else {
-        var a=-1
-        var b=-1
-        var i1=0
-        var j1=0
-        var check_string=""
-        val n=list.size
-        for (i in 0 until n - 1) {
-            for (j in i + 1 until n) {
-                if ((list[i] + list[j]) == number && i!=j) {
-                    i1+=i
-                    j1+=j
-                    break
-                }
-            }
+    for (a in list) {
+        if (list.contains(number - a)) {
+            val a1=list.indexOf(a)
+            val b1=list.indexOf(number - a)
+            if (a1!=b1) return Pair(min(a1, b1), max(a1, b1))
         }
-        if (i1!=0 || j1!=0) return Pair(min(i1,j1), max(i1, j1))
-        else return Pair(a,b)
     }
+    return Pair(-1, -1)
 }
 
 /**
@@ -375,6 +340,4 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
  *     450
  *   ) -> emptySet()
  */
-fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> {
-    return setOf()
-}
+fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> =TODO()

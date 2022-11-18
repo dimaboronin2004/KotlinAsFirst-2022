@@ -63,7 +63,17 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Подчёркивание в середине и/или в конце строк значения не имеет.
  */
 fun deleteMarked(inputName: String, outputName: String) {
-    TODO()
+    val writer=File(outputName).bufferedWriter()
+    val lines=File(inputName).readLines()
+    val appropriate= mutableListOf<String>()
+    for (line in lines) {
+        if (!line.startsWith("_")) appropriate.add(line)
+    }
+    for (string in appropriate) {
+        writer.write(string)
+        writer.newLine()
+    }
+    writer.close()
 }
 
 /**
@@ -76,16 +86,17 @@ fun deleteMarked(inputName: String, outputName: String) {
  *
  */
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
-    var result= mutableMapOf<String, Int>()
-    var text=File(inputName).readText().split(" ")
+    val text=File(inputName).readText().toLowerCase()
+    val final_list= mutableMapOf<String, Int>()
     for (substring in substrings) {
-        var k=0
-        for (i in 0 until text.size) {
-            if (substring == text[i]) k+=1
+        var st= mutableSetOf<Int>()
+        for (j in text.indices) {
+            var a=text.toLowerCase().indexOf(substring.toLowerCase(), j)
+            st.add(a)
         }
-        result.put(substring, k)
+        if (!text.endsWith(substring)) final_list.put(substring, st.size - 1) else final_list.put(substring, st.size)
     }
-    return result
+    return final_list
 }
 
 
@@ -103,37 +114,7 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-    val writer = File(outputName).bufferedWriter()
-    var text = File(inputName).readText().toString().split(" ")
-    val exceptions = listOf<String>("жюри", "брошюра", "парашют")
-    for (word in text) {
-        if ((word.toLowerCase() !in exceptions) && ("жы" in word)) writer.write(word.replace("жы", "жи"))
-        else if ((word.toLowerCase() !in exceptions) && ("Жы" in word)) writer.write(word.replace("Жы", "Жи"))
-        else if ((word.toLowerCase() !in exceptions) && ("жя" in word)) writer.write(word.replace("жя", "жа"))
-        else if ((word.toLowerCase() !in exceptions) && ("Жя" in word)) writer.write(word.replace("Жя", "Жа"))
-        else if ((word.toLowerCase() !in exceptions) && ("жю" in word)) writer.write(word.replace("жю", "жу"))
-        else if ((word.toLowerCase() !in exceptions) && ("Жю" in word)) writer.write(word.replace("Жю", "Жу"))
-        else if ((word.toLowerCase() !in exceptions) && ("шы" in word)) writer.write(word.replace("шы", "ши"))
-        else if ((word.toLowerCase() !in exceptions) && ("Шы" in word)) writer.write(word.replace("Шы", "Ши"))
-        else if ((word.toLowerCase() !in exceptions) && ("шя" in word)) writer.write(word.replace("шя", "ша"))
-        else if ((word.toLowerCase() !in exceptions) && ("Шя" in word)) writer.write(word.replace("Шя", "Ша"))
-        else if ((word.toLowerCase() !in exceptions) && ("шю" in word)) writer.write(word.replace("шю", "шу"))
-        else if ((word.toLowerCase() !in exceptions) && ("Шю" in word)) writer.write(word.replace("Шю", "Шу"))
-        else if ((word.toLowerCase() !in exceptions) && ("чы" in word)) writer.write(word.replace("чы", "чи"))
-        else if ((word.toLowerCase() !in exceptions) && ("Чы" in word)) writer.write(word.replace("Чы", "Чи"))
-        else if ((word.toLowerCase() !in exceptions) && ("чя" in word)) writer.write(word.replace("чя", "ча"))
-        else if ((word.toLowerCase() !in exceptions) && ("Чя" in word)) writer.write(word.replace("Чя", "Ча"))
-        else if ((word.toLowerCase() !in exceptions) && ("чю" in word)) writer.write(word.replace("чю", "чу"))
-        else if ((word.toLowerCase() !in exceptions) && ("Чю" in word)) writer.write(word.replace("Чю", "Чу"))
-        else if ((word.toLowerCase() !in exceptions) && ("щы" in word)) writer.write(word.replace("щы", "щи"))
-        else if ((word.toLowerCase() !in exceptions) && ("Щы" in word)) writer.write(word.replace("Щы", "Щи"))
-        else if ((word.toLowerCase() !in exceptions) && ("щя" in word)) writer.write(word.replace("щя", "ща"))
-        else if ((word.toLowerCase() !in exceptions) && ("Щя" in word)) writer.write(word.replace("Щя", "Ща"))
-        else if ((word.toLowerCase() !in exceptions) && ("щю" in word)) writer.write(word.replace("щю", "щу"))
-        else if ((word.toLowerCase() !in exceptions) && ("Щю" in word)) writer.write(word.replace("Щю", "Щу"))
-        else writer.write(word + " ")
-    }
-    writer.close()
+    TODO()
 }
 
 
@@ -248,17 +229,7 @@ fun top20Words(inputName: String): Map<String, Int> = TODO()
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: String) {
-    val writer = File(outputName).bufferedWriter()
-    val text=File(inputName).readText().toString()
-    var new_string=""
-    for (key in dictionary.keys) {
-        for (symbol in text) {
-            if (symbol.toString().toLowerCase()==key.toString().toLowerCase()) new_string+=dictionary[key]
-            else new_string+=symbol
-        }
-    }
-    writer.write(new_string)
-    writer.close()
+    TODO()
 }
 
 /**
@@ -288,25 +259,20 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
     var strings = File(inputName).readLines()
-    var list_of_strings= mutableListOf<String>()
-    var list_of_lengths= mutableListOf<Int>()
-    val list_of_results= mutableListOf<String>()
-    if (strings.isNotEmpty()) {
-        for (string in strings) {
-            var lowercased = string.toLowerCase()
-            var set_of_letters = lowercased.toSet()
-            if (lowercased.length == set_of_letters.size) {
-                list_of_strings.add(string)
-                list_of_lengths.add(lowercased.length)
-            }
+    val list_of_lengths= mutableListOf<Int>()
+    val list_of_words= mutableListOf<String>()
+    val result_list= mutableListOf<String>()
+    for (string in strings) {
+        if (string.length==string.toLowerCase().toSet().size) {
+            list_of_words.add(string)
+            list_of_lengths.add(string.length)
         }
-        val maximum = list_of_lengths.max()
-        for (i in list_of_lengths.indices) {
-            if (list_of_lengths[i] == maximum) list_of_results.add(list_of_strings[i])
-        }
-        if (list_of_results.size > 1) writer.write(list_of_results.joinToString(separator = ", ").substring(1, list_of_results.size - 1))
-        else writer.write(list_of_results.toString().substring(1, list_of_results.size - 1))
     }
+    for (word in list_of_words) {
+        if (word.length==list_of_lengths.max()) result_list.add(word)
+    }
+    if (result_list.size==1) writer.write(result_list.joinToString())
+    else writer.write(result_list.joinToString(separator=", "))
     writer.close()
 }
 
