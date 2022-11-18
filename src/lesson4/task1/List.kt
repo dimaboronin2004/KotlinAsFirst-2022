@@ -321,8 +321,10 @@ fun russian(n: Int): String {
     else if (b==1) builder1.append(exceptions[c])
     if (c>0 && b!=1) builder1.append(third[c])
     if (c!=0 || b!=0 || a!=0) {
-        if (c == 1) builder1.append("тысяча ")
-        else if (c == 2 || c == 3 || c == 4) builder1.append("тысячи ")
+        if (c == 1) {
+            if (b!=1) builder1.append("тысяча ")
+            else builder1.append("тысяч")
+        } else if (c == 2 || c == 3 || c == 4) builder1.append("тысячи ")
         else builder1.append("тысяч ")
     }
     if (d>0) builder1.append(first[d])
