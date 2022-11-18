@@ -194,9 +194,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
-fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String {
-    return ""
-}
+fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String =TODO()
 
 /**
  * Средняя (3 балла)
@@ -287,9 +285,7 @@ fun hasAnagrams(words: List<String>): Boolean=TODO()
  *          "GoodGnome" to setOf()
  *        )
  */
-fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> {
-    return mapOf()
-}
+fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> =TODO()
 
 /**
  * Сложная (6 баллов)
@@ -309,11 +305,9 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    for (a in list) {
-        if (list.contains(number - a)) {
-            val a1=list.indexOf(a)
-            val b1=list.indexOf(number - a)
-            if (a1!=b1) return Pair(min(a1, b1), max(a1, b1))
+    for (i in list.indices) {
+        for (j in list.indices) {
+            if (list[i] + list[j]==number && !i.equals(j)) return Pair(i, j)
         }
     }
     return Pair(-1, -1)

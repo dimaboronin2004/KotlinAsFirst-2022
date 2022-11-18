@@ -325,7 +325,8 @@ fun russian(n: Int): String {
             if (c == 1) builder1.append("тысяча ")
             else if (c == 2 || c == 3 || c == 4) builder1.append("тысячи ")
             else builder1.append("тысяч ")
-        } else builder1.append("тысяч ")
+        }
+        else builder1.append("тысяч ")
     }
     if (d>0) builder1.append(first[d])
     if (e>1) builder1.append(second[e])
