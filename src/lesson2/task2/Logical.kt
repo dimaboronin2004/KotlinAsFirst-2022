@@ -19,11 +19,11 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
 fun isNumberHappy(number: Int): Boolean {
-    var a=number/1000
-    var b=(number/100)%10
-    var c=(number/10)%10
-    var d=number%10
-    return ((a + b)==(c + d))
+    val a = number / 1000
+    val b = (number / 100) % 10
+    val c = (number / 10) % 10
+    val d = number % 10
+    return (a + b) == (c + d)
 }
 
 /**
@@ -33,7 +33,7 @@ fun isNumberHappy(number: Int): Boolean {
  * Определить, угрожают ли они друг другу. Вернуть true, если угрожают.
  * Считать, что ферзи не могут загораживать друг друга.
  */
-fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =TODO()
+fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO()
 
 
 /**
@@ -43,11 +43,11 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =TODO()
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
 fun daysInMonth(month: Int, year: Int): Int {
-    if (month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12) return 31
-    else if (month==4 || month==6 || month==9 || month==11) return 30
+    return if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) 31
+    else if (month == 4 || month == 6 || month == 9 || month == 11) 30
     else {
-        if (year%400==0 || (year%4==0 && year%100!=0)) return 29
-        else return 28
+        if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) 29
+        else 28
     }
 }
 
@@ -61,7 +61,7 @@ fun daysInMonth(month: Int, year: Int): Int {
 fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
-): Boolean =TODO()
+): Boolean = TODO()
 
 /**
  * Средняя (3 балла)
@@ -73,6 +73,5 @@ fun circleInside(
  * Вернуть true, если кирпич пройдёт
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    if ((a<=r && b<=s) || (a<=s && b<=r) || (a<=r && c<=s) || (c<=r && a<=s)  || (b<=r && c<=s) || (c<=r && b<=s) ) return true
-    else return false
+    return (a <= r && b <= s) || (a <= s && b <= r) || (a <= r && c <= s) || (c <= r && a <= s) || (b <= r && c <= s) || (c <= r && b <= s)
 }

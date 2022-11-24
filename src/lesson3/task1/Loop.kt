@@ -3,10 +3,8 @@
 package lesson3.task1
 
 import lesson4.task1.abs
-import kotlin.math.abs
-import kotlin.math.min
-import kotlin.math.sqrt
-import kotlin.math.pow
+import kotlin.math.*
+
 // Урок 3: циклы
 // Максимальное количество баллов = 9
 // Рекомендуемое количество баллов = 7
@@ -75,17 +73,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int {
-    var s=0
-    var n1=abs(n)
-    if (n == 0) return 0
-
-    while (n > 0) {
-        s = s + 1
-        n1 = n1 / 10
-    }
-    return s
-}
+fun digitNumber(n: Int): Int = TODO()
 
 /**
  * Простая (2 балла)
@@ -93,7 +81,7 @@ fun digitNumber(n: Int): Int {
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int =TODO()
+fun fib(n: Int): Int = TODO()
 
 /**
  * Простая (2 балла)
@@ -101,8 +89,8 @@ fun fib(n: Int): Int =TODO()
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    for (d in 2..n/2 + 1)
-        if (n%d==0) return d
+    for (d in 2..n / 2 + 1)
+        if (n % d == 0) return d
     return n
 }
 
@@ -113,10 +101,10 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    var maxdel=0
+    var maxdel = 0
     for (d in 1..n - 1)
-        if (n%d==0 && d>maxdel)
-            maxdel=d
+        if (n % d == 0 && d > maxdel)
+            maxdel = d
     return maxdel
 }
 
@@ -136,7 +124,7 @@ fun maxDivisor(n: Int): Int {
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int =TODO()
+fun collatzSteps(x: Int): Int = TODO()
 
 
 /**
@@ -146,13 +134,13 @@ fun collatzSteps(x: Int): Int =TODO()
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var m1=m
-    var n1=n
-    while (m1!=n1) {
-        if (m1>n1)  m1-=n1 else n1-=m1
+    var m1 = m
+    var n1 = n
+    while (m1 != n1) {
+        if (m1 > n1) m1 -= n1 else n1 -= m1
     }
-    val gcd=m1
-    return (m*n)/gcd
+    val gcd = m1
+    return (m * n) / gcd
 }
 
 /**
@@ -162,7 +150,7 @@ fun lcm(m: Int, n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean {return lcm(m,n)==m*n}
+fun isCoPrime(m: Int, n: Int): Boolean = lcm(m, n) == m * n
 
 /**
  * Средняя (3 балла)
@@ -171,14 +159,14 @@ fun isCoPrime(m: Int, n: Int): Boolean {return lcm(m,n)==m*n}
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int  {
-    var n1=n
-    var reversed_num = 0
-    while (n1>= 1) {
-        reversed_num = reversed_num * 10 + (n1 % 10)
-        n1=n1/ 10
+fun revert(n: Int): Int {
+    var n1 = n
+    var reversed_Num = 0
+    while (n1 >= 1) {
+        reversed_Num = reversed_Num * 10 + (n1 % 10)
+        n1 = n1 / 10
     }
-    return reversed_num
+    return reversed_Num
 }
 
 /**
@@ -190,7 +178,9 @@ fun revert(n: Int): Int  {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean {return(n== revert(n))}
+fun isPalindrome(n: Int): Boolean = n == revert(n)
+
+
 /**
  * Средняя (3 балла)
  *
@@ -199,7 +189,7 @@ fun isPalindrome(n: Int): Boolean {return(n== revert(n))}
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean =TODO()
+fun hasDifferentDigits(n: Int): Boolean = TODO()
 
 /**
  * Средняя (4 балла)
@@ -211,17 +201,26 @@ fun hasDifferentDigits(n: Int): Boolean =TODO()
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
 fun sin(x: Double, eps: Double): Double {
-    var sinus=0
-    var n=1
-    var i=0.0
-    do {
-        var element=(x.pow(n)/ factorial(n)) * ((-1.0).pow(i))
-        sinus+=element.toInt()
-        n+=2
-        i+=1.0
-    } while (abs(element)>=eps)
-    return sinus.toDouble()
+    var a = x / (2 * PI)
+    var b = x % (2 * PI)
+    var x1 = b
+    var sinus = x1
+    var n = 1
+    var number = x1
+    while (abs(number) >= eps) {
+        if (n % 2 > 0) {
+            sinus -= (x1.pow(2 * n + 1)) / (factorial(2 * n + 1))
+            n++
+            number = -(x1.pow(2 * n + 1)) / (factorial(2 * n + 1))
+        } else {
+            sinus += (x1.pow(2 * n + 1)) / (factorial(2 * n + 1))
+            n++
+            number = (x1.pow(2 * n + 1)) / (factorial(2 * n + 1))
+        }
+    }
+    return sinus
 }
+
 /**
  * Средняя (4 балла)
  *
@@ -231,7 +230,26 @@ fun sin(x: Double, eps: Double): Double {
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
-fun cos(x: Double, eps: Double): Double=TODO()
+fun cos(x: Double, eps: Double): Double {
+    var a = x / (2 * PI)
+    var b = x % (2 * PI)
+    var x1 = b
+    var cosinus = 1.0
+    var n = 1
+    var number = x
+    while (abs(number) >= eps) {
+        if (n % 2 > 0) {
+            cosinus -= (x1.pow(2 * n)) / (factorial(2 * n))
+            n++
+            number = -(x1.pow(2 * n)) / (factorial(2 * n))
+        } else {
+            cosinus += (x1.pow(2 * n)) / (factorial(2 * n))
+            n++
+            number = (x1.pow(2 * n)) / (factorial(2 * n))
+        }
+    }
+    return cosinus
+}
 
 /**
  * Сложная (4 балла)
@@ -242,7 +260,7 @@ fun cos(x: Double, eps: Double): Double=TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int =TODO()
+fun squareSequenceDigit(n: Int): Int = TODO()
 
 /**
  * Сложная (5 баллов)
@@ -253,4 +271,4 @@ fun squareSequenceDigit(n: Int): Int =TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int =TODO()
+fun fibSequenceDigit(n: Int): Int = TODO()

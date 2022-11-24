@@ -69,11 +69,9 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String {
-    var result=""
-    if ((age%10==0) || (age%10>4) || (age>110 && age<120)|| (age>10 && age<20)) result="$age лет"
-    else if (age%10==1) result="$age год"
-    else result="$age года"
-    return result
+    return if ((age % 10 == 0) || (age % 10 > 4) || (age in 111..119) || (age in 11..19)) "$age лет"
+    else if (age % 10 == 1) "$age год"
+    else "$age года"
 }
 
 /**
@@ -88,13 +86,13 @@ fun timeForHalfWay(
     t2: Double, v2: Double,
     t3: Double, v3: Double
 ): Double {
-    val s0=t1 * v1 + t2 * v2 + t3 * v3
-    val s1=t1 * v1
-    val s2=t2 * v2
-    val half=s0/2
-    if (half<=s1) return (half/v1)
-    else if (half>s1 && half<=(s1 + s2)) return (t1 + (half - s1)/v2)
-    else return (t1 + t2 + (half - s1 - s2)/v3)
+    val s0 = t1 * v1 + t2 * v2 + t3 * v3
+    val s1 = t1 * v1
+    val s2 = t2 * v2
+    val half = s0 / 2
+    if (half <= s1) return (half / v1)
+    else if (half > s1 && half <= (s1 + s2)) return (t1 + (half - s1) / v2)
+    else return (t1 + t2 + (half - s1 - s2) / v3)
 }
 
 /**
@@ -137,15 +135,15 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    val c1=maxOf(a,b,c)
-    val a1=minOf(a,b,c)
-    val b1=a + b + c - a1 - c1
-    if ((a1 + b1)>c1 && (a1 + c1)>b1 && (b1 + c1)>a1)
-        if (a1*a1 + b1*b1==c1*c1) return 1
-        else if (a1*a1 + b1*b1>c1*c1) return 0
-        else return 2
+    val c1 = maxOf(a, b, c)
+    val a1 = minOf(a, b, c)
+    val b1 = a + b + c - a1 - c1
+    return if ((a1 + b1) > c1 && (a1 + c1) > b1 && (b1 + c1) > a1)
+        if (a1 * a1 + b1 * b1 == c1 * c1) 1
+        else if (a1 * a1 + b1 * b1 > c1 * c1) 0
+        else 2
     else
-        return -1
+        -1
 }
 
 /**
@@ -156,4 +154,4 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a:Int, b: Int, c:Int, d:Int):Int =TODO()
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()

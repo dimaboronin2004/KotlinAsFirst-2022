@@ -1,7 +1,9 @@
 @file:Suppress("UNUSED_PARAMETER", "ConvertCallChainIntoSequence")
 
 package lesson5.task1
+
 import kotlin.math. *
+
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -96,7 +98,7 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  *   buildGrades(mapOf("Марат" to 3, "Семён" to 5, "Михаил" to 5))
  *     -> mapOf(5 to listOf("Семён", "Михаил"), 3 to listOf("Марат"))
  */
-fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> =TODO()
+fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> = TODO()
 
 /**
  * Простая (2 балла)
@@ -109,11 +111,11 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> =TODO()
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
 fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
-    var check=0
+    var check = 0
     for (key in a.keys) {
-        if ((key in b.keys) && (b.get(key)==a.get(key))) check+=1
+        if ((key in b.keys) && (b.get(key) == a.get(key))) check += 1
     }
-    return check==a.size
+    return check == a.size
 }
 
 /**
@@ -130,7 +132,7 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
  *   subtractOf(a = mutableMapOf("a" to "z"), mapOf("a" to "z"))
  *     -> a changes to mutableMapOf() aka becomes empty
  */
-fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): MutableMap<String, String> =TODO()
+fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): MutableMap<String, String> = TODO()
 
 /**
  * Простая (2 балла)
@@ -140,12 +142,12 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): MutableMa
  * т. е. whoAreInBoth(listOf("Марат", "Семён, "Марат"), listOf("Марат", "Марат")) == listOf("Марат")
  */
 fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
-    val exit_list= mutableSetOf<String>()
+    val exit_List = mutableSetOf<String>()
     for (element in a) {
         if (element in b)
-            exit_list += element
+            exit_List += element
     }
-    return exit_list.toList()
+    return exit_List.toList()
 }
 
 /**
@@ -165,7 +167,7 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> =TODO()
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
 
 /**
  * Средняя (4 балла)
@@ -177,7 +179,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *   averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
-fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> =TODO()
+fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> = TODO()
 
 /**
  * Средняя (4 балла)
@@ -194,7 +196,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
-fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String =TODO()
+fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String = TODO()
 
 /**
  * Средняя (3 балла)
@@ -206,10 +208,10 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
-    val st1=word.toLowerCase().toSet()
-    val st2=chars.toString().toLowerCase().toSet()
-    val st3=st1.intersect(st2)
-    return st1.size==st3.size
+    val st1 = word.toLowerCase().toSet()
+    val st2 = chars.toString().toLowerCase().toSet()
+    val st3 = st1.intersect(st2)
+    return (st1.size == st3.size && st1.isNotEmpty() && st2.isNotEmpty())
 }
 
 /**
@@ -225,16 +227,16 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
-    val set_of_elements=list.toSet()
-    var final_map= mutableMapOf<String, Int>()
-    for (element in set_of_elements) {
-        var amount=0
+    val set_Of_Elements = list.toSet()
+    var final_Map = mutableMapOf<String, Int>()
+    for (element in set_Of_Elements) {
+        var amount = 0
         for (string in list) {
-            if (string==element) amount += 1
+            if (string == element) amount += 1
         }
-        if (amount>1) final_map.put(element, amount)
+        if (amount > 1) final_Map.put(element, amount)
     }
-    return final_map
+    return final_Map
 }
 
 /**
@@ -249,7 +251,7 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  * Например:
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
-fun hasAnagrams(words: List<String>): Boolean=TODO()
+fun hasAnagrams(words: List<String>): Boolean = TODO()
 
 /**
  * Сложная (5 баллов)
@@ -285,7 +287,7 @@ fun hasAnagrams(words: List<String>): Boolean=TODO()
  *          "GoodGnome" to setOf()
  *        )
  */
-fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> =TODO()
+fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> = TODO()
 
 /**
  * Сложная (6 баллов)
@@ -307,7 +309,7 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     for (i in list.indices) {
         for (j in list.indices) {
-            if (list[i] + list[j]==number && !i.equals(j)) return Pair(i, j)
+            if (list[i] + list[j] == number && !i.equals(j)) return Pair(i, j)
         }
     }
     return Pair(-1, -1)
@@ -334,4 +336,4 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
  *     450
  *   ) -> emptySet()
  */
-fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> =TODO()
+fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()

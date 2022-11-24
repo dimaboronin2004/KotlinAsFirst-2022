@@ -123,13 +123,12 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * Модуль пустого вектора считать равным 0.0.
  */
 fun abs(v: List<Double>): Double {
-    var abs=0
-    if (v.size>0) {
+    var abs = 0
+    if (v.size > 0) {
         for (i in v.indices)
             abs = (abs + v[i] * v[i]).toInt()
-    }
-    else
-        abs=0
+    } else
+        abs = 0
     return sqrt(abs.toDouble())
 }
 
@@ -139,8 +138,8 @@ fun abs(v: List<Double>): Double {
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-    if (list.isNotEmpty()) return (list.sum()/list.size).toDouble()
-    else return 0.0
+    return if (list.isNotEmpty()) (list.sum() / list.size)
+    else 0.0
 }
 
 /**
@@ -151,7 +150,7 @@ fun mean(list: List<Double>): Double {
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> =TODO()
+fun center(list: MutableList<Double>): MutableList<Double> = TODO()
 
 /**
  * Средняя (3 балла)
@@ -161,11 +160,11 @@ fun center(list: MutableList<Double>): MutableList<Double> =TODO()
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
 fun times(a: List<Int>, b: List<Int>): Int {
-    val length=a.size
-    var C=0
+    val length = a.size
+    var c = 0
     for (i in a.indices)
-        C = C + a[i] * b[i]
-    return C
+        c = c + a[i] * b[i]
+    return c
 }
 
 /**
@@ -176,14 +175,15 @@ fun times(a: List<Int>, b: List<Int>): Int {
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int):Int {
-    var result=0
-    val x1=x.toDouble()
+fun polynom(p: List<Int>, x: Int): Int {
+    var result = 0
+    val x1 = x.toDouble()
     for (i in p.indices) {
-        result+=(p[i] * (x1.pow(i))).toInt()
+        result += (p[i] * (x1.pow(i))).toInt()
     }
     return result
 }
+
 /**
  * Средняя (3 балла)
  *
@@ -194,7 +194,7 @@ fun polynom(p: List<Int>, x: Int):Int {
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Int>): MutableList<Int> =TODO()
+fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
 
 /**
  * Средняя (3 балла)
@@ -203,7 +203,7 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> =TODO()
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> =TODO()
+fun factorize(n: Int): List<Int> = TODO()
 
 /**
  * Сложная (4 балла)
@@ -212,7 +212,7 @@ fun factorize(n: Int): List<Int> =TODO()
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String =TODO()
+fun factorizeToString(n: Int): String = TODO()
 
 /**
  * Средняя (3 балла)
@@ -222,10 +222,10 @@ fun factorizeToString(n: Int): String =TODO()
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
 fun convert(n: Int, base: Int): List<Int> {
-    var digits= listOf<Int>()
-    var n1=n
-    while (n1>0) {
-        digits=digits + (n%base)
+    var digits = mutableListOf<Int>()
+    var n1 = n
+    while (n1 > 0) {
+        digits.add(n % base)
         n1 /= base
     }
     return digits.asReversed()
@@ -242,7 +242,8 @@ fun convert(n: Int, base: Int): List<Int> {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-fun convertToString(n: Int, base: Int): String =TODO()
+fun convertToString(n: Int, base: Int): String = TODO()
+
 /**
  * Средняя (3 балла)
  *
@@ -251,10 +252,10 @@ fun convertToString(n: Int, base: Int): String =TODO()
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
 fun decimal(digits: List<Int>, base: Int): Int {
-    var result=0
-    val n=digits.size
+    var result = 0
+    val n = digits.size
     for (i in 0 until n)
-        result=result + digits[i] * base.toDouble().pow(n - i - 1).toInt()
+        result += digits[i] * base.toDouble().pow(n - i - 1).toInt()
     return result
 }
 
@@ -270,7 +271,8 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, str.toInt(base)), запрещается.
  */
-fun decimalFromString(str: String, base: Int): Int =TODO()
+fun decimalFromString(str: String, base: Int): Int = TODO()
+
 /**
  * Сложная (5 баллов)
  *
@@ -280,19 +282,19 @@ fun decimalFromString(str: String, base: Int): Int =TODO()
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    var builder=StringBuilder()
-    val thousands= listOf<String>("", "M", "MM", "MMM")
-    val hundreds= listOf<String>("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
-    val decades= listOf<String>("", "X", "XX", "XXX", "XL", "L", "LX","LXX","LXXX","XC")
-    val ones= listOf<String>("", "I", "II", "III","IV","V","VI","VII","VIII","IX")
-    val first_digit=n/1000
-    if (first_digit>0) builder.append(thousands[first_digit])
-    val second_digit=(n/100)%10
-    if (second_digit>0) builder.append(hundreds[second_digit])
-    val third_digit=(n/10)%10
-    if (third_digit>0) builder.append(decades[third_digit])
-    val fourth_digit=n%10
-    if (fourth_digit>0) builder.append(ones[fourth_digit])
+    var builder = StringBuilder()
+    val thousands = listOf<String>("", "M", "MM", "MMM")
+    val hundreds = listOf<String>("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
+    val decades = listOf<String>("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
+    val ones = listOf<String>("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")
+    val first = n / 1000
+    if (first > 0) builder.append(thousands[first])
+    val second = (n / 100) % 10
+    if (second > 0) builder.append(hundreds[second])
+    val third = (n / 10) % 10
+    if (third > 0) builder.append(decades[third])
+    val fourth = n % 10
+    if (fourth > 0) builder.append(ones[fourth])
     return builder.toString()
 }
 
@@ -304,34 +306,66 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String {
-    var builder1=StringBuilder()
-    val first= listOf<String>("", "сто ", "двести ", "триста ", "четыреста ", "пятьсот ", "шестьсот ", "семьсот ", "восемьсот ", "девятьсот ")
-    val second= listOf<String>("", "", "двадцать ", "тридцать ", "сорок ", "пятьдесят ", "шестьдесят ", "семьдесят ", "восемьдесят ", "девяносто ")
-    val exceptions= listOf<String>("десять ", "одиннадцать ", "двенадцать ", "тринадцать ", "четырнадцать ", "пятнадцать ", "шестнадцать ", "семнадцать ", "восемнадцать ", "девятнадцать ")
-    val third= listOf<String>("", "одна ", "две ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
-    val third1= listOf<String>("", "один", "два", "три", "четыре", "пять", "шесть","семь", "восемь", "девять")
-    val f=n%10
-    val e=(n/10)%10
-    val d=(n/100)%10
-    val c=(n/1000)%10
-    val b=(n/10000)%10
-    val a=n/100000
-    if (a>0) builder1.append(first[a])
-    if (b>1) builder1.append(second[b])
-    else if (b==1) builder1.append(exceptions[c])
-    if (c>0 && b!=1) builder1.append(third[c])
-    if (c!=0 || b!=0 || a!=0) {
-        if (b!=1) {
+    var builder1 = StringBuilder()
+    val first = listOf<String>(
+        "",
+        "сто ",
+        "двести ",
+        "триста ",
+        "четыреста ",
+        "пятьсот ",
+        "шестьсот ",
+        "семьсот ",
+        "восемьсот ",
+        "девятьсот "
+    )
+    val second = listOf<String>(
+        "",
+        "",
+        "двадцать ",
+        "тридцать ",
+        "сорок ",
+        "пятьдесят ",
+        "шестьдесят ",
+        "семьдесят ",
+        "восемьдесят ",
+        "девяносто "
+    )
+    val exceptions = listOf<String>(
+        "десять ",
+        "одиннадцать ",
+        "двенадцать ",
+        "тринадцать ",
+        "четырнадцать ",
+        "пятнадцать ",
+        "шестнадцать ",
+        "семнадцать ",
+        "восемнадцать ",
+        "девятнадцать "
+    )
+    val third = listOf<String>("", "одна ", "две ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
+    val third1 = listOf<String>("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    val f = n % 10
+    val e = (n / 10) % 10
+    val d = (n / 100) % 10
+    val c = (n / 1000) % 10
+    val b = (n / 10000) % 10
+    val a = n / 100000
+    if (a > 0) builder1.append(first[a])
+    if (b > 1) builder1.append(second[b])
+    else if (b == 1) builder1.append(exceptions[c])
+    if (c > 0 && b != 1) builder1.append(third[c])
+    if (c != 0 || b != 0 || a != 0) {
+        if (b != 1) {
             if (c == 1) builder1.append("тысяча ")
             else if (c == 2 || c == 3 || c == 4) builder1.append("тысячи ")
             else builder1.append("тысяч ")
-        }
-        else builder1.append("тысяч ")
+        } else builder1.append("тысяч ")
     }
-    if (d>0) builder1.append(first[d])
-    if (e>1) builder1.append(second[e])
-    else if (e==1) builder1.append(exceptions[f])
-    if (f>0 && e!=1) builder1.append(third1[f])
+    if (d > 0) builder1.append(first[d])
+    if (e > 1) builder1.append(second[e])
+    else if (e == 1) builder1.append(exceptions[f])
+    if (f > 0 && e != 1) builder1.append(third1[f])
     return builder1.toString().trim()
 }
 

@@ -2,6 +2,7 @@
 
 package lesson7.task1
 
+import kotlinx.html.dom.write
 import java.io.File
 
 // Урок 7: работа с файлами
@@ -63,9 +64,9 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Подчёркивание в середине и/или в конце строк значения не имеет.
  */
 fun deleteMarked(inputName: String, outputName: String) {
-    val writer=File(outputName).bufferedWriter()
-    val lines=File(inputName).readLines()
-    val appropriate= mutableListOf<String>()
+    val writer = File(outputName).bufferedWriter()
+    val lines = File(inputName).readLines()
+    val appropriate = mutableListOf<String>()
     for (line in lines) {
         if (!line.startsWith("_")) appropriate.add(line)
     }
@@ -86,17 +87,17 @@ fun deleteMarked(inputName: String, outputName: String) {
  *
  */
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
-    val text=File(inputName).readText().toLowerCase()
-    val final_list= mutableMapOf<String, Int>()
+    val text = File(inputName).readText().toLowerCase()
+    val final_List = mutableMapOf<String, Int>()
     for (substring in substrings) {
-        var st= mutableSetOf<Int>()
+        var st = mutableSetOf<Int>()
         for (j in text.indices) {
-            var a=text.toLowerCase().indexOf(substring.toLowerCase(), j)
+            var a = text.toLowerCase().indexOf(substring.toLowerCase(), j)
             st.add(a)
         }
-        if (!text.endsWith(substring)) final_list.put(substring, st.size - 1) else final_list.put(substring, st.size)
+        if (!text.endsWith(substring)) final_List.put(substring, st.size - 1) else final_List.put(substring, st.size)
     }
-    return final_list
+    return final_List
 }
 
 
@@ -116,7 +117,6 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
 fun sibilants(inputName: String, outputName: String) {
     TODO()
 }
-
 
 
 /**
@@ -259,20 +259,20 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
     var strings = File(inputName).readLines()
-    val list_of_lengths= mutableListOf<Int>()
-    val list_of_words= mutableListOf<String>()
-    val result_list= mutableListOf<String>()
+    val list_Of_Lengths = mutableListOf<Int>()
+    val list_Of_Words = mutableListOf<String>()
+    val result_List = mutableListOf<String>()
     for (string in strings) {
-        if (string.length==string.toLowerCase().toSet().size) {
-            list_of_words.add(string)
-            list_of_lengths.add(string.length)
+        if (string.length == string.toLowerCase().toSet().size) {
+            list_Of_Words.add(string)
+            list_Of_Lengths.add(string.length)
         }
     }
-    for (word in list_of_words) {
-        if (word.length==list_of_lengths.max()) result_list.add(word)
+    for (word in list_Of_Words) {
+        if (word.length == list_Of_Lengths.max()) result_List.add(word)
     }
-    if (result_list.size==1) writer.write(result_list.joinToString())
-    else writer.write(result_list.joinToString(separator=", "))
+    if (result_List.size == 1) writer.write(result_List.joinToString())
+    else writer.write(result_List.joinToString(separator = ", "))
     writer.close()
 }
 
@@ -327,6 +327,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
 
 /**
  * Сложная (23 балла)
+ *
  *
  * Реализовать транслитерацию текста в заданном формате разметки в формат разметки HTML.
  *
