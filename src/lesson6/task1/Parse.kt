@@ -336,6 +336,9 @@ fun plusMinus(expression: String): Int {
 fun firstDuplicateIndex(str: String): Int {
     val words = str.split(" ")
     if (words.size == 1) return -1
+    else if (words.size==2) {
+        return if (words[0].lowercase()==words[1].lowercase()) 0 else 1
+    }
     else {
         var result = 0
         for (i in 1 until words.size) {
