@@ -129,7 +129,7 @@ fun dateStrToDigit(str: String): String {
             if (month in months_To_Nums.keys) {
                 if (day.toInt() <= days_To_Month_Leap.get(month)!!) {
                     if (day.toInt() <= 10 && "0" in day) list.add(day)
-                    else if (day.toInt()<=10 && "0" !in day) list.add("0" + day)
+                    else if (day.toInt()<=10 && "0" !in day) list.add("0$day")
                     else list.add(day)
                     months_To_Nums.get(month)?.let { list.add(it) }
                     list.add(year.toString())
@@ -336,10 +336,7 @@ fun plusMinus(expression: String): Int {
 fun firstDuplicateIndex(str: String): Int {
     val words = str.split(" ")
     if (words.size == 1) return -1
-    else if (words.size == 2) {
-        if (words[0] == words[1]) return 0
-        else return -1
-    } else {
+    else {
         var result = 0
         for (i in 1 until words.size) {
             if (words[i].lowercase() == words[i - 1].lowercase()) {
