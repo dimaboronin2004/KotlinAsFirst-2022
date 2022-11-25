@@ -93,12 +93,32 @@ fun dateStrToDigit(str: String): String {
         "декабря" to "12"
     )
     val days_To_Month_Leap = mapOf(
-        "января" to 31, "февраля" to 29, "марта" to 31, "апреля" to 30, "мая" to 31,
-        "июня" to 30, "июля" to 31, "августа" to 31, "сентября" to 30, "октября" to 31, "ноября" to 30, "декабря" to 31
+        "января" to 31,
+        "февраля" to 29,
+        "марта" to 31,
+        "апреля" to 30,
+        "мая" to 31,
+        "июня" to 30,
+        "июля" to 31,
+        "августа" to 31,
+        "сентября" to 30,
+        "октября" to 31,
+        "ноября" to 30,
+        "декабря" to 31
     )
     val days_To_Month_Usual = mapOf(
-        "января" to 31, "февраля" to 28, "марта" to 31, "апреля" to 30, "мая" to 31,
-        "июня" to 30, "июля" to 31, "августа" to 31, "сентября" to 30, "октября" to 31, "ноября" to 30, "декабря" to 31
+        "января" to 31,
+        "февраля" to 28,
+        "марта" to 31,
+        "апреля" to 30,
+        "мая" to 31,
+        "июня" to 30,
+        "июля" to 31,
+        "августа" to 31,
+        "сентября" to 30,
+        "октября" to 31,
+        "ноября" to 30,
+        "декабря" to 31
     )
     if (str.matches(Regex("""\d* [а-я]* \d*"""))) {
         val components = str.split(" ")
@@ -108,7 +128,7 @@ fun dateStrToDigit(str: String): String {
         if ((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)) {
             if (month in months_To_Nums.keys) {
                 if (day.toInt() <= days_To_Month_Leap.get(month)!!) {
-                    if (day.toInt() <= 10 || "0" !in day) list.add(day) else list.add("0" + day)
+                    if (day.toInt() <= 10 || "0" in day) list.add(day) else list.add("0" + day)
                     months_To_Nums.get(month)?.let { list.add(it) }
                     list.add(year.toString())
                 } else return ""
@@ -153,12 +173,32 @@ fun dateDigitToStr(digital: String): String {
         "12" to "декабря"
     )
     val days_To_Month_Leap1 = mapOf(
-        "01" to 31, "02" to 29, "03" to 31, "04" to 30, "05" to 31,
-        "06" to 30, "07" to 31, "08" to 31, "09" to 30, "10" to 31, "11" to 30, "12" to 31
+        "01" to 31,
+        "02" to 29,
+        "03" to 31,
+        "04" to 30,
+        "05" to 31,
+        "06" to 30,
+        "07" to 31,
+        "08" to 31,
+        "09" to 30,
+        "10" to 31,
+        "11" to 30,
+        "12" to 31
     )
     val days_To_Month_Usual1 = mapOf(
-        "01" to 31, "02" to 28, "03" to 31, "04" to 30, "05" to 31,
-        "06" to 30, "07" to 31, "08" to 31, "09" to 30, "10" to 31, "11" to 30, "12" to 31
+        "01" to 31,
+        "02" to 28,
+        "03" to 31,
+        "04" to 30,
+        "05" to 31,
+        "06" to 30,
+        "07" to 31,
+        "08" to 31,
+        "09" to 30,
+        "10" to 31,
+        "11" to 30,
+        "12" to 31
     )
     if (digital.matches(Regex("""\d+\.\d+\.\d+"""))) {
         val parts = digital.split(".")

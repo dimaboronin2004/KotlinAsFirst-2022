@@ -123,13 +123,11 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * Модуль пустого вектора считать равным 0.0.
  */
 fun abs(v: List<Double>): Double {
-    var abs = 0
-    if (v.size > 0) {
-        for (i in v.indices)
-            abs = (abs + v[i] * v[i]).toInt()
-    } else
-        abs = 0
-    return abs.toDouble()
+    val resultList= mutableListOf<Double>()
+    for (a in v) {
+        resultList.add(a.pow(2))
+    }
+    return sqrt(resultList.sum())
 }
 
 /**
