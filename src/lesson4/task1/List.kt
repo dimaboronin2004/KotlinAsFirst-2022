@@ -129,7 +129,7 @@ fun abs(v: List<Double>): Double {
             abs = (abs + v[i] * v[i]).toInt()
     } else
         abs = 0
-    return sqrt(abs.toDouble())
+    return abs.toDouble()
 }
 
 /**
@@ -343,8 +343,30 @@ fun russian(n: Int): String {
         "восемнадцать ",
         "девятнадцать "
     )
-    val third = listOf<String>("", "одна ", "две ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
-    val third1 = listOf<String>("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    val third = listOf<String>(
+        "",
+        "одна ",
+        "две ",
+        "три ",
+        "четыре ",
+        "пять ",
+        "шесть ",
+        "семь ",
+        "восемь ",
+        "девять "
+    )
+    val third1 = listOf<String>(
+        "",
+        "один",
+        "два",
+        "три",
+        "четыре",
+        "пять",
+        "шесть",
+        "семь",
+        "восемь",
+        "девять"
+    )
     val f = n % 10
     val e = (n / 10) % 10
     val d = (n / 100) % 10

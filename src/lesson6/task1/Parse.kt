@@ -108,7 +108,7 @@ fun dateStrToDigit(str: String): String {
         if ((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)) {
             if (month in months_To_Nums.keys) {
                 if (day.toInt() <= days_To_Month_Leap.get(month)!!) {
-                    if (day.toInt() >= 10 || "0" !in day) list.add(day) else list.add("0" + day)
+                    if (day.toInt() <= 10 || "0" !in day) list.add(day) else list.add("0" + day)
                     months_To_Nums.get(month)?.let { list.add(it) }
                     list.add(year.toString())
                 } else return ""
