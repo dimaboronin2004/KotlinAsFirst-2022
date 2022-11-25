@@ -87,12 +87,12 @@ fun deleteMarked(inputName: String, outputName: String) {
  *
  */
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
-    val text = File(inputName).readText().toLowerCase()
+    val text = File(inputName).readText().lowercase()
     val final_List = mutableMapOf<String, Int>()
     for (substring in substrings) {
-        var st = mutableSetOf<Int>()
+        val st = mutableSetOf<Int>()
         for (j in text.indices) {
-            var a = text.toLowerCase().indexOf(substring.toLowerCase(), j)
+            val a = text.lowercase().indexOf(substring.lowercase(), j)
             st.add(a)
         }
         if (!text.endsWith(substring)) final_List.put(substring, st.size - 1) else final_List.put(substring, st.size)
@@ -258,12 +258,12 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
  */
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
-    var strings = File(inputName).readLines()
+    val strings = File(inputName).readLines()
     val list_Of_Lengths = mutableListOf<Int>()
     val list_Of_Words = mutableListOf<String>()
     val result_List = mutableListOf<String>()
     for (string in strings) {
-        if (string.length == string.toLowerCase().toSet().size) {
+        if (string.length == string.lowercase().toSet().size) {
             list_Of_Words.add(string)
             list_Of_Lengths.add(string.length)
         }

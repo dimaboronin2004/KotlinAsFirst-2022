@@ -158,7 +158,6 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
 fun times(a: List<Int>, b: List<Int>): Int {
-    val length = a.size
     var c = 0
     for (i in a.indices)
         c = c + a[i] * b[i]
@@ -220,7 +219,7 @@ fun factorizeToString(n: Int): String = TODO()
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
 fun convert(n: Int, base: Int): List<Int> {
-    var digits = mutableListOf<Int>()
+    val digits = mutableListOf<Int>()
     var n1 = n
     while (n1 > 0) {
         digits.add(n % base)
@@ -280,7 +279,7 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    var builder = StringBuilder()
+    val builder = StringBuilder()
     val thousands = listOf<String>("", "M", "MM", "MMM")
     val hundreds = listOf<String>("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
     val decades = listOf<String>("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
@@ -304,7 +303,7 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String {
-    var builder1 = StringBuilder()
+    val builder1 = StringBuilder()
     val first = listOf<String>(
         "",
         "сто ",

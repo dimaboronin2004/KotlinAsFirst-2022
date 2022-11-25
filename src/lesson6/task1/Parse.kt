@@ -77,7 +77,7 @@ fun main() {
  * входными данными.
  */
 fun dateStrToDigit(str: String): String {
-    var list = mutableListOf<String>()
+    val list = mutableListOf<String>()
     val months_To_Nums = mapOf(
         "января" to "01",
         "февраля" to "02",
@@ -340,7 +340,7 @@ fun firstDuplicateIndex(str: String): Int {
     } else {
         var result = 0
         for (i in 1 until words.size) {
-            if (words[i].toLowerCase() == words[i - 1].toLowerCase()) {
+            if (words[i].lowercase() == words[i - 1].lowercase()) {
                 for (j in 0 until i - 1) {
                     result += (words[j]).length + 1
                 }
