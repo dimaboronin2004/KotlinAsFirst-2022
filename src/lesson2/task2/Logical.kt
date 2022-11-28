@@ -42,14 +42,14 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO()
  * Дан номер месяца (от 1 до 12 включительно) и год (положительный).
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
-fun daysInMonth(month: Int, year: Int): Int {
-    return if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) 31
+fun daysInMonth(month: Int, year: Int): Int =
+    if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) 31
     else if (month == 4 || month == 6 || month == 9 || month == 11) 30
     else {
         if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) 29
         else 28
     }
-}
+
 
 /**
  * Простая (2 балла)
@@ -72,11 +72,11 @@ fun circleInside(
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    return (a <= r && b <= s)
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean =
+    (a <= r && b <= s)
             || (a <= s && b <= r)
-            || (a <= r && c <= s)
-            || (c <= r && a <= s)
-            || (b <= r && c <= s)
-            || (c <= r && b <= s)
-}
+            ||(a <= r && c <= s)
+            ||(c <= r && a <= s)
+            ||(b <= r && c <= s)
+            ||(c <= r && b <= s)
+

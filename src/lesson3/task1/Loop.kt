@@ -161,12 +161,12 @@ fun isCoPrime(m: Int, n: Int): Boolean = lcm(m, n) == m * n
  */
 fun revert(n: Int): Int {
     var n1 = n
-    var reversed_Num = 0
+    var reversedNum = 0
     while (n1 >= 1) {
-        reversed_Num = reversed_Num * 10 + (n1 % 10)
+        reversedNum = reversedNum * 10 + (n1 % 10)
         n1 = n1 / 10
     }
-    return reversed_Num
+    return reversedNum
 }
 
 /**
@@ -207,15 +207,15 @@ fun sin(x: Double, eps: Double): Double {
     var n = 1
     var number = x1
     while (abs(number) >= eps) {
+        val element=x1.pow(2 * n + 1) / factorial(2 * n + 1)
         if (n % 2 > 0) {
-            sinus -= (x1.pow(2 * n + 1)) / (factorial(2 * n + 1))
-            n++
-            number = -(x1.pow(2 * n + 1)) / (factorial(2 * n + 1))
+            sinus -= element
+            number = -element
         } else {
-            sinus += (x1.pow(2 * n + 1)) / (factorial(2 * n + 1))
-            n++
-            number = (x1.pow(2 * n + 1)) / (factorial(2 * n + 1))
+            sinus += element
+            number = element
         }
+        n++
     }
     return sinus
 }
@@ -236,15 +236,15 @@ fun cos(x: Double, eps: Double): Double {
     var n = 1
     var number = x
     while (abs(number) >= eps) {
+        val element=x1.pow(2 * n) / (factorial(2 * n))
         if (n % 2 > 0) {
-            cosinus -= (x1.pow(2 * n)) / (factorial(2 * n))
-            n++
-            number = -(x1.pow(2 * n)) / (factorial(2 * n))
+            cosinus -= element
+            number = -element
         } else {
-            cosinus += (x1.pow(2 * n)) / (factorial(2 * n))
-            n++
-            number = (x1.pow(2 * n)) / (factorial(2 * n))
+            cosinus += element
+            number = element
         }
+        n++
     }
     return cosinus
 }
