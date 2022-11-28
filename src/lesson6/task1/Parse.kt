@@ -344,7 +344,9 @@ fun firstDuplicateIndex(str: String): Int {
         for (i in 1 until words.size) {
             if (words[i].lowercase() == words[i - 1].lowercase()) {
                 for (j in 0 until i - 1) {
-                    result += (words[j]).length + 1
+                    while (words[j]!=words[j + 1]) {
+                        result += (words[j]).length + 1
+                    }
                 }
             }
         }
