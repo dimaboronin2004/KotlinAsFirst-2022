@@ -372,7 +372,8 @@ fun mostExpensive(description: String): String {
     if (description.isEmpty()) return ""
     for (string in splitted) {
         val sublist=string.split(" ")
-        if (sublist.size.equals(2) && sublist[0].isNotEmpty() && sublist[1].toDouble()>=0) itemToPrice.put(sublist[1].toDouble(), sublist[0])
+        if (sublist.size.equals(2) && sublist[0].isNotEmpty() && sublist[1].toDouble()>=0)
+            itemToPrice.put(sublist[1].toDouble(), sublist[0])
         else return ""
     }
     for (cost in itemToPrice.keys) {
