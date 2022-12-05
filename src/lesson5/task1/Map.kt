@@ -111,9 +111,9 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> = TODO()
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
 fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
-    var flag=true
+    var flag = true
     for ((key, value) in a) {
-        if (!(key in b.keys && b[key]==value)) flag=false
+        if (!(key in b.keys && b[key] == value)) flag = false
     }
     return flag
 }
@@ -225,7 +225,7 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
     val finalMap = mutableMapOf<String, Int>()
     for (element in setOfElements) {
         var amount = 0
-        for (i  in list.indices) {
+        for (i in list.indices) {
             if (list[i] == element) amount += 1
         }
         if (amount > 1) finalMap.put(element, amount)
@@ -301,12 +301,12 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    val map= mutableMapOf<Int, Int>()
+    val map = mutableMapOf<Int, Int>()
     for (i in list.indices) {
         map.put(list[i], i)
     }
     for (key in map.keys) {
-        if ((number - key) in map.keys && key!=(number - key))
+        if ((number - key) in map.keys && map[key] != map[number - key])
             return Pair(
                 min(map[key]!!, map[number - key]!!),
                 max(map[key]!!, map[number - key]!!)
@@ -337,10 +337,10 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
  *   ) -> emptySet()
  */
 fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> {
-    val items= mutableListOf<String>()
-    val weights= mutableListOf<Int>()
-    val costs= mutableListOf<Int>()
-    val found= mutableSetOf<String>()
+    val items = mutableListOf<String>()
+    val weights = mutableListOf<Int>()
+    val costs = mutableListOf<Int>()
+    val found = mutableSetOf<String>()
     for (item in treasures.keys) {
         items.add(item)
     }
@@ -348,23 +348,23 @@ fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<Strin
         weights.add(pair.first)
         costs.add(pair.second)
     }
-    var capacity1=capacity
-    var counter=items.size
-    val arrayList=Array(items.size + 1) {Array(capacity + 1) {0} }
+    var capacity1 = capacity
+    var counter = items.size
+    val arrayList = Array(items.size + 1) { Array(capacity + 1) { 0 } }
     for (x in 1..items.size) {
         for (y in 0..capacity) {
-            if (weights[x - 1]>y)
-                arrayList[x][y]=arrayList[x - 1][y]
+            if (weights[x - 1] > y)
+                arrayList[x][y] = arrayList[x - 1][y]
             else
-                arrayList[x][y]=max(arrayList[x - 1][y], arrayList[x - 1][y - weights[x - 1]] + costs[x - 1])
+                arrayList[x][y] = max(arrayList[x - 1][y], arrayList[x - 1][y - weights[x - 1]] + costs[x - 1])
         }
     }
-    while (counter>0) {
+    while (counter > 0) {
         if (!arrayList[counter][capacity1].equals(arrayList[counter - 1][capacity1])) {
             found.add(items[counter - 1])
-            capacity1-=weights[counter - 1]
+            capacity1 -= weights[counter - 1]
         }
-        counter-=1
+        counter -= 1
     }
     return found
 }
