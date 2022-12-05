@@ -130,7 +130,7 @@ fun dateStrToDigit(str: String): String {
         if (month in monthsToNums.keys) {
             if (day.toInt() <= daysToMonthLeap.get(month)!!) {
                 if (day.toInt() <= 10 && "0" in day) list.add(day)
-                else if (day.toInt()<=10 && "0" !in day) list.add("0$day")
+                else if (day.toInt() <= 10 && "0" !in day) list.add("0$day")
                 else list.add(day)
                 monthsToNums.get(month)?.let { list.add(it) }
                 list.add(year.toString())
@@ -244,14 +244,14 @@ fun dateDigitToStr(digital: String): String {
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
 fun flattenPhoneNumber(phone: String): String {
-    val check_String_2="+0123456789"
-    val builder=StringBuilder()
+    val checkString = "+0123456789"
+    val builder = StringBuilder()
     if (phone.contains(Regex("""\( *\)""")) ||
         phone.matches(Regex("""\+ ?\d""")) ||
         !phone.matches(Regex("""(\+? *\d[- \d]*(\([-\d ]+\)[-\d ]+)?)"""))
     ) return ""
     for (symbol in phone) {
-        if (symbol in check_String_2) builder.append(symbol)
+        if (symbol in checkString) builder.append(symbol)
     }
     return builder.toString()
 }
@@ -267,25 +267,18 @@ fun flattenPhoneNumber(phone: String): String {
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
+    if (jumps.contains(Regex("""[^\d\s\-%]""")) ||
+        jumps.contains(Regex("""([%\-])(%|-|\d)|(%|-|\d)([%\-])""")) ||
+        jumps.isEmpty()
+    )
+        return -1
     val numsAndChars = jumps.split(" ")
     val notDigits = mutableListOf("-", "%")
-    val finalResults = mutableListOf<Int>()
-    var flag=true
-    val digitChars = listOf<String>("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
-    if (jumps.isEmpty()) return -1
-    return try {
-        for (i in digitChars) {
-            if (i !in digitChars) flag=false
-        }
-        if (flag) {
-            for (element in numsAndChars) {
-                if (element !in notDigits) finalResults.add(element.toInt())
-            }
-            if (finalResults.isNotEmpty()) return finalResults.max() else -1
-        } else -1
-    } catch (e: NumberFormatException) {
-        -1
+    var max = -1
+    for (element in numsAndChars) {
+        if (element !in notDigits && element.toInt() > max) max = element.toInt()
     }
+    return max
 }
 
 /**
@@ -311,13 +304,14 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
 fun plusMinus(expression: String): Int {
-    if (!"$expression + ".matches(Regex("""(\d+ [+-] )+"""))) throw IllegalArgumentException(expression)
+    if (!"$expression + ".matches(Regex("""(\d+ [+-] )+""")))
+        throw IllegalArgumentException(expression)
     val numsAndChars = expression.split(" ")
-    var res=0
-    res+=(numsAndChars[0].toInt())
+    var res = 0
+    res += (numsAndChars[0].toInt())
     for (i in 2 until numsAndChars.size) {
-        if (numsAndChars[i - 1] == "+") res+=numsAndChars[i].toInt()
-        else if (numsAndChars[i - 1] == "-") res+=((numsAndChars[i].toInt()) * (-1))
+        if (numsAndChars[i - 1] == "+") res += numsAndChars[i].toInt()
+        else if (numsAndChars[i - 1] == "-") res += ((numsAndChars[i].toInt()) * (-1))
     }
     return res
 }
@@ -331,7 +325,7 @@ fun plusMinus(expression: String): Int {
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int =TODO()
+fun firstDuplicateIndex(str: String): Int = TODO()
 
 /**
  * Сложная (6 баллов)
@@ -345,18 +339,18 @@ fun firstDuplicateIndex(str: String): Int =TODO()
  * Все цены должны быть больше нуля либо равны нулю.
  */
 fun mostExpensive(description: String): String {
-    val splitted=description.split("; ")
-    var max=-1.0
-    val itemToPrice= mutableMapOf<Double, String>()
+    val splitted = description.split("; ")
+    var max = -1.0
+    val itemToPrice = mutableMapOf<Double, String>()
     if (description.isEmpty()) return ""
     for (string in splitted) {
-        val sublist=string.split(" ")
-        if (sublist.size==2 && sublist[0].isNotEmpty() && sublist[1].toDouble()>=0)
+        val sublist = string.split(" ")
+        if (sublist.size == 2 && sublist[0].isNotEmpty() && sublist[1].toDouble() >= 0)
             itemToPrice.put(sublist[1].toDouble(), sublist[0])
         else return ""
     }
     for (cost in itemToPrice.keys) {
-        if (cost>max) max=cost
+        if (cost > max) max = cost
     }
     return itemToPrice.get(max)!!
 }
