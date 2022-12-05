@@ -111,11 +111,11 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> = TODO()
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
 fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
-    var check = 0
-    for (key in a.keys) {
-        if ((key in b.keys) && (b.get(key) == a.get(key))) check += 1
+    var flag=true
+    for ((key, value) in a) {
+        if (!(key in b.keys && b[key]==value)) flag=false
     }
-    return check == a.size
+    return flag
 }
 
 /**
@@ -201,13 +201,11 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
-    if (chars.isEmpty() || word.isEmpty()) return false
-    else {
-        val st1 = word.lowercase().toSet()
-        val st2 = chars.toString().lowercase().toSet()
-        val st3 = st1.intersect(st2)
-        return (st1.size == st3.size)
-    }
+    if (word.isEmpty() && chars.isEmpty()) return true
+    val st1 = word.lowercase().toSet()
+    val st2 = chars.toString().lowercase().toSet()
+    val st3 = st1.intersect(st2)
+    return (st1.size == st3.size)
 }
 
 /**
@@ -223,16 +221,16 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
-    val set_Of_Elements = list.toSet()
-    val final_Map = mutableMapOf<String, Int>()
-    for (element in set_Of_Elements) {
+    val setOfElements = list.toSet()
+    val finalMap = mutableMapOf<String, Int>()
+    for (element in setOfElements) {
         var amount = 0
-        for (string in list) {
-            if (string == element) amount += 1
+        for (i  in list.indices) {
+            if (list[i] == element) amount += 1
         }
-        if (amount > 1) final_Map.put(element, amount)
+        if (amount > 1) finalMap.put(element, amount)
     }
-    return final_Map
+    return finalMap
 }
 
 /**

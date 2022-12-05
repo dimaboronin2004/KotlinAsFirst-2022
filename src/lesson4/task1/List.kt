@@ -17,16 +17,15 @@ import kotlin.math.pow
  *
  * Найти все корни уравнения x^2 = y
  */
-fun sqRoots(y: Double) =
-    when {
-        y < 0 -> listOf()
-        y == 0.0 -> listOf(0.0)
-        else -> {
-            val root = sqrt(y)
-            // Результат!
-            listOf(-root, root)
-        }
+fun sqRoots(y: Double) = when {
+    y < 0 -> listOf()
+    y == 0.0 -> listOf(0.0)
+    else -> {
+        val root = sqrt(y)
+        // Результат!
+        listOf(-root, root)
     }
+}
 
 /**
  * Пример
@@ -130,9 +129,8 @@ fun abs(v: List<Double>): Double = sqrt(v.map({ it * it }).sum())
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double =
-    if (list.isNotEmpty()) (list.sum() / list.size)
-    else 0.0
+fun mean(list: List<Double>): Double = if (list.isNotEmpty()) (list.sum() / list.size)
+else 0.0
 
 
 /**
@@ -154,8 +152,7 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  */
 fun times(a: List<Int>, b: List<Int>): Int {
     var c = 0
-    for (i in a.indices)
-        c += a[i] * b[i]
+    for (i in a.indices) c += a[i] * b[i]
     return c
 }
 
@@ -168,7 +165,7 @@ fun times(a: List<Int>, b: List<Int>): Int {
  * Значение пустого многочлена равно 0 при любом x.
  */
 fun polynom(p: List<Int>, x: Int): Int {
-    val newList=p.mapIndexed { idx, value -> value * x.toDouble().pow(idx) }
+    val newList = p.mapIndexed { idx, value -> value * x.toDouble().pow(idx) }
     return newList.sum().toInt()
 }
 
@@ -209,15 +206,7 @@ fun factorizeToString(n: Int): String = TODO()
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int> {
-    val digits = mutableListOf<Int>()
-    var n1 = n
-    while (n1 > 0) {
-        digits.add(n % base)
-        n1 /= base
-    }
-    return digits.asReversed()
-}
+fun convert(n: Int, base: Int): List<Int> = TODO()
 
 /**
  * Сложная (4 балла)
@@ -242,8 +231,7 @@ fun convertToString(n: Int, base: Int): String = TODO()
 fun decimal(digits: List<Int>, base: Int): Int {
     var result = 0
     val n = digits.size
-    for (i in 0 until n)
-        result += digits[i] * base.toDouble().pow(n - i - 1).toInt()
+    for (i in 0 until n) result += digits[i] * base.toDouble().pow(n - i - 1).toInt()
     return result
 }
 
@@ -296,16 +284,7 @@ fun roman(n: Int): String {
 fun russian(n: Int): String {
     val builder1 = StringBuilder()
     val first = listOf<String>(
-        "",
-        "сто ",
-        "двести ",
-        "триста ",
-        "четыреста ",
-        "пятьсот ",
-        "шестьсот ",
-        "семьсот ",
-        "восемьсот ",
-        "девятьсот "
+        "", "сто ", "двести ", "триста ", "четыреста ", "пятьсот ", "шестьсот ", "семьсот ", "восемьсот ", "девятьсот "
     )
     val second = listOf<String>(
         "",
@@ -332,28 +311,10 @@ fun russian(n: Int): String {
         "девятнадцать "
     )
     val third = listOf<String>(
-        "",
-        "одна ",
-        "две ",
-        "три ",
-        "четыре ",
-        "пять ",
-        "шесть ",
-        "семь ",
-        "восемь ",
-        "девять "
+        "", "одна ", "две ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять "
     )
     val third1 = listOf<String>(
-        "",
-        "один",
-        "два",
-        "три",
-        "четыре",
-        "пять",
-        "шесть",
-        "семь",
-        "восемь",
-        "девять"
+        "", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"
     )
     val f = n % 10
     val e = (n / 10) % 10

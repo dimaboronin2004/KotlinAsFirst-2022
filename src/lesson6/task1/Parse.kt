@@ -3,6 +3,7 @@
 package lesson6.task1
 
 import java.lang.IllegalArgumentException
+import java.lang.StringBuilder
 
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
@@ -78,7 +79,7 @@ fun main() {
  */
 fun dateStrToDigit(str: String): String {
     val list = mutableListOf<String>()
-    val months_To_Nums = mapOf(
+    val monthsToNums = mapOf(
         "января" to "01",
         "февраля" to "02",
         "марта" to "03",
@@ -92,7 +93,7 @@ fun dateStrToDigit(str: String): String {
         "ноября" to "11",
         "декабря" to "12"
     )
-    val days_To_Month_Leap = mapOf(
+    val daysToMonthLeap = mapOf(
         "января" to 31,
         "февраля" to 29,
         "марта" to 31,
@@ -106,7 +107,7 @@ fun dateStrToDigit(str: String): String {
         "ноября" to 30,
         "декабря" to 31
     )
-    val days_To_Month_Usual = mapOf(
+    val daysToMonthUsual = mapOf(
         "января" to 31,
         "февраля" to 28,
         "марта" to 31,
@@ -120,32 +121,32 @@ fun dateStrToDigit(str: String): String {
         "ноября" to 30,
         "декабря" to 31
     )
-    if (str.matches(Regex("""\d* [а-я]* \d*"""))) {
-        val components = str.split(" ")
-        val day = components[0]
-        val month = components[1]
-        val year = components[2].toInt()
-        if ((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)) {
-            if (month in months_To_Nums.keys) {
-                if (day.toInt() <= days_To_Month_Leap.get(month)!!) {
-                    if (day.toInt() <= 10 && "0" in day) list.add(day)
-                    else if (day.toInt()<=10 && "0" !in day) list.add("0$day")
-                    else list.add(day)
-                    months_To_Nums.get(month)?.let { list.add(it) }
-                    list.add(year.toString())
-                } else return ""
+    if (!(str.matches(Regex("""\d* [а-я]* \d*""")))) return ""
+    val components = str.split(" ")
+    val day = components[0]
+    val month = components[1]
+    val year = components[2].toInt()
+    if ((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)) {
+        if (month in monthsToNums.keys) {
+            if (day.toInt() <= daysToMonthLeap.get(month)!!) {
+                if (day.toInt() <= 10 && "0" in day) list.add(day)
+                else if (day.toInt()<=10 && "0" !in day) list.add("0$day")
+                else list.add(day)
+                monthsToNums.get(month)?.let { list.add(it) }
+                list.add(year.toString())
             } else return ""
-        } else {
-            if (month in months_To_Nums.keys) {
-                if (day.toInt() <= days_To_Month_Usual.get(month)!!) {
-                    if (day.toInt() >= 10) list.add(day) else list.add("0" + day)
-                    months_To_Nums.get(month)?.let { list.add(it) }
-                    list.add(year.toString())
-                } else return ""
+        } else return ""
+    } else {
+        if (month in monthsToNums.keys) {
+            if (day.toInt() <= daysToMonthUsual.get(month)!!) {
+                if (day.toInt() >= 10) list.add(day) else list.add("0" + day)
+                monthsToNums.get(month)?.let { list.add(it) }
+                list.add(year.toString())
             } else return ""
-        }
-        return list.joinToString(separator = ".")
-    } else return ""
+        } else return ""
+    }
+    return list.joinToString(separator = ".")
+
 }
 
 /**
@@ -160,7 +161,7 @@ fun dateStrToDigit(str: String): String {
  */
 fun dateDigitToStr(digital: String): String {
     val list1 = mutableListOf<String>()
-    val nums_To_Months = mapOf(
+    val numsToMonths = mapOf(
         "01" to "января",
         "02" to "февраля",
         "03" to "марта",
@@ -174,7 +175,7 @@ fun dateDigitToStr(digital: String): String {
         "11" to "ноября",
         "12" to "декабря"
     )
-    val days_To_Month_Leap1 = mapOf(
+    val daysToMonthLeap1 = mapOf(
         "01" to 31,
         "02" to 29,
         "03" to 31,
@@ -188,7 +189,7 @@ fun dateDigitToStr(digital: String): String {
         "11" to 30,
         "12" to 31
     )
-    val days_To_Month_Usual1 = mapOf(
+    val daysToMonthUsual1 = mapOf(
         "01" to 31,
         "02" to 28,
         "03" to 31,
@@ -202,30 +203,30 @@ fun dateDigitToStr(digital: String): String {
         "11" to 30,
         "12" to 31
     )
-    if (digital.matches(Regex("""\d+\.\d+\.\d+"""))) {
-        val parts = digital.split(".")
-        val day1 = parts[0].toInt()
-        val month1 = parts[1]
-        val year1 = parts[2].toInt()
-        if ((year1 % 400 == 0) || (year1 % 4 == 0 && year1 % 100 != 0)) {
-            if (month1 in nums_To_Months.keys) {
-                if (day1 <= days_To_Month_Leap1.get(month1)!!) {
-                    list1.add(day1.toString())
-                    nums_To_Months.get(month1)?.let { list1.add(it) }
-                    list1.add(year1.toString())
-                } else return ""
+    if (!(digital.matches(Regex("""\d+\.\d+\.\d+""")))) return ""
+    val parts = digital.split(".")
+    val day1 = parts[0].toInt()
+    val month1 = parts[1]
+    val year1 = parts[2].toInt()
+    if ((year1 % 400 == 0) || (year1 % 4 == 0 && year1 % 100 != 0)) {
+        if (month1 in numsToMonths.keys) {
+            if (day1 <= daysToMonthLeap1.get(month1)!!) {
+                list1.add(day1.toString())
+                numsToMonths.get(month1)?.let { list1.add(it) }
+                list1.add(year1.toString())
             } else return ""
-        } else {
-            if (month1 in nums_To_Months.keys) {
-                if (day1 <= days_To_Month_Usual1.get(month1)!!) {
-                    list1.add(day1.toString())
-                    nums_To_Months.get(month1)?.let { list1.add(it) }
-                    list1.add(year1.toString())
-                } else return ""
+        } else return ""
+    } else {
+        if (month1 in numsToMonths.keys) {
+            if (day1 <= daysToMonthUsual1.get(month1)!!) {
+                list1.add(day1.toString())
+                numsToMonths.get(month1)?.let { list1.add(it) }
+                list1.add(year1.toString())
             } else return ""
-        }
-        return list1.joinToString(separator = " ")
-    } else return ""
+        } else return ""
+    }
+    return list1.joinToString(separator = " ")
+
 }
 
 /**
@@ -243,18 +244,16 @@ fun dateDigitToStr(digital: String): String {
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
 fun flattenPhoneNumber(phone: String): String {
-    val phone_Number = phone
-    val check_String_1 = "+-()0123456789 "
-    val check_String_2 = "+0123456789"
-    var result_String = ""
-    if ("()" in phone_Number) return ""
-    for (i in 0 until phone_Number.length) {
-        if (phone_Number[i] !in check_String_1) return ""
+    val check_String_2="+0123456789"
+    val builder=StringBuilder()
+    if (phone.contains(Regex("""\( *\)""")) ||
+        phone.matches(Regex("""\+ ?\d""")) ||
+        !phone.matches(Regex("""(\+? *\d[- \d]*(\([-\d ]+\)[-\d ]+)?)"""))
+    ) return ""
+    for (symbol in phone) {
+        if (symbol in check_String_2) builder.append(symbol)
     }
-    for (symbol in phone_Number) {
-        if (symbol in check_String_2) result_String += symbol
-    }
-    return result_String
+    return builder.toString()
 }
 
 /**
@@ -268,22 +267,21 @@ fun flattenPhoneNumber(phone: String): String {
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
-    val nums_And_Chars = jumps.split(" ")
-    val not_Digits = mutableListOf("-", "%")
-    val final_Results = mutableListOf<Int>()
-    var mistake = 0
-    val digit_Chars = listOf<String>("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
+    val numsAndChars = jumps.split(" ")
+    val notDigits = mutableListOf("-", "%")
+    val finalResults = mutableListOf<Int>()
+    var flag=true
+    val digitChars = listOf<String>("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
     if (jumps.isEmpty()) return -1
     return try {
-        for (i in digit_Chars) {
-            if (i in digit_Chars) mistake == 0
-            else mistake += 1
+        for (i in digitChars) {
+            if (i !in digitChars) flag=false
         }
-        if (mistake == 0) {
-            for (element in nums_And_Chars) {
-                if (element !in not_Digits) final_Results.add(element.toInt())
+        if (flag) {
+            for (element in numsAndChars) {
+                if (element !in notDigits) finalResults.add(element.toInt())
             }
-            if (final_Results.isNotEmpty()) return final_Results.max() else -1
+            if (finalResults.isNotEmpty()) return finalResults.max() else -1
         } else -1
     } catch (e: NumberFormatException) {
         -1
@@ -314,14 +312,14 @@ fun bestHighJump(jumps: String): Int = TODO()
  */
 fun plusMinus(expression: String): Int {
     if (!"$expression + ".matches(Regex("""(\d+ [+-] )+"""))) throw IllegalArgumentException(expression)
-    val nums_And_Chars = expression.split(" ")
-    val result = mutableListOf<Int>()
-    result.add(nums_And_Chars[0].toInt())
-    for (i in 2 until nums_And_Chars.size) {
-        if (nums_And_Chars[i - 1] == "+") result.add(nums_And_Chars[i].toInt())
-        else if (nums_And_Chars[i - 1] == "-") result.add((nums_And_Chars[i].toInt()) * (-1))
+    val numsAndChars = expression.split(" ")
+    var res=0
+    res+=(numsAndChars[0].toInt())
+    for (i in 2 until numsAndChars.size) {
+        if (numsAndChars[i - 1] == "+") res+=numsAndChars[i].toInt()
+        else if (numsAndChars[i - 1] == "-") res+=((numsAndChars[i].toInt()) * (-1))
     }
-    return result.sum()
+    return res
 }
 
 /**
@@ -333,26 +331,7 @@ fun plusMinus(expression: String): Int {
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int {
-    val words = str.split(" ")
-    if (words.size == 1) return -1
-    else if (words.size==2) {
-        return if (words[0].lowercase()==words[1].lowercase()) 0 else 1
-    }
-    else {
-        var result = 0
-        for (i in 1 until words.size) {
-            if (words[i].lowercase() == words[i - 1].lowercase()) {
-                for (j in 0 until i - 1) {
-                    while (words[j]!=words[j + 1]) {
-                        result += (words[j]).length + 1
-                    }
-                }
-            }
-        }
-        return if (result != 0) result else -1
-    }
-}
+fun firstDuplicateIndex(str: String): Int =TODO()
 
 /**
  * Сложная (6 баллов)
@@ -367,20 +346,19 @@ fun firstDuplicateIndex(str: String): Int {
  */
 fun mostExpensive(description: String): String {
     val splitted=description.split("; ")
+    var max=-1.0
     val itemToPrice= mutableMapOf<Double, String>()
-    val costList= mutableListOf<Double>()
     if (description.isEmpty()) return ""
     for (string in splitted) {
         val sublist=string.split(" ")
-        if (sublist.size.equals(2) && sublist[0].isNotEmpty() && sublist[1].toDouble()>=0)
+        if (sublist.size==2 && sublist[0].isNotEmpty() && sublist[1].toDouble()>=0)
             itemToPrice.put(sublist[1].toDouble(), sublist[0])
         else return ""
     }
     for (cost in itemToPrice.keys) {
-        costList.add(cost)
+        if (cost>max) max=cost
     }
-    val appropriate=costList.max()
-    return itemToPrice.get(appropriate)!!
+    return itemToPrice.get(max)!!
 }
 
 /**

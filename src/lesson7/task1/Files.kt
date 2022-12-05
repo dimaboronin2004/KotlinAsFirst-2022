@@ -408,20 +408,20 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
  * Пример входного файла:
 ///////////////////////////////начало файла/////////////////////////////////////////////////////////////////////////////
  * Утка по-пекински
- * Утка
- * Соус
+       * Утка
+       * Соус
  * Салат Оливье
-1. Мясо
- * Или колбаса
-2. Майонез
-3. Картофель
-4. Что-то там ещё
+       1. Мясо
+            * Или колбаса
+       2. Майонез
+       3. Картофель
+       4. Что-то там ещё
  * Помидоры
  * Фрукты
-1. Бананы
-23. Яблоки
-1. Красные
-2. Зелёные
+       1. Бананы
+       2. Яблоки
+           1. Красные
+           2. Зелёные
 ///////////////////////////////конец файла//////////////////////////////////////////////////////////////////////////////
  *
  *
@@ -471,9 +471,71 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlLists(inputName: String, outputName: String) {
-    TODO()
+    val writer=File(outputName).bufferedWriter()
+    val strings=File(inputName).readLines()
+    var k1=0
+    var k2=0
+    var k3=0
+    writer.write("<html><body><p>")
+    for (i in 0 until strings.size - 1) {
+        var n= countWhitespaces(strings[i])
+        if (strings[i].matches(Regex("^(\\s*)[*]{1}.+"))) {
+            if (countWhitespaces(strings[i])<countWhitespaces(strings[i + 1]) && n==1) {
+                writer.write("<li>")
+                writer.write(clearWhitespaces( strings[i]))
+                writer.write("<ul>")
+            }
+            else if (countWhitespaces(strings[i])<countWhitespaces(strings[i + 1]) && n!=1) {
+                writer.write("<li>")
+                writer.write(clearWhitespaces(strings[i]))
+                writer.write("</li>")
+            }
+            else if (countWhitespaces(strings[i])>countWhitespaces(strings[i + 1]) && n==1) {
+                writer.write("<li>")
+                writer.write(clearWhitespaces( strings[i]))
+                writer.write("</li></ul></li>")
+            }
+        }
+        else if (strings[i].matches(Regex("^(\\s*)(\\d+)[.]{1}.+"))) {
+            if (countWhitespaces(strings[i])<countWhitespaces(strings[i + 1]) && n==1) {
+                writer.write("<li>")
+                writer.write(clearWhitespaces( strings[i]))
+                writer.write("<ol>")
+            }
+            else if (countWhitespaces(strings[i])<countWhitespaces(strings[i + 1]) && n!=1) {
+                writer.write("<li>")
+                writer.write(clearWhitespaces(strings[i]))
+                writer.write("</li>")
+            }
+            else if (countWhitespaces(strings[i])>countWhitespaces(strings[i + 1]) && n==1) {
+                writer.write("<li>")
+                writer.write(clearWhitespaces( strings[i]))
+                writer.write("</li></ol></li>")
+            }
+        }
+    }
+    writer.write("</p></body></html>")
+    writer.close()
 }
-
+fun countWhitespaces(string:String):Int {
+    var k=0
+    for (char in string) {
+        if (char==' ') k+=1
+    }
+    return k
+}
+fun clearWhitespaces(string:String):String{
+    var flag=false
+    var k=0
+    val lst= mutableListOf<Char>()
+    val symbs= listOf<Char>('*', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9')
+    for (i in string.indices) {
+        if (string[i]!in symbs) k+=0
+        else if (string[i] in symbs) k+=1
+        if (k>0) lst.add(string[i])
+    }
+    return lst.joinToString()
+}
 /**
  * Очень сложная (30 баллов)
  *
