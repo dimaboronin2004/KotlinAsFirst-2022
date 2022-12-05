@@ -267,18 +267,18 @@ fun flattenPhoneNumber(phone: String): String {
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
-    if (jumps.contains(Regex("""[^\d\s\-%]""")) ||
-        jumps.contains(Regex("""([%\-])(%|-|\d)|(%|-|\d)([%\-])""")) ||
-        jumps.isEmpty()
-    )
-        return -1
     val numsAndChars = jumps.split(" ")
     val notDigits = mutableListOf("-", "%")
     var max = -1
-    for (element in numsAndChars) {
-        if (element !in notDigits && element.toInt() > max) max = element.toInt()
+    if (jumps.isEmpty()) return -1
+    return try {
+        for (element in numsAndChars) {
+            if (element !in notDigits && element.toInt() > max) max = element.toInt()
+        }
+        return max
+    } catch (e: NumberFormatException) {
+        -1
     }
-    return max
 }
 
 /**
