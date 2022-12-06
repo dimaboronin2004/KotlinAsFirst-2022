@@ -473,48 +473,29 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
 fun markdownToHtmlLists(inputName: String, outputName: String) {
     val writer=File(outputName).bufferedWriter()
     val strings=File(inputName).readLines()
-    var k1=0
-    var k2=0
-    var k3=0
-    writer.write("<html><body><p>")
-    for (i in 0 until strings.size - 1) {
-        var n= countWhitespaces(strings[i])
-        if (strings[i].matches(Regex("^(\\s*)[*]{1}.+"))) {
-            if (countWhitespaces(strings[i])<countWhitespaces(strings[i + 1]) && n==1) {
-                writer.write("<li>")
-                writer.write(clearWhitespaces( strings[i]))
-                writer.write("<ul>")
-            }
-            else if (countWhitespaces(strings[i])<countWhitespaces(strings[i + 1]) && n!=1) {
-                writer.write("<li>")
-                writer.write(clearWhitespaces(strings[i]))
-                writer.write("</li>")
-            }
-            else if (countWhitespaces(strings[i])>countWhitespaces(strings[i + 1]) && n==1) {
-                writer.write("<li>")
-                writer.write(clearWhitespaces( strings[i]))
-                writer.write("</li></ul></li>")
-            }
+    val stack= mutableListOf<String>()
+    val builder=StringBuilder()
+    stack.add(clearWhitespaces(strings[0]).first().toString())
+    builder.append("<html><body><p>")
+    if (isOrdered(clearWhitespaces(strings[0]))) stack.add("<ol>") else stack.add("<ul>")
+    builder.append(strings[0])
+    for (i in 1 until strings.size) {
+        if (countWhitespaces(strings[i]) > countWhitespaces(strings[i - 1])) {
+            stack.add(strings[i].first().toString())
+            if (isOrdered(strings[i])) builder.append("<ol>") else builder.append("<ul>")
+            builder.append(strings[i])
+        } else if (countWhitespaces(strings[i]) == countWhitespaces(strings[i - 1])) builder.append(tagged(strings[i]))
+        else {
+            val c = pop(stack)
+            if (c == "*") builder.append("</ul>") else builder.append("</ol>")
         }
-        else if (strings[i].matches(Regex("^(\\s*)(\\d+)[.]{1}.+"))) {
-            if (countWhitespaces(strings[i])<countWhitespaces(strings[i + 1]) && n==1) {
-                writer.write("<li>")
-                writer.write(clearWhitespaces( strings[i]))
-                writer.write("<ol>")
-            }
-            else if (countWhitespaces(strings[i])<countWhitespaces(strings[i + 1]) && n!=1) {
-                writer.write("<li>")
-                writer.write(clearWhitespaces(strings[i]))
-                writer.write("</li>")
-            }
-            else if (countWhitespaces(strings[i])>countWhitespaces(strings[i + 1]) && n==1) {
-                writer.write("<li>")
-                writer.write(clearWhitespaces( strings[i]))
-                writer.write("</li></ol></li>")
-            }
+        if (stack.isNotEmpty()) builder.append("<li>")
+        while (stack.isNotEmpty()) {
+            if (pop(stack) == "*") builder.append("</ul>") else builder.append("</ol>")
         }
     }
-    writer.write("</p></body></html>")
+    builder.append("</p></body></html>")
+    writer.write(builder.toString())
     writer.close()
 }
 fun countWhitespaces(string:String):Int {
@@ -536,6 +517,14 @@ fun clearWhitespaces(string:String):String{
     }
     return lst.joinToString()
 }
+fun pop(stack:List<String>): String {
+    var a=stack.last()
+    stack.minus(a)
+    return stack.last()
+}
+fun isOrdered(string:String): Boolean=!string.startsWith("*")
+fun tagged(string:String): String = "<li>$string</li>"
+
 /**
  * Очень сложная (30 баллов)
  *

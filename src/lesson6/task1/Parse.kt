@@ -2,7 +2,9 @@
 
 package lesson6.task1
 
+import lesson2.task2.daysInMonth
 import java.lang.IllegalArgumentException
+import java.lang.NullPointerException
 import java.lang.StringBuilder
 
 // Урок 6: разбор строк, исключения
@@ -93,60 +95,20 @@ fun dateStrToDigit(str: String): String {
         "ноября" to "11",
         "декабря" to "12"
     )
-    val daysToMonthLeap = mapOf(
-        "января" to 31,
-        "февраля" to 29,
-        "марта" to 31,
-        "апреля" to 30,
-        "мая" to 31,
-        "июня" to 30,
-        "июля" to 31,
-        "августа" to 31,
-        "сентября" to 30,
-        "октября" to 31,
-        "ноября" to 30,
-        "декабря" to 31
-    )
-    val daysToMonthUsual = mapOf(
-        "января" to 31,
-        "февраля" to 28,
-        "марта" to 31,
-        "апреля" to 30,
-        "мая" to 31,
-        "июня" to 30,
-        "июля" to 31,
-        "августа" to 31,
-        "сентября" to 30,
-        "октября" to 31,
-        "ноября" to 30,
-        "декабря" to 31
-    )
     if (!(str.matches(Regex("""\d* [а-я]* \d*""")))) return ""
     val components = str.split(" ")
     val day = components[0]
     val month = components[1]
-    val year = components[2].toInt()
-    if ((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)) {
-        if (month in monthsToNums.keys) {
-            if (day.toInt() <= daysToMonthLeap.get(month)!!) {
-                if (day.toInt() <= 10 && "0" in day) list.add(day)
-                else if (day.toInt() <= 10 && "0" !in day) list.add("0$day")
-                else list.add(day)
-                monthsToNums.get(month)?.let { list.add(it) }
-                list.add(year.toString())
-            } else return ""
-        } else return ""
-    } else {
-        if (month in monthsToNums.keys) {
-            if (day.toInt() <= daysToMonthUsual.get(month)!!) {
-                if (day.toInt() >= 10) list.add(day) else list.add("0" + day)
-                monthsToNums.get(month)?.let { list.add(it) }
-                list.add(year.toString())
-            } else return ""
-        } else return ""
-    }
-    return list.joinToString(separator = ".")
-
+    val year = components[2]
+    return if (day.toInt() > 0
+        && month in monthsToNums.keys
+        && day.toInt() <= daysInMonth(monthsToNums[month]!!.toInt(), year.toInt())
+    ) {
+        if (day.length == 1) list.add("0$day") else list.add(day)
+        list.add(monthsToNums[month]!!)
+        list.add(year)
+        list.joinToString(separator = ".")
+    } else ""
 }
 
 /**
@@ -175,58 +137,19 @@ fun dateDigitToStr(digital: String): String {
         "11" to "ноября",
         "12" to "декабря"
     )
-    val daysToMonthLeap1 = mapOf(
-        "01" to 31,
-        "02" to 29,
-        "03" to 31,
-        "04" to 30,
-        "05" to 31,
-        "06" to 30,
-        "07" to 31,
-        "08" to 31,
-        "09" to 30,
-        "10" to 31,
-        "11" to 30,
-        "12" to 31
-    )
-    val daysToMonthUsual1 = mapOf(
-        "01" to 31,
-        "02" to 28,
-        "03" to 31,
-        "04" to 30,
-        "05" to 31,
-        "06" to 30,
-        "07" to 31,
-        "08" to 31,
-        "09" to 30,
-        "10" to 31,
-        "11" to 30,
-        "12" to 31
-    )
     if (!(digital.matches(Regex("""\d+\.\d+\.\d+""")))) return ""
     val parts = digital.split(".")
     val day1 = parts[0].toInt()
-    val month1 = parts[1]
+    val month1 = parts[1].toInt()
     val year1 = parts[2].toInt()
-    if ((year1 % 400 == 0) || (year1 % 4 == 0 && year1 % 100 != 0)) {
-        if (month1 in numsToMonths.keys) {
-            if (day1 <= daysToMonthLeap1.get(month1)!!) {
-                list1.add(day1.toString())
-                numsToMonths.get(month1)?.let { list1.add(it) }
-                list1.add(year1.toString())
-            } else return ""
-        } else return ""
-    } else {
-        if (month1 in numsToMonths.keys) {
-            if (day1 <= daysToMonthUsual1.get(month1)!!) {
-                list1.add(day1.toString())
-                numsToMonths.get(month1)?.let { list1.add(it) }
-                list1.add(year1.toString())
-            } else return ""
-        } else return ""
+    if (month1 in 1..12
+        && day1 in 1..daysInMonth(month1, year1)
+    ) {
+        list1.add(day1.toString())
+        list1.add(numsToMonths[parts[1]]!!)
+        list1.add(parts[2])
     }
     return list1.joinToString(separator = " ")
-
 }
 
 /**
@@ -352,7 +275,7 @@ fun mostExpensive(description: String): String {
     for (cost in itemToPrice.keys) {
         if (cost > max) max = cost
     }
-    return itemToPrice.get(max)!!
+    return itemToPrice[max]!!
 }
 
 /**
