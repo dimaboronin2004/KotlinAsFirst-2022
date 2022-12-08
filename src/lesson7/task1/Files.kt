@@ -3,7 +3,6 @@
 package lesson7.task1
 
 
-import kotlinx.html.dom.write
 import java.io.File
 import java.lang.StringBuilder
 
@@ -68,13 +67,11 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
 fun deleteMarked(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
     val lines = File(inputName).readLines()
-    val appropriate = mutableListOf<String>()
     for (line in lines) {
-        if (!line.startsWith("_")) appropriate.add(line)
-    }
-    for (string in appropriate) {
-        writer.write(string)
-        writer.newLine()
+        if (!line.startsWith("_")) {
+            writer.write(line)
+            writer.newLine()
+        }
     }
     writer.close()
 }
@@ -90,16 +87,17 @@ fun deleteMarked(inputName: String, outputName: String) {
  */
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
     val text = File(inputName).readText().lowercase()
-    val final_List = mutableMapOf<String, Int>()
+    val finalList = mutableMapOf<String, Int>()
     for (substring in substrings) {
         val st = mutableSetOf<Int>()
         for (j in text.indices) {
             val a = text.lowercase().indexOf(substring.lowercase(), j)
             st.add(a)
         }
-        if (!text.endsWith(substring)) final_List.put(substring, st.size - 1) else final_List.put(substring, st.size)
+        if (!text.endsWith(substring)) finalList[substring] = st.size - 1
+        else finalList[substring] = st.size
     }
-    return final_List
+    return finalList
 }
 
 
@@ -261,20 +259,20 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
     val strings = File(inputName).readLines()
-    val list_Of_Lengths = mutableListOf<Int>()
-    val list_Of_Words = mutableListOf<String>()
-    val result_List = mutableListOf<String>()
+    val listOfLengths = mutableListOf<Int>()
+    val listOfWords = mutableListOf<String>()
+    val resultList = mutableListOf<String>()
     for (string in strings) {
         if (string.length == string.lowercase().toSet().size) {
-            list_Of_Words.add(string)
-            list_Of_Lengths.add(string.length)
+            listOfWords.add(string)
+            listOfLengths.add(string.length)
         }
     }
-    for (word in list_Of_Words) {
-        if (word.length == list_Of_Lengths.max()) result_List.add(word)
+    for (word in listOfWords) {
+        if (word.length == listOfLengths.max()) resultList.add(word)
     }
-    if (result_List.size == 1) writer.write(result_List.joinToString())
-    else writer.write(result_List.joinToString(separator = ", "))
+    if (resultList.size == 1) writer.write(resultList.joinToString())
+    else writer.write(resultList.joinToString(separator = ", "))
     writer.close()
 }
 
@@ -324,41 +322,41 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
-    val writer=File(outputName).bufferedWriter()
+    val writer = File(outputName).bufferedWriter()
     writer.write("<html>")
     writer.write("<body>")
     writer.write("<p>")
-    val text=File(inputName).readLines()
-    val builder=StringBuilder()
+    val text = File(inputName).readLines()
+    val builder = StringBuilder()
     for (string in text) {
         if (string.isEmpty()) builder.append("</p><p>")
         else {
-            var k1=0
-            var k2=0
-            var k3=0
-            var k4=0
-            var i=0
-            while (i<string.length) {
-                if (string[i].toString()!="*" && string[i].toString()!="~") {
+            var k1 = 0
+            var k2 = 0
+            var k3 = 0
+            var k4 = 0
+            var i = 0
+            while (i < string.length) {
+                if (string[i].toString() != "*" && string[i].toString() != "~") {
                     builder.append(string[i])
                     i += 1
-                } else if (string[i].toString()=="~" && string[i + 1].toString() =="~") {
+                } else if (string[i].toString() == "~" && string[i + 1].toString() == "~") {
                     if (k1 % 2 == 0) builder.append("<s>") else builder.append("</s>")
                     k1 += 1
                     i += 2
-                } else{
-                    if (string[i].toString()=="*" && string[i + 1].toString()=="*" && string[i + 2].toString()=="*") {
-                        if (k2%2==0) builder.append("</b></i>") else builder.append("<b><i>")
+                } else {
+                    if (string[i].toString() == "*" && string[i + 1].toString() == "*" && string[i + 2].toString() == "*") {
+                        if (k2 % 2 == 0) builder.append("</b></i>") else builder.append("<b><i>")
                         k2 += 1
-                        i+=3
-                    } else if (string[i].toString()=="*" && string[i + 1].toString()=="*" && string[i + 2].toString()!="*") {
-                        if (k3%2==0) builder.append("<b>") else builder.append("</b>")
+                        i += 3
+                    } else if (string[i].toString() == "*" && string[i + 1].toString() == "*" && string[i + 2].toString() != "*") {
+                        if (k3 % 2 == 0) builder.append("<b>") else builder.append("</b>")
                         k3 += 1
-                        i+=2
-                    } else if (string[i].toString()=="*" && string[i + 1].toString()!="*") {
-                        if (k4%2==0) builder.append("<i>") else builder.append("</i>")
+                        i += 2
+                    } else if (string[i].toString() == "*" && string[i + 1].toString() != "*") {
+                        if (k4 % 2 == 0) builder.append("<i>") else builder.append("</i>")
                         k4 += 1
-                        i+=1
+                        i += 1
                     }
 
                 }
@@ -408,20 +406,20 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
  * Пример входного файла:
 ///////////////////////////////начало файла/////////////////////////////////////////////////////////////////////////////
  * Утка по-пекински
-       * Утка
-       * Соус
+ * Утка
+ * Соус
  * Салат Оливье
-       1. Мясо
-            * Или колбаса
-       2. Майонез
-       3. Картофель
-       4. Что-то там ещё
+1. Мясо
+ * Или колбаса
+2. Майонез
+3. Картофель
+4. Что-то там ещё
  * Помидоры
  * Фрукты
-       1. Бананы
-       2. Яблоки
-           1. Красные
-           2. Зелёные
+1. Бананы
+2. Яблоки
+1. Красные
+2. Зелёные
 ///////////////////////////////конец файла//////////////////////////////////////////////////////////////////////////////
  *
  *
@@ -471,59 +469,55 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlLists(inputName: String, outputName: String) {
-    val writer=File(outputName).bufferedWriter()
-    val strings=File(inputName).readLines()
-    val stack= mutableListOf<String>()
-    val builder=StringBuilder()
-    stack.add(clearWhitespaces(strings[0]).first().toString())
+    val writer = File(outputName).bufferedWriter()
+    val strings = File(inputName).readLines()
+    val stack = mutableListOf<String>()
+    val builder = StringBuilder()
+    stack.add((strings[0].trimStart()).first().toString())
     builder.append("<html><body><p>")
-    if (isOrdered(clearWhitespaces(strings[0]))) stack.add("<ol>") else stack.add("<ul>")
-    builder.append(strings[0])
+    if (isOrdered((strings[0].trimStart()))) builder.append("<ol>") else builder.append("<ul>")
+    builder.append(tagged(strings[0].trimStart().substring(2, strings[0].trimStart().length)))
     for (i in 1 until strings.size) {
         if (countWhitespaces(strings[i]) > countWhitespaces(strings[i - 1])) {
-            stack.add(strings[i].first().toString())
-            if (isOrdered(strings[i])) builder.append("<ol>") else builder.append("<ul>")
-            builder.append(strings[i])
-        } else if (countWhitespaces(strings[i]) == countWhitespaces(strings[i - 1])) builder.append(tagged(strings[i]))
+
+            stack.add(strings[i].trimStart().first().toString())
+            if (isOrdered(strings[i].trimStart())) builder.append("<ol>") else builder.append("<ul>")
+            builder.append(tagged(strings[i].trimStart().substring(1, strings[i].trimStart().length)))
+            continue
+        } else if (countWhitespaces(strings[i]) == countWhitespaces(strings[i - 1])) {
+            builder.append(tagged(strings[i].trimStart().substring(1, strings[i].trimStart().length)))
+            continue
+        }
         else {
             val c = pop(stack)
             if (c == "*") builder.append("</ul>") else builder.append("</ol>")
+            builder.append(tagged(strings[i].trimStart().substring(1, strings[i].trimStart().length)))
+            continue
         }
-        if (stack.isNotEmpty()) builder.append("<li>")
-        while (stack.isNotEmpty()) {
-            if (pop(stack) == "*") builder.append("</ul>") else builder.append("</ol>")
-        }
+    }
+    while (stack.isNotEmpty()) {
+        if (pop(stack) == "*") builder.append("</ul>") else builder.append("</ol>")
     }
     builder.append("</p></body></html>")
     writer.write(builder.toString())
     writer.close()
 }
-fun countWhitespaces(string:String):Int {
-    var k=0
+
+fun countWhitespaces(string: String): Int {
+    var k = 0
     for (char in string) {
-        if (char==' ') k+=1
+        if (char == ' ') k += 1
     }
     return k
 }
-fun clearWhitespaces(string:String):String{
-    var flag=false
-    var k=0
-    val lst= mutableListOf<Char>()
-    val symbs= listOf<Char>('*', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9')
-    for (i in string.indices) {
-        if (string[i]!in symbs) k+=0
-        else if (string[i] in symbs) k+=1
-        if (k>0) lst.add(string[i])
-    }
-    return lst.joinToString()
-}
-fun pop(stack:List<String>): String {
-    var a=stack.last()
-    stack.minus(a)
+fun pop(stack: MutableList<String>): String {
+    var a = stack.last()
+    stack.remove(a)
     return stack.last()
 }
-fun isOrdered(string:String): Boolean=!string.startsWith("*")
-fun tagged(string:String): String = "<li>$string</li>"
+
+fun isOrdered(string: String): Boolean = !string.startsWith("*")
+fun tagged(string: String): String = "<li>$string</li>"
 
 /**
  * Очень сложная (30 баллов)
@@ -588,6 +582,29 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
  *
  */
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    writer.write("$lhv | $rhv")
+    writer.newLine()
+    writer.write("${" ".repeat(lhv.toString().length)}  ${lhv / rhv}\r")
+    val digits = lhv.toString().split("").toMutableList()
+    digits.remove(digits.first())
+    digits.remove(digits.last())
+    var main = 0
+    while (main < rhv) {
+        main = main * 10 + digits[0].toInt()
+        digits.remove(digits[0])
+    }
+    digits.add("0")
+    for (i in 0 until digits.size) {
+        writer.write("-${(rhv * (main / rhv))}")
+        writer.newLine()
+        writer.write("- - - -")
+        writer.newLine()
+        writer.write("${(main % rhv)}${digits[0]}")
+        writer.newLine()
+        main = (("${(main % rhv)}${digits[0]}").toInt())
+        digits.remove(digits[0])
+    }
+    writer.close()
 }
 
