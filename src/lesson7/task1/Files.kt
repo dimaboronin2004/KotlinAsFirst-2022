@@ -202,8 +202,8 @@ fun alignFileByWidth(inputName: String, outputName: String) {
                     if (element.isNotEmpty()) splitted1.add(element)
                 }
                 val builder = StringBuilder()
-                val average = (max - counter) / (splitted.size - 1)
-                var rest = (max - counter) % (splitted.size - 1)
+                val average = (max - counter) / (splitted1.size - 1)
+                var rest = (max - counter) % (splitted1.size - 1)
                 for (str in splitted1) {
                     if (general != max) {
                         if (rest > 0) builder.append("${str.trim()}${" ".repeat(average + 1)}")
