@@ -137,7 +137,17 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    val lines = File(inputName).readLines()
+    var maxLength = -1
+    for (line in lines) {
+        if (line.trim().length > maxLength) maxLength = line.trim().length
+    }
+    for (line in lines) {
+        writer.write("${" ".repeat((maxLength - line.trim().length) / 2)}${line.trim()}")
+        writer.newLine()
+    }
+    writer.close()
 }
 
 /**
@@ -168,7 +178,41 @@ fun centerFile(inputName: String, outputName: String) {
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    val lines = File(inputName).readLines()
+    var max = -1
+    for (line in lines) {
+        if (line.trim().length > max) max = line.trim().length
+    }
+    for (line in lines) {
+        if (line.isBlank()) writer.newLine()
+        else {
+            val splitted = line.trim().split(" ")
+            if (splitted.size == 1) {
+                writer.write(line.trim())
+                writer.newLine()
+            } else {
+                val general = line.trim().length
+                var counter = 0
+                for (string in splitted) {
+                    counter += string.trim().length
+                }
+                val builder = StringBuilder()
+                val average = (max - counter) / (splitted.size - 1)
+                var rest = (max - counter) % (splitted.size - 1)
+                for (str in splitted) {
+                    if (general != max) {
+                        if (rest > 0) builder.append("${str.trim()}${" ".repeat(average + 1)}")
+                        else builder.append("${str.trim()}${" ".repeat(average)}")
+                        rest -= 1
+                    } else builder.append("${str.trim()} ")
+                }
+                writer.write(builder.toString().trim())
+                writer.newLine()
+            }
+        }
+    }
+    writer.close()
 }
 
 /**
@@ -487,8 +531,7 @@ fun markdownToHtmlLists(inputName: String, outputName: String) {
         } else if (countWhitespaces(strings[i]) == countWhitespaces(strings[i - 1])) {
             builder.append(tagged(strings[i].trimStart().substring(1, strings[i].trimStart().length)))
             continue
-        }
-        else {
+        } else {
             val c = pop(stack)
             if (c == "*") builder.append("</ul>") else builder.append("</ol>")
             builder.append(tagged(strings[i].trimStart().substring(1, strings[i].trimStart().length)))
@@ -510,6 +553,7 @@ fun countWhitespaces(string: String): Int {
     }
     return k
 }
+
 fun pop(stack: MutableList<String>): String {
     var a = stack.last()
     stack.remove(a)
@@ -582,29 +626,7 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
  *
  */
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
-    val writer = File(outputName).bufferedWriter()
-    writer.write("$lhv | $rhv")
-    writer.newLine()
-    writer.write("${" ".repeat(lhv.toString().length)}  ${lhv / rhv}\r")
-    val digits = lhv.toString().split("").toMutableList()
-    digits.remove(digits.first())
-    digits.remove(digits.last())
-    var main = 0
-    while (main < rhv) {
-        main = main * 10 + digits[0].toInt()
-        digits.remove(digits[0])
-    }
-    digits.add("0")
-    for (i in 0 until digits.size) {
-        writer.write("-${(rhv * (main / rhv))}")
-        writer.newLine()
-        writer.write("- - - -")
-        writer.newLine()
-        writer.write("${(main % rhv)}${digits[0]}")
-        writer.newLine()
-        main = (("${(main % rhv)}${digits[0]}").toInt())
-        digits.remove(digits[0])
-    }
-    writer.close()
+    TODO()
 }
+
 
