@@ -139,7 +139,7 @@ fun sibilants(inputName: String, outputName: String) {
 fun centerFile(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
     val lines = File(inputName).readLines()
-    var maxLength = -1
+    var maxLength = 0
     for (line in lines) {
         if (line.trim().length > maxLength) maxLength = line.trim().length
     }
@@ -197,10 +197,14 @@ fun alignFileByWidth(inputName: String, outputName: String) {
                 for (string in splitted) {
                     counter += string.trim().length
                 }
+                val splitted1 = mutableListOf<String>()
+                for (element in splitted) {
+                    if (element.isNotEmpty()) splitted1.add(element)
+                }
                 val builder = StringBuilder()
                 val average = (max - counter) / (splitted.size - 1)
                 var rest = (max - counter) % (splitted.size - 1)
-                for (str in splitted) {
+                for (str in splitted1) {
                     if (general != max) {
                         if (rest > 0) builder.append("${str.trim()}${" ".repeat(average + 1)}")
                         else builder.append("${str.trim()}${" ".repeat(average)}")
