@@ -375,37 +375,54 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     writer.write("<p>")
     val text = File(inputName).readLines()
     val builder = StringBuilder()
+    val stack = mutableListOf<String>()
+    val forStack = mapOf("*" to "!", "**" to "?", "***" to "%", "~~" to "#")
     for (string in text) {
         if (string.isEmpty()) builder.append("</p><p>")
         else {
-            var k1 = 0
-            var k2 = 0
-            var k3 = 0
-            var k4 = 0
             var i = 0
             while (i < string.length) {
-                if (string[i].toString() != "*" && string[i].toString() != "~") {
+                if (string[i].toString() != ("*") && string[i].toString() != ("~")) {
                     builder.append(string[i])
                     i += 1
-                } else if (string[i].toString() == "~" && string[i + 1].toString() == "~") {
-                    if (k1 % 2 == 0) builder.append("<s>") else builder.append("</s>")
-                    k1 += 1
-                    i += 2
                 } else {
-                    if (string[i].toString() == "*" && string[i + 1].toString() == "*" && string[i + 2].toString() == "*") {
-                        if (k2 % 2 == 0) builder.append("</b></i>") else builder.append("<b><i>")
-                        k2 += 1
-                        i += 3
-                    } else if (string[i].toString() == "*" && string[i + 1].toString() == "*" && string[i + 2].toString() != "*") {
-                        if (k3 % 2 == 0) builder.append("<b>") else builder.append("</b>")
-                        k3 += 1
+                    if (string[i].toString() == "~" && string[i + 1].toString() == "~") {
+                        if (stack.isEmpty() || stack.last() != forStack["~~"]) {
+                            builder.append("<s>")
+                            stack.add(forStack["~~"]!!)
+                        } else {
+                            builder.append("</s>")
+                            stack.remove(forStack["~~"])
+                        }
                         i += 2
-                    } else if (string[i].toString() == "*" && string[i + 1].toString() != "*") {
-                        if (k4 % 2 == 0) builder.append("<i>") else builder.append("</i>")
-                        k4 += 1
+                    } else if (string[i].toString() == "*" && string[i + 1].toString() != "*" && string[i + 2].toString() != "*") {
+                        if (stack.isEmpty() || stack.last() != forStack["*"]) {
+                            builder.append("<i>")
+                            stack.add(forStack["*"]!!)
+                        } else {
+                            builder.append("</i>")
+                            stack.remove(forStack["*"])
+                        }
                         i += 1
+                    } else if (string[i].toString() == "*" && string[i + 1].toString() == "*" && string[i + 2].toString() != "*") {
+                        if (stack.isEmpty() || stack.last() != forStack["**"]) {
+                            builder.append("<b>")
+                            stack.add(forStack["**"]!!)
+                        } else {
+                            builder.append("</b>")
+                            stack.remove(forStack["**"])
+                        }
+                        i += 2
+                    } else {
+                        if ( stack.isEmpty() || stack.last() != forStack["***"]) {
+                            builder.append("</b></i>")
+                            stack.add(forStack["***"]!!)
+                        } else {
+                            builder.append("<b><i>")
+                            stack.remove(forStack["***"])
+                        }
+                        i += 3
                     }
-
                 }
             }
         }
@@ -629,7 +646,35 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
  *
  */
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    val digits = lhv.toString().split("").toMutableList()
+    digits.remove(digits.first())
+    digits.remove(digits.last())
+    var main = 0
+    while (main < rhv) {
+        main = main * 10 + digits[0].toInt()
+        digits.remove(digits[0])
+    }
+    var space = main.toString().length + 1
+    val begin = digits.size
+    digits.add("0")
+    val list = mutableListOf<String>()
+    while (digits.isNotEmpty()) {
+        list.add(("-" + (rhv * (main / rhv))))
+        list.add("-".repeat((rhv * (main / rhv)).toString().length + 1))
+        main = (main % rhv) * 10 + digits[0].toInt()
+        list.add(main.toString())
+        digits.remove(digits[0])
+    }
+    writer.write(" $lhv | $rhv\r")
+    writer.write("${list.first()}${" ".repeat(begin * 2 + 1)}${lhv / rhv}\r")
+    for (i in 1 until list.size - 1) {
+        if ((i + 1) % 3 == 0) space += 1
+        writer.write(" ".repeat(space - list[i].length) + list[i] + "\r")
+    }
+    writer.write(" ".repeat(space - list.last().length + 1) + removeLast(list.last()))
+    writer.close()
 }
 
+fun removeLast(string:String):String = string.substring(0, string.length - 1)
 
