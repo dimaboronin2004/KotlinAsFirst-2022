@@ -139,7 +139,7 @@ fun sibilants(inputName: String, outputName: String) {
 fun centerFile(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
     val lines = File(inputName).readLines()
-    var maxLength = 0
+    var maxLength = -1
     for (line in lines) {
         if (line.trim().length > maxLength) maxLength = line.trim().length
     }
@@ -187,29 +187,25 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     for (line in lines) {
         if (line.isBlank()) writer.newLine()
         else {
-            val splitted = line.trim().split(" ")
+            val splitted = line.trim().split(" ").toMutableList()
             if (splitted.size == 1) {
                 writer.write(line.trim())
                 writer.newLine()
             } else {
-                val general = line.trim().length
                 var counter = 0
-                for (string in splitted) {
-                    counter += string.trim().length
-                }
-                val splitted1 = mutableListOf<String>()
-                for (element in splitted) {
-                    if (element.isNotEmpty()) splitted1.add(element)
+                for (i in splitted.indices) {
+                    if (splitted[i].isEmpty()) splitted.remove(splitted[i])
+                    counter += splitted[i].trim().length
                 }
                 val builder = StringBuilder()
-                val average = (max - counter) / (splitted1.size - 1)
-                var rest = (max - counter) % (splitted1.size - 1)
-                for (str in splitted1) {
-                    if (general != max) {
-                        if (rest > 0) builder.append("${str.trim()}${" ".repeat(average + 1)}")
-                        else builder.append("${str.trim()}${" ".repeat(average)}")
+                val average = (max - counter) / (splitted.size - 1)
+                var rest = (max - counter) % (splitted.size - 1)
+                for (i in splitted.indices) {
+                    if (line.trim().length != max) {
+                        if (rest > 0) builder.append("${splitted[i].trim()}${" ".repeat(average + 1)}")
+                        else builder.append("${splitted[i].trim()}${" ".repeat(average)}")
                         rest -= 1
-                    } else builder.append("${str.trim()} ")
+                    } else builder.append("${splitted[i].trim()} ")
                 }
                 writer.write(builder.toString().trim())
                 writer.newLine()
