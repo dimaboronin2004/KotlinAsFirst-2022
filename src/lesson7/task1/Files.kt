@@ -193,19 +193,19 @@ fun alignFileByWidth(inputName: String, outputName: String) {
                 writer.newLine()
             } else {
                 var counter = 0
-                for (i in splitted.indices) {
-                    if (splitted[i].isEmpty()) splitted.remove(splitted[i])
-                    counter += splitted[i].trim().length
+                for (element in splitted) {
+                    if (element.isEmpty()) splitted.remove(element)
+                    counter += element.trim().length
                 }
                 val builder = StringBuilder()
                 val average = (max - counter) / (splitted.size - 1)
                 var rest = (max - counter) % (splitted.size - 1)
-                for (i in splitted.indices) {
+                for (str in splitted) {
                     if (line.trim().length != max) {
-                        if (rest > 0) builder.append("${splitted[i].trim()}${" ".repeat(average + 1)}")
-                        else builder.append("${splitted[i].trim()}${" ".repeat(average)}")
+                        if (rest > 0) builder.append("${str.trim()}${" ".repeat(average + 1)}")
+                        else builder.append("${str.trim()}${" ".repeat(average)}")
                         rest -= 1
-                    } else builder.append("${splitted[i].trim()} ")
+                    } else builder.append("${str.trim()} ")
                 }
                 writer.write(builder.toString().trim())
                 writer.newLine()
