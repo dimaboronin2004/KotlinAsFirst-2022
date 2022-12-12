@@ -683,11 +683,11 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
             else list.add("0$main")
             digits.remove(digits[0])
         }
-        writer.write(" $lhv | $rhv\r")
-        writer.write("${list.first()}${" ".repeat(begin + 3)}${lhv / rhv}\r")
+        writer.write(" $lhv | $rhv\n")
+        writer.write("${list.first()}${" ".repeat(begin + 3)}${lhv / rhv}\n")
         for (i in 1 until list.size - 1) {
             if ((i + 1) % 3 == 0) space += 1
-            writer.write("${" ".repeat(space - list[i].length)}${list[i]}\r")
+            writer.write("${" ".repeat(space - list[i].length)}${list[i]}\n")
         }
         writer.write("${" ".repeat(space - list.last().length + 1)}${lhv % rhv}")
     } else {
