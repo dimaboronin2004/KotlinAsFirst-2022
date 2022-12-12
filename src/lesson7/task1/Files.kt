@@ -691,9 +691,9 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         }
         writer.write("${" ".repeat(space - list.last().length + 1)}${lhv % rhv}")
     } else {
-        writer.write(" $lhv | $rhv\r")
-        writer.write("${" ".repeat(lhv.toString().length - 1)}-0   ${(lhv / rhv)}\r")
-        writer.write("${"-".repeat(lhv.toString().length + 1)}\r")
+        writer.write(" $lhv | $rhv\n")
+        writer.write("${" ".repeat(lhv.toString().length - 1)}-0   ${(lhv / rhv)}\n")
+        writer.write("${"-".repeat(lhv.toString().length + 1)}\n")
         writer.write(" $lhv")
     }
     writer.close()
