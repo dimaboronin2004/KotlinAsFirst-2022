@@ -373,58 +373,73 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     writer.write("<html>")
     writer.write("<body>")
     writer.write("<p>")
-    val text = File(inputName).readLines()
+    val text = File(inputName).readText()
     val builder = StringBuilder()
     val stack = mutableListOf<String>()
-    val forStack = mapOf("*" to "!", "**" to "?", "***" to "%", "~~" to "#")
-    for (string in text) {
-        if (string.isEmpty()) builder.append("</p><p>")
-        else {
-            var i = 0
-            while (i < string.length) {
-                if (string[i].toString() != ("*") && string[i].toString() != ("~")) {
-                    builder.append(string[i])
-                    i += 1
-                } else {
-                    if (string[i].toString() == "~" && string[i + 1].toString() == "~") {
-                        if (stack.isEmpty() || stack.last() != forStack["~~"]) {
-                            builder.append("<s>")
-                            stack.add(forStack["~~"]!!)
-                        } else {
-                            builder.append("</s>")
-                            stack.remove(forStack["~~"])
-                        }
-                        i += 2
-                    } else if (string[i].toString() == "*" && string[i + 1].toString() != "*" && string[i + 2].toString() != "*") {
-                        if (stack.isEmpty() || stack.last() != forStack["*"]) {
-                            builder.append("<i>")
-                            stack.add(forStack["*"]!!)
-                        } else {
-                            builder.append("</i>")
-                            stack.remove(forStack["*"])
-                        }
-                        i += 1
-                    } else if (string[i].toString() == "*" && string[i + 1].toString() == "*" && string[i + 2].toString() != "*") {
-                        if (stack.isEmpty() || stack.last() != forStack["**"]) {
-                            builder.append("<b>")
-                            stack.add(forStack["**"]!!)
-                        } else {
-                            builder.append("</b>")
-                            stack.remove(forStack["**"])
-                        }
-                        i += 2
-                    } else {
-                        if ( stack.isEmpty() || stack.last() != forStack["***"]) {
-                            builder.append("</b></i>")
-                            stack.add(forStack["***"]!!)
-                        } else {
-                            builder.append("<b><i>")
-                            stack.remove(forStack["***"])
-                        }
-                        i += 3
-                    }
-                }
+    val forStack = mapOf("*" to "!", "**" to "?", "***" to "%", "~~" to "#", "\n" to "&")
+    var i = 0
+    while (i < text.toCharArray().size ) {
+        if (text.toCharArray()[i] == '~' && text.toCharArray()[i + 1].toString() == "~") {
+            if (stack.isEmpty() || stack.last() != forStack["~~"]) {
+                builder.append("<s>")
+                stack.add(forStack["~~"]!!)
+                i += 2
+                continue
             }
+            if (stack.last() == forStack["~~"]) {
+                builder.append("</s>")
+                stack.remove(forStack["~~"])
+                i += 2
+                continue
+            }
+        } else if (text.toCharArray()[i] == '*' && text.toCharArray()[i + 1]!= '*') {
+            if (stack.isEmpty() || stack.last() != forStack["*"]) {
+                builder.append("<i>")
+                stack.add(forStack["*"]!!)
+                i += 1
+                continue
+            }
+            if (stack.last() == forStack["*"]) {
+                builder.append("</i>")
+                stack.remove(forStack["*"])
+                i += 1
+                continue
+            }
+        } else if (text.toCharArray()[i] == '*' && text.toCharArray()[i + 1] == '*' && text.toCharArray()[i + 2] != '*') {
+            if (stack.isEmpty() || stack.last() != forStack["**"]) {
+                builder.append("<b>")
+                stack.add(forStack["**"]!!)
+                i += 2
+                continue
+            }
+            if (stack.last() == forStack["**"]) {
+                builder.append("</b>")
+                stack.remove(forStack["**"])
+                i += 2
+                continue
+            }
+        } else if (text.toCharArray()[i] == '*' && text.toCharArray()[i + 1] == '*' && text.toCharArray()[i + 2] == '*'){
+            if (stack.isEmpty() || stack.last() != forStack["***"] ) {
+                builder.append("</b></i>")
+                stack.add(forStack["***"]!!)
+                i += 3
+                continue
+            }
+            if (stack.last() == forStack["***"]) {
+                builder.append("<b><i>")
+                stack.remove(forStack["***"])
+                i += 3
+                continue
+            }
+        } else if (text.toCharArray()[i].code == 13 && text.toCharArray()[i + 1].code == 10
+            && text.toCharArray()[i + 2].code == 13 && text.toCharArray()[i + 3].code == 10) {
+            builder.append("</p><p>")
+            i += 4
+            continue
+        } else {
+            builder.append(text.toCharArray()[i])
+            i += 1
+            continue
         }
     }
     writer.write(builder.toString())
@@ -675,8 +690,7 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
             writer.write("${" ".repeat(space - list[i].length)}${list[i]}\r")
         }
         writer.write("${" ".repeat(space - list.last().length + 1)}${lhv % rhv}")
-    }
-    else {
+    } else {
         writer.write(" $lhv | $rhv\r")
         writer.write("${" ".repeat(lhv.toString().length - 1)}-0   ${(lhv / rhv)}\r")
         writer.write("${"-".repeat(lhv.toString().length + 1)}\r")

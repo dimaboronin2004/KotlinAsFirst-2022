@@ -111,11 +111,10 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> = TODO()
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
 fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
-    var flag = true
     for ((key, value) in a) {
-        if (!(key in b.keys && b[key] == value)) flag = false
+        if (!(key in b.keys && b[key] == value)) return false
     }
-    return flag
+    return true
 }
 
 /**
@@ -201,9 +200,9 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
-    val a = chars.map { it.lowercaseChar() }.toSet()
-    val b = word.lowercase().toSet()
-    return (b.size == b.intersect(a).size)
+    val charSet = chars.map { it.lowercaseChar() }.toSet()
+    val wordToSet = word.lowercase().toSet()
+    return (wordToSet.size == wordToSet.intersect(charSet).size)
 }
 
 /**
@@ -221,12 +220,12 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
 fun extractRepeats(list: List<String>): Map<String, Int> {
     val setOfElements = list.toSet()
     val finalMap = mutableMapOf<String, Int>()
-    for (element in setOfElements) {
+    setOfElements.forEach { element ->
         var amount = 0
         for (i in list.indices) {
             if (list[i] == element) amount += 1
         }
-        if (amount > 1) finalMap.put(element, amount)
+        if (amount > 1) finalMap[element] = amount
     }
     return finalMap
 }
@@ -299,10 +298,11 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    val map = mutableMapOf<Int, Int>()
+    val numToIndex = mutableMapOf<Int, Int>()
     for (i in list.indices) {
-        if (map.containsKey(list[i])) return Pair(map[list[i]]!!, i)
-        else map.put(number - list[i], i)
+        if (numToIndex.containsKey(list[i]))
+            return Pair(numToIndex[list[i]]!!, i)
+        else numToIndex[number - list[i]] = i
     }
     return Pair(-1, -1)
 }
