@@ -647,34 +647,42 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
  */
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     val writer = File(outputName).bufferedWriter()
-    val digits = lhv.toString().split("").toMutableList()
-    digits.remove(digits.first())
-    digits.remove(digits.last())
-    var main = 0
-    while (main < rhv) {
-        main = main * 10 + digits[0].toInt()
-        digits.remove(digits[0])
+    if (lhv >= rhv) {
+        val digits = lhv.toString().split("").toMutableList()
+        digits.remove(digits.first())
+        digits.remove(digits.last())
+        var main = 0
+        while (main < rhv) {
+            main = main * 10 + digits[0].toInt()
+            digits.remove(digits[0])
+        }
+        var space = main.toString().length + 1
+        val begin = digits.size
+        digits.add("0")
+        val list = mutableListOf<String>()
+        while (digits.isNotEmpty()) {
+            list.add(("-" + (rhv * (main / rhv))))
+            list.add("-".repeat((rhv * (main / rhv)).toString().length + 1))
+            main = (main % rhv) * 10 + digits[0].toInt()
+            if (main >= 10) list.add(main.toString())
+            else list.add("0$main")
+            digits.remove(digits[0])
+        }
+        writer.write(" $lhv | $rhv\r")
+        writer.write("${list.first()}${" ".repeat(begin + 3)}${lhv / rhv}\r")
+        for (i in 1 until list.size - 1) {
+            if ((i + 1) % 3 == 0) space += 1
+            writer.write("${" ".repeat(space - list[i].length)}${list[i]}\r")
+        }
+        writer.write("${" ".repeat(space - list.last().length + 1)}${lhv % rhv}")
     }
-    var space = main.toString().length + 1
-    val begin = digits.size
-    digits.add("0")
-    val list = mutableListOf<String>()
-    while (digits.isNotEmpty()) {
-        list.add(("-" + (rhv * (main / rhv))))
-        list.add("-".repeat((rhv * (main / rhv)).toString().length + 1))
-        main = (main % rhv) * 10 + digits[0].toInt()
-        list.add(main.toString())
-        digits.remove(digits[0])
+    else {
+        writer.write(" $lhv | $rhv\r")
+        writer.write("${" ".repeat(lhv.toString().length - 1)}-0   ${(lhv / rhv)}\r")
+        writer.write("${"-".repeat(lhv.toString().length + 1)}\r")
+        writer.write(" $lhv")
     }
-    writer.write(" $lhv | $rhv\r")
-    writer.write("${list.first()}${" ".repeat(begin * 2 + 1)}${lhv / rhv}\r")
-    for (i in 1 until list.size - 1) {
-        if ((i + 1) % 3 == 0) space += 1
-        writer.write(" ".repeat(space - list[i].length) + list[i] + "\r")
-    }
-    writer.write(" ".repeat(space - list.last().length + 1) + removeLast(list.last()))
     writer.close()
 }
 
-fun removeLast(string:String):String = string.substring(0, string.length - 1)
 
