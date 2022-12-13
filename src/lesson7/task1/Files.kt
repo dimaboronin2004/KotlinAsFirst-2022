@@ -677,7 +677,8 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         val list = mutableListOf<String>()
         while (digits.isNotEmpty()) {
             list.add(("-" + (rhv * (main / rhv))))
-            list.add("-".repeat((rhv * (main / rhv)).toString().length + 1))
+            if ((main / rhv) > 0) list.add("-".repeat((rhv * (main / rhv)).toString().length + 1))
+            else list.add("-".repeat(main.toString().length))
             main = (main % rhv) * 10 + digits[0].toInt()
             if (main >= 10) list.add(main.toString())
             else list.add("0$main")
