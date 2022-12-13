@@ -378,7 +378,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val stack = mutableListOf<String>()
     val forStack = mapOf("*" to "!", "**" to "?", "***" to "%", "~~" to "#", "\n" to "&")
     var i = 0
-    while (i < text.toCharArray().size ) {
+    while (i < text.toCharArray().size) {
         if (text.toCharArray()[i] == '~' && text.toCharArray()[i + 1].toString() == "~") {
             if (stack.isEmpty() || stack.last() != forStack["~~"]) {
                 builder.append("<s>")
@@ -392,7 +392,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
                 i += 2
                 continue
             }
-        } else if (text.toCharArray()[i] == '*' && text.toCharArray()[i + 1]!= '*') {
+        } else if (text.toCharArray()[i] == '*' && text.toCharArray()[i + 1] != '*') {
             if (stack.isEmpty() || stack.last() != forStack["*"]) {
                 builder.append("<i>")
                 stack.add(forStack["*"]!!)
@@ -418,8 +418,8 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
                 i += 2
                 continue
             }
-        } else if (text.toCharArray()[i] == '*' && text.toCharArray()[i + 1] == '*' && text.toCharArray()[i + 2] == '*'){
-            if (stack.isEmpty() || stack.last() != forStack["***"] ) {
+        } else if (text.toCharArray()[i] == '*' && text.toCharArray()[i + 1] == '*' && text.toCharArray()[i + 2] == '*') {
+            if (stack.isEmpty() || stack.last() != forStack["***"]) {
                 builder.append("</b></i>")
                 stack.add(forStack["***"]!!)
                 i += 3
@@ -431,10 +431,9 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
                 i += 3
                 continue
             }
-        } else if (text.toCharArray()[i].code == 13 && text.toCharArray()[i + 1].code == 10
-            && text.toCharArray()[i + 2].code == 13 && text.toCharArray()[i + 3].code == 10) {
+        } else if (text.toCharArray()[i] == '\n' && text.toCharArray()[i + 1] == '\n') {
             builder.append("</p><p>")
-            i += 4
+            i += 2
             continue
         } else {
             builder.append(text.toCharArray()[i])
@@ -548,55 +547,8 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlLists(inputName: String, outputName: String) {
-    val writer = File(outputName).bufferedWriter()
-    val strings = File(inputName).readLines()
-    val stack = mutableListOf<String>()
-    val builder = StringBuilder()
-    stack.add((strings[0].trimStart()).first().toString())
-    builder.append("<html><body><p>")
-    if (isOrdered((strings[0].trimStart()))) builder.append("<ol>") else builder.append("<ul>")
-    builder.append(tagged(strings[0].trimStart().substring(2, strings[0].trimStart().length)))
-    for (i in 1 until strings.size) {
-        if (countWhitespaces(strings[i]) > countWhitespaces(strings[i - 1])) {
-
-            stack.add(strings[i].trimStart().first().toString())
-            if (isOrdered(strings[i].trimStart())) builder.append("<ol>") else builder.append("<ul>")
-            builder.append(tagged(strings[i].trimStart().substring(1, strings[i].trimStart().length)))
-            continue
-        } else if (countWhitespaces(strings[i]) == countWhitespaces(strings[i - 1])) {
-            builder.append(tagged(strings[i].trimStart().substring(1, strings[i].trimStart().length)))
-            continue
-        } else {
-            val c = pop(stack)
-            if (c == "*") builder.append("</ul>") else builder.append("</ol>")
-            builder.append(tagged(strings[i].trimStart().substring(1, strings[i].trimStart().length)))
-            continue
-        }
-    }
-    while (stack.isNotEmpty()) {
-        if (pop(stack) == "*") builder.append("</ul>") else builder.append("</ol>")
-    }
-    builder.append("</p></body></html>")
-    writer.write(builder.toString())
-    writer.close()
+    TODO()
 }
-
-fun countWhitespaces(string: String): Int {
-    var k = 0
-    for (char in string) {
-        if (char == ' ') k += 1
-    }
-    return k
-}
-
-fun pop(stack: MutableList<String>): String {
-    var a = stack.last()
-    stack.remove(a)
-    return stack.last()
-}
-
-fun isOrdered(string: String): Boolean = !string.startsWith("*")
-fun tagged(string: String): String = "<li>$string</li>"
 
 /**
  * Очень сложная (30 баллов)
