@@ -369,83 +369,7 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
-    val writer = File(outputName).bufferedWriter()
-    writer.write("<html>")
-    writer.write("<body>")
-    writer.write("<p>")
-    val text = File(inputName).readText()
-    val builder = StringBuilder()
-    val stack = mutableListOf<String>()
-    val forStack = mapOf("*" to "!", "**" to "?", "***" to "%", "~~" to "#", "\n" to "&")
-    var i = 0
-    while (i < text.toCharArray().size) {
-        if (text.toCharArray()[i] == '~' && text.toCharArray()[i + 1].toString() == "~") {
-            if (stack.isEmpty() || stack.last() != forStack["~~"]) {
-                builder.append("<s>")
-                stack.add(forStack["~~"]!!)
-                i += 2
-                continue
-            }
-            if (stack.last() == forStack["~~"]) {
-                builder.append("</s>")
-                stack.remove(forStack["~~"])
-                i += 2
-                continue
-            }
-        } else if (text.toCharArray()[i] == '*' && text.toCharArray()[i + 1] != '*') {
-            if (stack.isEmpty() || stack.last() != forStack["*"]) {
-                builder.append("<i>")
-                stack.add(forStack["*"]!!)
-                i += 1
-                continue
-            }
-            if (stack.last() == forStack["*"]) {
-                builder.append("</i>")
-                stack.remove(forStack["*"])
-                i += 1
-                continue
-            }
-        } else if (text.toCharArray()[i] == '*' && text.toCharArray()[i + 1] == '*' && text.toCharArray()[i + 2] != '*') {
-            if (stack.isEmpty() || stack.last() != forStack["**"]) {
-                builder.append("<b>")
-                stack.add(forStack["**"]!!)
-                i += 2
-                continue
-            }
-            if (stack.last() == forStack["**"]) {
-                builder.append("</b>")
-                stack.remove(forStack["**"])
-                i += 2
-                continue
-            }
-        } else if (text.toCharArray()[i] == '*' && text.toCharArray()[i + 1] == '*' && text.toCharArray()[i + 2] == '*') {
-            if (stack.isEmpty() || stack.last() != forStack["***"]) {
-                builder.append("</b></i>")
-                stack.add(forStack["***"]!!)
-                i += 3
-                continue
-            }
-            if (stack.last() == forStack["***"]) {
-                builder.append("<b><i>")
-                stack.remove(forStack["***"])
-                i += 3
-                continue
-            }
-        } else if (text.toCharArray()[i] == '\n' && text.toCharArray()[i + 1] == '\n') {
-            builder.append("</p><p>")
-            i += 2
-            continue
-        } else {
-            builder.append(text.toCharArray()[i])
-            i += 1
-            continue
-        }
-    }
-    writer.write(builder.toString())
-    writer.write("</p>")
-    writer.write("</body>")
-    writer.write("</html>")
-    writer.close()
+    TODO()
 }
 
 /**
@@ -629,7 +553,7 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         val list = mutableListOf<String>()
         while (digits.isNotEmpty()) {
             list.add(("-" + (rhv * (main / rhv))))
-            if ((main / rhv) >= 0) list.add("-".repeat((rhv * (main / rhv)).toString().length + 1))
+            if ((main / rhv) >= 0) list.add("-".repeat(main.toString().length + 1))
             main = (main % rhv) * 10 + digits[0].toInt()
             if (main >= 10) list.add(main.toString())
             else list.add("0$main")
