@@ -207,7 +207,7 @@ fun sin(x: Double, eps: Double): Double {
     var n = 1
     var number = x1
     while (abs(number) >= eps) {
-        val element=x1.pow(2 * n + 1) / factorial(2 * n + 1)
+        val element = x1.pow(2 * n + 1) / factorial(2 * n + 1)
         if (n % 2 > 0) {
             sinus -= element
             number = -element
@@ -236,7 +236,7 @@ fun cos(x: Double, eps: Double): Double {
     var n = 1
     var number = x
     while (abs(number) >= eps) {
-        val element=x1.pow(2 * n) / (factorial(2 * n))
+        val element = x1.pow(2 * n) / (factorial(2 * n))
         if (n % 2 > 0) {
             cosinus -= element
             number = -element
